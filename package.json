@@ -1,0 +1,16 @@
+{
+  "private": "true",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "",
+    "temp1": "--esm",
+    "temp2": "--compiler-options={\"module\":\"commonJS\"}",
+    "temp": "--compiler-options={\"moduleResolution\":\"nodenext\",\"module\":\"ESNext\"}",
+    "generate": "ts-node --project packages/ts-doc-generator/tsconfig-node.json packages/ts-doc-generator/src/main.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}

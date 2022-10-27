@@ -1,0 +1,8 @@
+{
+  "name": "package-external",
+  "version": "1.0.0",
+  "types": "src/package-external.d.ts",
+  "dependencies": {
+    "@codemirror/state": "^6.1.2"
+  }
+}

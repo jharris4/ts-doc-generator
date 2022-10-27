@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "nodenext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    // "resolveJsonModule": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": false,
+    // "isolatedModules": true
+    // "declaration": true,
+    // "declarationMap": true
+  },
+  "include": ["src/*.ts"]
+}
