@@ -1,6 +1,7 @@
 import { TSDocConfiguration, DocNodeKind } from '@microsoft/tsdoc';
 import { DocEmphasisSpan } from './DocEmphasisSpan';
 import { DocHeading } from './DocHeading';
+import { DocHorizontalRule } from './DocHorizontalRule';
 import { DocNoteBox } from './DocNoteBox';
 import { DocTable } from './DocTable';
 import { DocTableCell } from './DocTableCell';
@@ -15,6 +16,7 @@ import { DocTableRow } from './DocTableRow';
 export const enum CustomDocNodeKind {
   EmphasisSpan = 'EmphasisSpan',
   Heading = 'Heading',
+  HorizontalRule = 'HorizontalRule',
   NoteBox = 'NoteBox',
   Table = 'Table',
   TableCell = 'TableCell',
@@ -31,6 +33,7 @@ export class CustomDocNodes {
       configuration.docNodeManager.registerDocNodes('@micrososft/api-documenter', [
         { docNodeKind: CustomDocNodeKind.EmphasisSpan, constructor: DocEmphasisSpan },
         { docNodeKind: CustomDocNodeKind.Heading, constructor: DocHeading },
+        { docNodeKind: CustomDocNodeKind.HorizontalRule, constructor: DocHorizontalRule },
         { docNodeKind: CustomDocNodeKind.NoteBox, constructor: DocNoteBox },
         { docNodeKind: CustomDocNodeKind.Table, constructor: DocTable },
         { docNodeKind: CustomDocNodeKind.TableCell, constructor: DocTableCell },
@@ -44,6 +47,7 @@ export class CustomDocNodes {
 
       configuration.docNodeManager.registerAllowableChildren(DocNodeKind.Section, [
         CustomDocNodeKind.Heading,
+        CustomDocNodeKind.HorizontalRule,
         CustomDocNodeKind.NoteBox,
         CustomDocNodeKind.Table
       ]);

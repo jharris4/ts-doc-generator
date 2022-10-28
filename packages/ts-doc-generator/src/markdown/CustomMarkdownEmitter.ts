@@ -8,6 +8,7 @@ import { ApiModel, IResolveDeclarationReferenceResult, ApiItem } from '@microsof
 
 import { CustomDocNodeKind } from '../nodes/CustomDocNodeKind';
 import { DocHeading } from '../nodes/DocHeading';
+// import { DocHorizontalRule } from '../nodes/DocHorizontalRule';
 import { DocNoteBox } from '../nodes/DocNoteBox';
 import { DocTable } from '../nodes/DocTable';
 import { DocTableCell } from '../nodes/DocTableCell';
@@ -64,6 +65,14 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
 
         writer.writeLine(prefix + ' ' + this.getEscapedText(docHeading.title));
         writer.writeLine();
+        break;
+      }
+      case CustomDocNodeKind.HorizontalRule: {
+        // const docHorizontalRule: DocHorizontalRule = docNode as DocHorizontalRule;
+        writer.ensureSkippedLine();
+        writer.writeLine();
+        writer.write('---');
+
         break;
       }
       case CustomDocNodeKind.NoteBox: {
