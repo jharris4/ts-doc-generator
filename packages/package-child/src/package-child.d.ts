@@ -1,5 +1,16 @@
 import { ParentInterface, ParentClass } from "package-parent";
 
+/**
+ * ChildInterface remarks goes here
+ *
+ * @remarks
+ *
+ * These are the longer more detailed remarks about the ChildInterface
+ *
+ * @privateRemarks
+ *
+ * These are private remarks about ChildInterface
+ */
 export interface ChildInterface extends ParentInterface {
   childPropertyOne: boolean;
 }
