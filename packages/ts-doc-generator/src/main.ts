@@ -13,15 +13,11 @@ interface ExtractorBundle {
   extractorErrorMessage: string | null;
 }
 
-const docRootDir = process.cwd();
-const makeCurrent = (relativePath: string) => path.join(docRootDir, relativePath);
-
 const getErrorMessage = (error: unknown) => error instanceof Error ? error.message : String(error);
 
-const buildExtractorConfig = (currentPackagePath: string, includePaths: string[] = ["**/*.d.ts"]) => {
-  let extractorConfig: ExtractorConfig = null;
-  let extractorErrorMessage: string = null;
-  const packagePath = makeCurrent(currentPackagePath);
+const buildExtractorConfig = (packagePath: string, extractorOutputPath: string, includePaths: string[] = ["**/*.d.ts"]) => {
+  let extractorConfig: ExtractorConfig | null = null;
+  let extractorErrorMessage: string | null = null;
   const packageJSONPath = path.join(packagePath, "package.json");
   try {
     const pkg = JsonFile.load(packageJSONPath);
@@ -87,91 +83,37 @@ const buildExtractorConfig = (currentPackagePath: string, includePaths: string[]
     extractorConfig,
     extractorErrorMessage
   }
-
-
-  // try {
-  //   const pkg = JsonFile.load(makeCurrent(path.join(currentPackagePath, "package.json")));
-  //   const { name, types, typings } = pkg;
-  //   if (!name || !(types || typings)) {
-  //     return null;
-  //   }
-  //   const extractorConfig = {
-  //     projectFolder: makeCurrent(currentPackagePath),
-  //     // enumMemberOrder: "preserve", // "by-name"
-  //     mainEntryPointFilePath: makeCurrent(path.join(currentPackagePath, (types ? types : typings))),
-  //     compiler: {
-  //       overrideTsconfig: {
-  //         compilerOptions: {
-  //           baseUrl: ".",
-  //           allowJs: false,
-  //           checkJs: false,
-
-  //         },
-  //         include: includePaths
-  //       }
-  //     },
-  //     apiReport: {
-  //       enabled: false,
-  //       reportFileName: "<unscopedPackageName>.api.md",
-  //       reportFolder: "<projectFolder>/etc/",
-  //       reportTempFolder: "<projectFolder>/temp/",
-  //       includeForgottenExports: false
-  //     },
-  //     docModel: {
-  //       enabled: true,
-  //       apiJsonFilePath: makeCurrent("docs/apis/<unscopedPackageName>.api.json")
-  //     },
-  //     tsdocMetadata: {
-  //       enabled: false
-  //     },
-  //     dtsRollup: {
-  //       enabled: false
-  //     }
-  //   };
-
-  //   const preparedExtractorConfig = ExtractorConfig.prepare({
-  //     configObject: extractorConfig,
-  //     configObjectFullPath: "", // TODO - what should this be?
-  //     packageJsonFullPath: makeCurrent(path.join(currentPackagePath, "package.json")),
-  //     packageJson: pkg
-  //   });
-  //   return preparedExtractorConfig;
-  // } catch (ex) {
-  //   console.error("build config error: ", ex);
-  //   return null;
-  // }
 };
-
-const extractorOutputPath = makeCurrent("docs/apis");
-const documenterOutputPath = makeCurrent("docs/generated");
-
-FileSystem.ensureFolder(extractorOutputPath);
-FileSystem.ensureFolder(documenterOutputPath);
-
-const pkg = JsonFile.load("package.json");
 
 const DO_EXTRACT = true;
 const DO_GENERATE = true;
 
 async function main() {
+  const docRootDir = process.cwd();
+  const makeCurrent = (relativePath: string) => path.join(docRootDir, relativePath);
+
+  const extractorOutputPath = makeCurrent("docs/apis");
+  const documenterOutputPath = makeCurrent("docs/generated");
+
+  FileSystem.ensureFolder(extractorOutputPath);
+  FileSystem.ensureFolder(documenterOutputPath);
+
+  const pkg = JsonFile.load(makeCurrent("package.json"));
+
   if (DO_EXTRACT) {
     const extractorConfigs: Array<ExtractorConfig> = [];
-    const entryPoints: Array<string> = [];
-    const packageNames: Array<string> = [];
     const extractorErrorMessages: string[] = [];
     const addExtractorConfig = (extractorBundle: ExtractorBundle) => {
       const { extractorConfig, extractorErrorMessage } = extractorBundle;
       if (extractorConfig) {
         extractorConfigs.push(extractorConfig);
-        entryPoints.push(extractorConfig.mainEntryPointFilePath);
-        packageNames.push(extractorConfig.packageJson?.name || "");
       }
       if (extractorErrorMessage) {
         extractorErrorMessages.push(extractorErrorMessage);
       }
     }
     if (pkg.types || pkg.typings) {
-      addExtractorConfig(buildExtractorConfig(""));
+      addExtractorConfig(buildExtractorConfig(makeCurrent(""), extractorOutputPath));
       
     } else if (pkg.workspaces) {
       let packagePaths: Array<string> = [];
@@ -192,21 +134,11 @@ async function main() {
       }
       // console.log("\n\n\n\n^^^^^^^^ package paths: ", packagePaths);
       packagePaths = packagePaths.filter(path => !path.includes("ts-doc-generator"));
-      // const newPackagePaths = [
-      //   'packages/cypher-editor-support',
-      //   'packages/cypher-codemirror-base',
-      //   // 'packages/cypher-codemirror',
-      //   // 'packages/cypher-codemirror5',
-      //   // 'packages/react-codemirror-cypher',
-      //   // 'packages/react-codemirror5-cypher',
-      //   // 'packages/svelte-codemirror-cypher',
-      //   // 'packages/svelte-codemirror5-cypher'
-      // ];
-      const newPackagePaths = packagePaths;
+      // packagePaths = ["packages/ts-doc-generator"];
 
-      if (newPackagePaths.length > 0) {
-        for (let packagePath of newPackagePaths) {
-          addExtractorConfig(buildExtractorConfig(packagePath, ["**/*.d.ts"]));
+      if (packagePaths.length > 0) {
+        for (let packagePath of packagePaths) {
+          addExtractorConfig(buildExtractorConfig(makeCurrent(packagePath), extractorOutputPath, ["**/*.d.ts"]));
         }
       }
     }
