@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { TypeUuid } from '@rushstack/node-core-library';
+import { TypeUuid } from "@rushstack/node-core-library";
 
 /**
  * This is an internal part of the plugin infrastructure.
@@ -29,7 +29,7 @@ export class PluginFeatureInitialization {
  */
 export class PluginFeatureContext {}
 
-const uuidPluginFeature: string = '56876472-7134-4812-819e-533de0ee10e6';
+const uuidPluginFeature: string = "56876472-7134-4812-819e-533de0ee10e6";
 
 /**
  * The abstract base class for all API Documenter plugin features.

@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { MarkdownDocumenterFeature } from './MarkdownDocumenterFeature';
-import { PluginFeatureInitialization } from './PluginFeature';
+import { MarkdownDocumenterFeature } from "./MarkdownDocumenterFeature";
+import { PluginFeatureInitialization } from "./PluginFeature";
 
 /**
  * Defines a "feature" that is provided by an API Documenter plugin.  A feature is a user-defined module
@@ -25,12 +25,16 @@ export interface IFeatureDefinition {
    * @remarks
    * For now, `MarkdownDocumenterFeature` is the only supported value.
    */
-  kind: 'MarkdownDocumenterFeature';
+  kind: "MarkdownDocumenterFeature";
 
   /**
    * Your subclass that extends from the base class.
    */
-  subclass: { new (initialization: PluginFeatureInitialization): MarkdownDocumenterFeature };
+  subclass: {
+    new (
+      initialization: PluginFeatureInitialization
+    ): MarkdownDocumenterFeature;
+  };
 }
 
 /**

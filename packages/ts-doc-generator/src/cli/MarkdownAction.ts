@@ -1,18 +1,18 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { TsDocGeneratorCommandLine } from './TsDocGeneratorCommandLine';
-import { BaseAction } from './BaseAction';
-import { MarkdownDocumenter } from '../documenters/MarkdownDocumenter';
+import { TsDocGeneratorCommandLine } from "./TsDocGeneratorCommandLine";
+import { BaseAction } from "./BaseAction";
+import { MarkdownDocumenter } from "../documenters/MarkdownDocumenter";
 
 export class MarkdownAction extends BaseAction {
   public constructor(parser: TsDocGeneratorCommandLine) {
     super({
-      actionName: 'markdown',
-      summary: 'Generate documentation as Markdown files (*.md)',
+      actionName: "markdown",
+      summary: "Generate documentation as Markdown files (*.md)",
       documentation:
-        'Generates API documentation as a collection of files in' +
-        ' Markdown format, suitable for example for publishing on a GitHub site.'
+        "Generates API documentation as a collection of files in" +
+        " Markdown format, suitable for example for publishing on a GitHub site.",
     });
   }
 
@@ -23,7 +23,7 @@ export class MarkdownAction extends BaseAction {
     const markdownDocumenter: MarkdownDocumenter = new MarkdownDocumenter({
       apiModel,
       documenterConfig: undefined,
-      outputFolder
+      outputFolder,
     });
     markdownDocumenter.generateFiles();
   }

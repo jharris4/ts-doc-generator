@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { IDocNodeParameters, DocNode, DocPlainText } from '@microsoft/tsdoc';
-import { CustomDocNodeKind } from './CustomDocNodeKind';
-import { DocTableCell } from './DocTableCell';
+import { IDocNodeParameters, DocNode, DocPlainText } from "@microsoft/tsdoc";
+import { CustomDocNodeKind } from "./CustomDocNodeKind";
+import { DocTableCell } from "./DocTableCell";
 
 /**
  * Constructor parameters for {@link DocTableRow}.
@@ -16,7 +16,10 @@ export interface IDocTableRowParameters extends IDocNodeParameters {}
 export class DocTableRow extends DocNode {
   private readonly _cells: DocTableCell[];
 
-  public constructor(parameters: IDocTableRowParameters, cells?: ReadonlyArray<DocTableCell>) {
+  public constructor(
+    parameters: IDocTableRowParameters,
+    cells?: ReadonlyArray<DocTableCell>
+  ) {
     super(parameters);
 
     this._cells = [];
@@ -41,7 +44,9 @@ export class DocTableRow extends DocNode {
   }
 
   public createAndAddCell(): DocTableCell {
-    const newCell: DocTableCell = new DocTableCell({ configuration: this.configuration });
+    const newCell: DocTableCell = new DocTableCell({
+      configuration: this.configuration,
+    });
     this.addCell(newCell);
     return newCell;
   }
@@ -51,7 +56,7 @@ export class DocTableRow extends DocNode {
     cell.content.appendNodeInParagraph(
       new DocPlainText({
         configuration: this.configuration,
-        text: cellContent
+        text: cellContent,
       })
     );
     return cell;

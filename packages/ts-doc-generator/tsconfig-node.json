@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "allowJs": false,
-    "checkJs": false,
+    "checkJs": false
     // "isolatedModules": true
     // "declaration": true,
     // "declarationMap": true

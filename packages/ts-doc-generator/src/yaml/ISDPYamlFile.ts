@@ -21,7 +21,7 @@ export type PackageYamlModel = CommonYamlModel & {
   enums?: Array<string>;
   typeAliases?: Array<string>;
   properties?: Array<FunctionYamlModel>;
-  type?: 'package' | 'module';
+  type?: "package" | "module";
   functions?: Array<FunctionYamlModel>;
 };
 
@@ -36,7 +36,7 @@ export type TypeYamlModel = CommonYamlModel & {
   properties?: Array<FunctionYamlModel>;
   methods?: Array<FunctionYamlModel>;
   events?: Array<FunctionYamlModel>;
-  type: 'class' | 'interface';
+  type: "class" | "interface";
   extends?: IType | string;
 };
 

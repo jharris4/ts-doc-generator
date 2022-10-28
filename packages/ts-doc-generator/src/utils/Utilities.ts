@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { ApiParameterListMixin, ApiItem } from '@microsoft/api-extractor-model';
+import { ApiParameterListMixin, ApiItem } from "@microsoft/api-extractor-model";
 
 export class Utilities {
   private static readonly _badFilenameCharsRegExp: RegExp = /[^a-z0-9_\-\.]/gi;
@@ -10,7 +10,12 @@ export class Utilities {
    */
   public static getConciseSignature(apiItem: ApiItem): string {
     if (ApiParameterListMixin.isBaseClassOf(apiItem)) {
-      return apiItem.displayName + '(' + apiItem.parameters.map((x) => x.name).join(', ') + ')';
+      return (
+        apiItem.displayName +
+        "(" +
+        apiItem.parameters.map((x) => x.name).join(", ") +
+        ")"
+      );
     }
     return apiItem.displayName;
   }
@@ -21,6 +26,6 @@ export class Utilities {
   public static getSafeFilenameForName(name: string): string {
     // TODO: This can introduce naming collisions.
     // We will fix that as part of https://github.com/microsoft/rushstack/issues/1308
-    return name.replace(Utilities._badFilenameCharsRegExp, '_').toLowerCase();
+    return name.replace(Utilities._badFilenameCharsRegExp, "_").toLowerCase();
   }
 }

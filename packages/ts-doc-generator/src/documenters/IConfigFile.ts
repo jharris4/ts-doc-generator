@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { IYamlTocFile } from '../yaml/IYamlTocFile';
+import { IYamlTocFile } from "../yaml/IYamlTocFile";
 
 /**
  * Typescript interface describing the config schema for toc.yml file format.
@@ -75,7 +75,7 @@ export interface IConfigFile {
   /**
    * Specifies the output target.
    */
-  outputTarget: 'docfx' | 'markdown';
+  outputTarget: "docfx" | "markdown";
 
   /**
    * Specifies what type of newlines API Documenter should use when writing output files.
@@ -85,7 +85,7 @@ export interface IConfigFile {
    * To use POSIX-style newlines, specify "lf" instead.
    * To use the OS's default newline kind, specify "os".
    */
-  newlineKind?: 'crlf' | 'lf' | 'os';
+  newlineKind?: "crlf" | "lf" | "os";
 
   /**
    * This enables an experimental feature that will be officially released with the next major version

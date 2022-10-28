@@ -14,7 +14,7 @@ export interface PackageSimpleInterfaceOne {
    * This is the test event property
    * @eventProperty
    */
-  propertyEvent: Event
+  propertyEvent: Event;
 }
 
 /**
@@ -24,8 +24,12 @@ export type simpleFunctionOne = (arg: string) => void;
 /**
  * This is the second simple function, it returns a `PackageSimpleInterfaceOne`
  */
-export type simpleFunctionTwo = (arg: PackageSimpleLocalInterface) => PackageSimpleInterfaceOne;
-export type simpleFunctionThree = (arg: PackageSimpleLocalInterface[]) => PackageSimpleInterfaceOne[];
+export type simpleFunctionTwo = (
+  arg: PackageSimpleLocalInterface
+) => PackageSimpleInterfaceOne;
+export type simpleFunctionThree = (
+  arg: PackageSimpleLocalInterface[]
+) => PackageSimpleInterfaceOne[];
 
 class PackageSimpleLocalClass {
   constructor(properties: any);
@@ -61,20 +65,24 @@ export class PackageSimpleClass extends PackageSimpleLocalClass {
    */
   toSubUrl(): string;
 
-  toSubFunction(arg1: (arg1: Array<number>) => Array<number>): (a:string) => Array<boolean>;
-  toSubFunctionArray(arg1: (arg1: number[]) => number[]): (a:string) => boolean[];
+  toSubFunction(
+    arg1: (arg1: Array<number>) => Array<number>
+  ): (a: string) => Array<boolean>;
+  toSubFunctionArray(
+    arg1: (arg1: number[]) => number[]
+  ): (a: string) => boolean[];
 }
 
 export enum PackageSimpleEnum {
   /**
    * The value for 1.
    */
-   EnumValueOne,
+  EnumValueOne,
 
-   /**
-    * The value for 2 with value `EnumValueTwo`.
-    */
-   EnumValueTwo
+  /**
+   * The value for 2 with value `EnumValueTwo`.
+   */
+  EnumValueTwo,
 }
 
 export enum PackageSimpleEnumValues {

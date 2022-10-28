@@ -20,14 +20,10 @@
       "type": "node",
       "request": "launch",
       "name": "Run Documenter CLI",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/node_modules/@microsoft/api-documenter/lib/start.js",
       "args": ["markdown"],
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]
 }

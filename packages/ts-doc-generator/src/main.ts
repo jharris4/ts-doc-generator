@@ -1,21 +1,23 @@
 import * as path from "path";
-import {
-  Extractor,
-  ExtractorConfig
-} from "@microsoft/api-extractor";
+import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
-import { JsonFile, FileSystem }  from "@rushstack/node-core-library";
+import { JsonFile, FileSystem } from "@rushstack/node-core-library";
 // import { MarkdownDocumenter  } from "./documenters/MarkdownDocumenter";
-import { MDDocumenter as MarkdownDocumenter  } from "./documenters/MDDocumenter";
+import { MDDocumenter as MarkdownDocumenter } from "./documenters/MDDocumenter";
 
 interface ExtractorBundle {
   extractorConfig: ExtractorConfig | null;
   extractorErrorMessage: string | null;
 }
 
-const getErrorMessage = (error: unknown) => error instanceof Error ? error.message : String(error);
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : String(error);
 
-const buildExtractorConfig = (packagePath: string, extractorOutputPath: string, includePaths: string[] = ["**/*.d.ts"]) => {
+const buildExtractorConfig = (
+  packagePath: string,
+  extractorOutputPath: string,
+  includePaths: string[] = ["**/*.d.ts"]
+) => {
   let extractorConfig: ExtractorConfig | null = null;
   let extractorErrorMessage: string | null = null;
   const packageJSONPath = path.join(packagePath, "package.json");
@@ -34,10 +36,9 @@ const buildExtractorConfig = (packagePath: string, extractorOutputPath: string, 
               baseUrl: ".",
               allowJs: false,
               checkJs: false,
-  
             },
-            include: includePaths
-          }
+            include: includePaths,
+          },
         },
         apiReport: {
           enabled: false,
@@ -48,32 +49,36 @@ const buildExtractorConfig = (packagePath: string, extractorOutputPath: string, 
         },
         docModel: {
           enabled: true,
-          apiJsonFilePath: path.join(extractorOutputPath, "<unscopedPackageName>.api.json")
+          apiJsonFilePath: path.join(
+            extractorOutputPath,
+            "<unscopedPackageName>.api.json"
+          ),
         },
         tsdocMetadata: {
-          enabled: false
+          enabled: false,
         },
         dtsRollup: {
-          enabled: false
-        }
+          enabled: false,
+        },
       };
       try {
         extractorConfig = ExtractorConfig.prepare({
           configObject: extractorConfigObject,
           configObjectFullPath: "", // TODO - what should this be?
           packageJsonFullPath: packageJSONPath,
-          packageJson: pkg
+          packageJson: pkg,
         });
       } catch (e) {
-        extractorErrorMessage = "extractor error for package " + name + ": " + getErrorMessage(e);
+        extractorErrorMessage =
+          "extractor error for package " + name + ": " + getErrorMessage(e);
       }
-      
     } else {
-      const missing: string = !types && !typings ? !name ? "name & types" : "types" : "name";
-      extractorErrorMessage = "package.json missing " + missing + ": " + packageJSONPath;
+      const missing: string =
+        !types && !typings ? (!name ? "name & types" : "types") : "name";
+      extractorErrorMessage =
+        "package.json missing " + missing + ": " + packageJSONPath;
     }
-  }
-  catch (e) {
+  } catch (e) {
     extractorErrorMessage = "package.json not found: " + packageJSONPath;
   }
   if (extractorErrorMessage) {
@@ -81,8 +86,8 @@ const buildExtractorConfig = (packagePath: string, extractorOutputPath: string, 
   }
   return {
     extractorConfig,
-    extractorErrorMessage
-  }
+    extractorErrorMessage,
+  };
 };
 
 const DO_EXTRACT = true;
@@ -90,7 +95,8 @@ const DO_GENERATE = true;
 
 async function main() {
   const docRootDir = process.cwd();
-  const makeCurrent = (relativePath: string) => path.join(docRootDir, relativePath);
+  const makeCurrent = (relativePath: string) =>
+    path.join(docRootDir, relativePath);
 
   const extractorOutputPath = makeCurrent("docs/apis");
   const documenterOutputPath = makeCurrent("docs/generated");
@@ -111,10 +117,11 @@ async function main() {
       if (extractorErrorMessage) {
         extractorErrorMessages.push(extractorErrorMessage);
       }
-    }
+    };
     if (pkg.types || pkg.typings) {
-      addExtractorConfig(buildExtractorConfig(makeCurrent(""), extractorOutputPath));
-      
+      addExtractorConfig(
+        buildExtractorConfig(makeCurrent(""), extractorOutputPath)
+      );
     } else if (pkg.workspaces) {
       let packagePaths: Array<string> = [];
       const workspaces = pkg.workspaces.map((workspace: string) => {
@@ -129,16 +136,26 @@ async function main() {
       for (let workspace of workspaces) {
         // console.log("check: ", workspace, FileSystem.getRealPath(workspace));
         packagePaths = packagePaths.concat(
-          FileSystem.readFolderItems(makeCurrent(workspace)).filter(i => i.isDirectory()).map(i => path.join(workspace, i.name))
+          FileSystem.readFolderItems(makeCurrent(workspace))
+            .filter((i) => i.isDirectory())
+            .map((i) => path.join(workspace, i.name))
         );
       }
       // console.log("\n\n\n\n^^^^^^^^ package paths: ", packagePaths);
-      packagePaths = packagePaths.filter(path => !path.includes("ts-doc-generator"));
+      packagePaths = packagePaths.filter(
+        (path) => !path.includes("ts-doc-generator")
+      );
       // packagePaths = ["packages/ts-doc-generator"];
 
       if (packagePaths.length > 0) {
         for (let packagePath of packagePaths) {
-          addExtractorConfig(buildExtractorConfig(makeCurrent(packagePath), extractorOutputPath, ["**/*.d.ts"]));
+          addExtractorConfig(
+            buildExtractorConfig(
+              makeCurrent(packagePath),
+              extractorOutputPath,
+              ["**/*.d.ts"]
+            )
+          );
         }
       }
     }
@@ -151,14 +168,16 @@ async function main() {
         try {
           const extractorResult = Extractor.invoke(extractorConfig, {
             localBuild: true,
-            showVerboseMessages: true
+            showVerboseMessages: true,
           });
-    
+
           if (extractorResult.succeeded) {
             succeededExtractors.push({ extractorConfig, extractorResult });
           } else {
-            console.error(`API Extractor completed with ${extractorResult.errorCount} errors`
-              + ` and ${extractorResult.warningCount} warnings`);
+            console.error(
+              `API Extractor completed with ${extractorResult.errorCount} errors` +
+                ` and ${extractorResult.warningCount} warnings`
+            );
             console.log("extractor no success result: ", extractorResult);
             failedExtractors.push({ extractorConfig, extractorResult });
           }
@@ -166,19 +185,16 @@ async function main() {
           console.log("error e", e);
           failedExtractors.push({ extractorConfig, extractorResult: null });
         }
-        
       }
     }
 
     console.log("**** succeededExtractors: ", succeededExtractors.length);
   }
   if (DO_GENERATE) {
-
-
     const apiModel = new ApiModel();
     const inputFolder = extractorOutputPath;
     if (!FileSystem.exists(inputFolder)) {
-        throw new Error('The input folder does not exist: ' + inputFolder);
+      throw new Error("The input folder does not exist: " + inputFolder);
     }
     const outputFolder = documenterOutputPath;
     FileSystem.ensureFolder(outputFolder);
@@ -200,12 +216,12 @@ async function main() {
     */
 
     const markdownDocumenter = new MarkdownDocumenter({
-        apiModel,
-        documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
-        outputFolder
+      apiModel,
+      documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+      outputFolder,
     });
     markdownDocumenter.generateFiles();
   }
-};
+}
 
 main().catch(console.error);

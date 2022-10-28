@@ -1,13 +1,19 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import * as path from 'path';
-import * as resolve from 'resolve';
+import * as path from "path";
+import * as resolve from "resolve";
 
-import { IApiDocumenterPluginManifest, IFeatureDefinition } from './IApiDocumenterPluginManifest';
-import { MarkdownDocumenterFeature, MarkdownDocumenterFeatureContext } from './MarkdownDocumenterFeature';
-import { PluginFeatureInitialization } from './PluginFeature';
-import { DocumenterConfig } from '../documenters/DocumenterConfig';
+import {
+  IApiDocumenterPluginManifest,
+  IFeatureDefinition,
+} from "./IApiDocumenterPluginManifest";
+import {
+  MarkdownDocumenterFeature,
+  MarkdownDocumenterFeatureContext,
+} from "./MarkdownDocumenterFeature";
+import { PluginFeatureInitialization } from "./PluginFeature";
+import { DocumenterConfig } from "../documenters/DocumenterConfig";
 
 interface ILoadedPlugin {
   packageName: string;
@@ -21,13 +27,18 @@ export class PluginLoader {
     documenterConfig: DocumenterConfig,
     createContext: () => MarkdownDocumenterFeatureContext
   ): void {
-    const configFileFolder: string = path.dirname(documenterConfig.configFilePath);
+    const configFileFolder: string = path.dirname(
+      documenterConfig.configFilePath
+    );
     for (const configPlugin of documenterConfig.configFile.plugins || []) {
       try {
         // Look for the package name in the same place as the config file
-        const resolvedEntryPointPath: string = resolve.sync(configPlugin.packageName, {
-          basedir: configFileFolder
-        });
+        const resolvedEntryPointPath: string = resolve.sync(
+          configPlugin.packageName,
+          {
+            basedir: configFileFolder,
+          }
+        );
 
         // Load the package
         const entryPoint:
@@ -35,7 +46,7 @@ export class PluginLoader {
           | undefined = require(resolvedEntryPointPath);
 
         if (!entryPoint) {
-          throw new Error('Invalid entry point');
+          throw new Error("Invalid entry point");
         }
 
         if (!entryPoint.apiDocumenterPluginManifest) {
@@ -45,7 +56,8 @@ export class PluginLoader {
           );
         }
 
-        const manifest: IApiDocumenterPluginManifest = entryPoint.apiDocumenterPluginManifest;
+        const manifest: IApiDocumenterPluginManifest =
+          entryPoint.apiDocumenterPluginManifest;
 
         if (manifest.manifestVersion !== 1000) {
           throw new Error(
@@ -56,56 +68,78 @@ export class PluginLoader {
 
         const loadedPlugin: ILoadedPlugin = {
           packageName: configPlugin.packageName,
-          manifest
+          manifest,
         };
 
-        const featureDefinitionsByName: Map<string, IFeatureDefinition> = new Map<
-          string,
-          IFeatureDefinition
-        >();
+        const featureDefinitionsByName: Map<string, IFeatureDefinition> =
+          new Map<string, IFeatureDefinition>();
         for (const featureDefinition of manifest.features) {
-          featureDefinitionsByName.set(featureDefinition.featureName, featureDefinition);
+          featureDefinitionsByName.set(
+            featureDefinition.featureName,
+            featureDefinition
+          );
         }
 
         for (const featureName of configPlugin.enabledFeatureNames) {
-          const featureDefinition: IFeatureDefinition | undefined = featureDefinitionsByName.get(featureName);
+          const featureDefinition: IFeatureDefinition | undefined =
+            featureDefinitionsByName.get(featureName);
           if (!featureDefinition) {
             throw new Error(
               `The plugin ${loadedPlugin.packageName} does not have a feature with name "${featureName}"`
             );
           }
 
-          if (featureDefinition.kind === 'MarkdownDocumenterFeature') {
+          if (featureDefinition.kind === "MarkdownDocumenterFeature") {
             if (this.markdownDocumenterFeature) {
-              throw new Error('A MarkdownDocumenterFeature is already loaded');
+              throw new Error("A MarkdownDocumenterFeature is already loaded");
             }
 
-            const initialization: PluginFeatureInitialization = new PluginFeatureInitialization();
+            const initialization: PluginFeatureInitialization =
+              new PluginFeatureInitialization();
             initialization._context = createContext();
 
-            let markdownDocumenterFeature: MarkdownDocumenterFeature | undefined = undefined;
+            let markdownDocumenterFeature:
+              | MarkdownDocumenterFeature
+              | undefined = undefined;
             try {
-              markdownDocumenterFeature = new featureDefinition.subclass(initialization);
+              markdownDocumenterFeature = new featureDefinition.subclass(
+                initialization
+              );
             } catch (e) {
-              throw new Error(`Failed to construct feature subclass:\n` + (e as Error).toString());
+              throw new Error(
+                `Failed to construct feature subclass:\n` +
+                  (e as Error).toString()
+              );
             }
-            if (!(markdownDocumenterFeature instanceof MarkdownDocumenterFeature)) {
-              throw new Error('The constructed subclass was not an instance of MarkdownDocumenterFeature');
+            if (
+              !(markdownDocumenterFeature instanceof MarkdownDocumenterFeature)
+            ) {
+              throw new Error(
+                "The constructed subclass was not an instance of MarkdownDocumenterFeature"
+              );
             }
 
             try {
               markdownDocumenterFeature.onInitialized();
             } catch (e) {
-              throw new Error('Error occurred during the onInitialized() event: ' + (e as Error).toString());
+              throw new Error(
+                "Error occurred during the onInitialized() event: " +
+                  (e as Error).toString()
+              );
             }
 
             this.markdownDocumenterFeature = markdownDocumenterFeature;
           } else {
-            throw new Error(`Unknown feature definition kind: "${featureDefinition.kind}"`);
+            throw new Error(
+              `Unknown feature definition kind: "${featureDefinition.kind}"`
+            );
           }
         }
       } catch (e) {
-        throw new Error(`Error loading plugin ${configPlugin.packageName}: ` + (e as Error).message);
+        throw new Error(
+          `Error loading plugin ${configPlugin.packageName}: ` +
+            (e as Error).message
+        );
       }
     }
   }

@@ -1,9 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import * as path from 'path';
-import { JsonSchema, JsonFile, NewlineKind } from '@rushstack/node-core-library';
-import { IConfigFile } from './IConfigFile';
+import * as path from "path";
+import {
+  JsonSchema,
+  JsonFile,
+  NewlineKind,
+} from "@rushstack/node-core-library";
+import { IConfigFile } from "./IConfigFile";
 
 /**
  * Helper for loading the api-documenter.json file format.  Later when the schema is more mature,
@@ -24,23 +28,23 @@ export class DocumenterConfig {
    * The JSON Schema for API Documenter config file (api-documenter.schema.json).
    */
   public static readonly jsonSchema: JsonSchema = JsonSchema.fromFile(
-    path.join(__dirname, '..', 'schemas', 'api-documenter.schema.json')
+    path.join(__dirname, "..", "schemas", "api-documenter.schema.json")
   );
 
   /**
    * The config file name "api-documenter.json".
    */
-  public static readonly FILENAME: string = 'api-documenter.json';
+  public static readonly FILENAME: string = "api-documenter.json";
 
   private constructor(filePath: string, configFile: IConfigFile) {
     this.configFilePath = filePath;
     this.configFile = configFile;
 
     switch (configFile.newlineKind) {
-      case 'lf':
+      case "lf":
         this.newlineKind = NewlineKind.Lf;
         break;
-      case 'os':
+      case "os":
         this.newlineKind = NewlineKind.OsDefault;
         break;
       default:
@@ -53,7 +57,10 @@ export class DocumenterConfig {
    * Load and validate an api-documenter.json file.
    */
   public static loadFile(configFilePath: string): DocumenterConfig {
-    const configFile: IConfigFile = JsonFile.loadAndValidate(configFilePath, DocumenterConfig.jsonSchema);
+    const configFile: IConfigFile = JsonFile.loadAndValidate(
+      configFilePath,
+      DocumenterConfig.jsonSchema
+    );
 
     return new DocumenterConfig(path.resolve(configFilePath), configFile);
   }

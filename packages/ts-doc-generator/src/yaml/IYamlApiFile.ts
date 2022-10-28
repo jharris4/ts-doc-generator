@@ -64,7 +64,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.ParentInDevLangs` in DocFX when `parent.${lang}` is used.
    */
   parent?: string;
-  'parent.typeScript'?: string;
+  "parent.typeScript"?: string;
 
   /**
    * The Unique Identifiers (UID) of the children of this item. This value can vary by development language
@@ -74,7 +74,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.ChildrenInDevLangs` in DocFX when `children.${lang}` is used.
    */
   children?: string[];
-  'children.typeScript'?: string[];
+  "children.typeScript"?: string[];
 
   /**
    * Item's link URL. An item can only have a single link in cross references, so varying `href` by development
@@ -100,7 +100,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.Names` in DocFX when `name.${lang}` is used.
    */
   name?: string;
-  'name.typeScript'?: string;
+  "name.typeScript"?: string;
 
   /**
    * The name of this item including its parent type, if it has one. This name should generally not be namespace
@@ -110,7 +110,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.NamesWithType` in DocFX when `nameWithType.${lang}` is used.
    */
   nameWithType?: string;
-  'nameWithType.typeScript'?: string;
+  "nameWithType.typeScript"?: string;
 
   /**
    * The namespace-qualified name of this item including its parent type. This value can vary by development language
@@ -120,7 +120,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.FullNames` in DocFX when `fullName.${lang}` is used.
    */
   fullName?: string;
-  'fullName.typeScript'?: string;
+  "fullName.typeScript"?: string;
 
   /**
    * The type of source element this item represents. This value cannot vary by development language.
@@ -137,7 +137,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.SourceInDevLangs` in DocFX when `source.${lang}` is used.
    */
   source?: IYamlSource;
-  'source.typeScript'?: IYamlSource;
+  "source.typeScript"?: IYamlSource;
 
   /**
    * The location of the item's documentation overrides. This value cannot vary by development language.
@@ -154,7 +154,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.AssemblyNameListInDevLangs` in DocFX when `assemblies.${lang}` is used.
    */
   assemblies?: string[];
-  'assemblies.typeScript'?: string[];
+  "assemblies.typeScript"?: string[];
 
   /**
    * The Unique Identifier (UID) of the namespace that contains this item. This value can vary by development language
@@ -164,7 +164,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.NamespaceNameInDevLangs` in DocFX.
    */
   namespace?: string;
-  'namespace.typeScript'?: string;
+  "namespace.typeScript"?: string;
 
   /**
    * The summary for the item. This value cannot vary by development language.
@@ -206,7 +206,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.OverriddenInDevLangs` in DocFX when `overriden.${lang}` is used.
    */
   overridden?: string;
-  'overridden.typeScript'?: string;
+  "overridden.typeScript"?: string;
 
   /**
    * The Unique Identifier (UID) of the member this item overloads. This value can vary by development language
@@ -216,7 +216,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.OverloadInDevLangs` in DocFX when `overload.${lang}` is used.
    */
   overload?: string;
-  'overload.typeScript'?: string;
+  "overload.typeScript"?: string;
 
   /**
    * The exceptions thrown by this item. This value can vary by development language by setting the relevant
@@ -226,7 +226,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.ExceptionsInDevLangs` in DocFX when `exceptions.${lang}` is used.
    */
   exceptions?: IYamlException[];
-  'exceptions.typeScript'?: IYamlException[];
+  "exceptions.typeScript"?: IYamlException[];
 
   /**
    * Links to additional content related to this item.
@@ -257,35 +257,35 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.InheritanceInDevLangs` in DocFX when `inheritance.${lang}` is used.
    */
   inheritance?: IYamlInheritanceTree[];
-  'inheritance.typeScript'?: IYamlInheritanceTree[];
+  "inheritance.typeScript"?: IYamlInheritanceTree[];
 
   /**
    * NOTE: Corresponds to `ItemViewModel.DerivedClassses` in DocFX.
    * NOTE: Corresponds to `ItemViewModel.DerivedClasssesInDevLangs` in DocFX when `derivedClasses.${lang}` is used.
    */
   derivedClasses?: string[];
-  'derivedClasses.typeScript'?: string[];
+  "derivedClasses.typeScript"?: string[];
 
   /**
    * NOTE: Corresponds to `ItemViewModel.Implements` in DocFX.
    * NOTE: Corresponds to `ItemViewModel.ImplementsInDevLangs` in DocFX when `implements.${lang}` is used.
    */
   implements?: string[];
-  'implements.typeScript'?: string[];
+  "implements.typeScript"?: string[];
 
   /**
    * NOTE: Corresponds to `ItemViewModel.InheritedMembers` in DocFX.
    * NOTE: Corresponds to `ItemViewModel.InheritedMembersInDevLangs` in DocFX when `inheritedMembers.${lang}` is used.
    */
   inheritedMembers?: string[];
-  'inheritedMembers.typeScript'?: string[];
+  "inheritedMembers.typeScript"?: string[];
 
   /**
    * NOTE: Corresponds to `ItemViewModel.ExtensionMethods` in DocFX.
    * NOTE: Corresponds to `ItemViewModel.ExtensionMethodsInDevLangs` in DocFX when `extensionMethods.${lang}` is used.
    */
   extensionMethods?: string[];
-  'extensionMethods.typeScript'?: string[];
+  "extensionMethods.typeScript"?: string[];
 
   /**
    * NOTE: Corresponds to `ItemViewModel.Conceptual` in DocFX.
@@ -297,7 +297,7 @@ export interface IYamlItem {
    * NOTE: Corresponds to `ItemViewModel.PlatformInDevLangs` in DocFX when `platform.${lang}` is used.
    */
   platform?: string[];
-  'platform.typeScript'?: string[];
+  "platform.typeScript"?: string[];
 
   /**
    * NOTE: This is an extension and corresponds to `ItemViewModel.Metadata` in DocFX.
@@ -333,24 +333,24 @@ export interface IYamlItem {
  * Part of the IYamlApiFile structure. Represents the type of an IYamlItem.
  */
 export type YamlTypeId =
-  | 'class'
-  | 'constructor'
-  | 'enum'
-  | 'field'
-  | 'function'
-  | 'interface'
-  | 'method'
-  | 'package'
-  | 'property'
-  | 'event'
-  | 'typealias'
-  | 'variable'
-  | 'namespace';
+  | "class"
+  | "constructor"
+  | "enum"
+  | "field"
+  | "function"
+  | "interface"
+  | "method"
+  | "package"
+  | "property"
+  | "event"
+  | "typealias"
+  | "variable"
+  | "namespace";
 
 /**
  * Development languages supported by the Universal Reference file format, as defined by typescript.schema.json.
  */
-export type YamlDevLangs = 'typeScript';
+export type YamlDevLangs = "typeScript";
 
 /**
  * Part of the IYamlApiFile structure.  Documents the source file where an IYamlItem is defined.
@@ -464,7 +464,7 @@ export interface IYamlSyntax {
    * NOTE: Corresponds to `SyntaxDetailViewModel.Contents` in DocFX when `content.${lang}` is used.
    */
   content?: string;
-  'content.typeScript'?: string;
+  "content.typeScript"?: string;
 
   /**
    * The parameters for this item.
@@ -487,7 +487,7 @@ export interface IYamlSyntax {
    * NOTE: Corresponds to `SyntaxDetailViewModel.ReturnInDevLangs` in DocFX when `return.${lang}` is used.
    */
   return?: IYamlReturn;
-  'return.typeScript'?: IYamlReturn;
+  "return.typeScript"?: IYamlReturn;
 }
 
 /**
@@ -593,7 +593,7 @@ export interface IYamlLink {
    * The value `"HRef"` indicates that `linkId` is a link to external documentation.
    * NOTE: Corresponds to `LinkInfo.LinkType` in DocFX.
    */
-  linkType: 'CRef' | 'HRef';
+  linkType: "CRef" | "HRef";
 
   /**
    * When `linkType` is `"CRef"`, this is a Unique Identifier (UID) reference to another documentation entry.
@@ -682,26 +682,26 @@ export interface IYamlReference {
    * NOTE: Corresponds to `ReferenceViewModel.NameInDevLangs` in DocFX when `name.${lang}` is used.
    */
   name?: string;
-  'name.typeScript'?: string;
+  "name.typeScript"?: string;
 
   /**
    * NOTE: Corresponds to `ReferenceViewModel.NameWithType` in DocFX.
    * NOTE: Corresponds to `ReferenceViewModel.NameWithTypeInDevLangs` in DocFX when `nameWithType.${lang}` is used.
    */
   nameWithType?: string;
-  'nameWithType.typeScript'?: string;
+  "nameWithType.typeScript"?: string;
 
   /**
    * NOTE: Corresponds to `ReferenceViewModel.FullName` in DocFX.
    * NOTE: Corresponds to `ReferenceViewModel.FullNameInDevLangs` in DocFX when `fullName.${lang}` is used.
    */
   fullName?: string;
-  'fullName.typeScript'?: string;
+  "fullName.typeScript"?: string;
 
   /**
    * NOTE: Corresponds to `ReferenceViewModel.Spec` in DocFX.
    */
-  'spec.typeScript'?: IYamlReferenceSpec[];
+  "spec.typeScript"?: IYamlReferenceSpec[];
 }
 
 /**

@@ -1,13 +1,18 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { DocComment, DocInlineTag } from '@microsoft/tsdoc';
-import { ApiModel, ApiItem, ApiItemKind, ApiDocumentedItem } from '@microsoft/api-extractor-model';
+import { DocComment, DocInlineTag } from "@microsoft/tsdoc";
+import {
+  ApiModel,
+  ApiItem,
+  ApiItemKind,
+  ApiDocumentedItem,
+} from "@microsoft/api-extractor-model";
 
-import { IConfigTableOfContents } from './IConfigFile';
-import { IYamlTocItem, IYamlTocFile } from '../yaml/IYamlTocFile';
-import { YamlDocumenter } from './YamlDocumenter';
-import { DocumenterConfig } from './DocumenterConfig';
+import { IConfigTableOfContents } from "./IConfigFile";
+import { IYamlTocItem, IYamlTocFile } from "../yaml/IYamlTocFile";
+import { YamlDocumenter } from "./YamlDocumenter";
+import { DocumenterConfig } from "./DocumenterConfig";
 
 /**
  * EXPERIMENTAL - This documenter is a prototype of a new config file driven mode of operation for
@@ -39,7 +44,7 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
       let tocItem: IYamlTocItem;
       if (apiItem.kind === ApiItemKind.Namespace && !this.newDocfxNamespaces) {
         tocItem = {
-          name: this._getTocItemName(apiItem)
+          name: this._getTocItemName(apiItem),
         };
       } else {
         if (this._shouldEmbed(apiItem.kind)) {
@@ -49,7 +54,7 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
 
         tocItem = {
           name: this._getTocItemName(apiItem),
-          uid: this._getUid(apiItem)
+          uid: this._getUid(apiItem),
         };
 
         if (apiItem.kind !== ApiItemKind.Package) {
@@ -69,12 +74,18 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
   }
 
   // Parses the tocConfig object to build a pointers map of nodes where we want to sort out the API items
-  private _generateTocPointersMap(tocConfig: IYamlTocFile | IYamlTocItem): void {
+  private _generateTocPointersMap(
+    tocConfig: IYamlTocFile | IYamlTocItem
+  ): void {
     const { catchAllCategory } = this._config;
 
     if (tocConfig.items) {
       for (const tocItem of tocConfig.items) {
-        if (tocItem.items && tocItem.items.length > 0 && this._shouldNotIncludeInPointersMap(tocItem)) {
+        if (
+          tocItem.items &&
+          tocItem.items.length > 0 &&
+          this._shouldNotIncludeInPointersMap(tocItem)
+        ) {
           this._generateTocPointersMap(tocItem);
         } else {
           // check for presence of the `catchAllCategory` config option
@@ -103,7 +114,9 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
         : undefined;
 
       const tagContent: string | undefined =
-        docInlineTag && docInlineTag.tagContent && docInlineTag.tagContent.trim();
+        docInlineTag &&
+        docInlineTag.tagContent &&
+        docInlineTag.tagContent.trim();
 
       if (tagContent && this._tocPointerMap[tagContent]) {
         // null assertion used because when pointer map was created we checked for presence of empty `items` array
@@ -115,7 +128,11 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
     // If not filtered by inline tag and `categorizeByName` config is enabled attempt to filter it by category name.
     if (!filtered && categorizeByName) {
       const pointers: string[] = Object.keys(this._tocPointerMap);
-      for (let i: number = 0, length: number = pointers.length; i < length; i++) {
+      for (
+        let i: number = 0, length: number = pointers.length;
+        i < length;
+        i++
+      ) {
         if (itemName.indexOf(pointers[i]) !== -1) {
           // null assertion used because when pointer map was created we checked for presence of empty `items` array
           this._tocPointerMap[pointers[i]].items!.push(tocItem);
@@ -146,7 +163,10 @@ export class ExperimentalYamlDocumenter extends YamlDocumenter {
     }
     if (docComment) {
       for (const childNode of docComment.getChildNodes()) {
-        const result: DocInlineTag | undefined = this._findInlineTagByName(tagName, childNode as DocComment);
+        const result: DocInlineTag | undefined = this._findInlineTagByName(
+          tagName,
+          childNode as DocComment
+        );
         if (result !== undefined) {
           return result;
         }

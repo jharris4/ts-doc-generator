@@ -1,20 +1,28 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { yellow as colorYellow } from 'colors';
+import { yellow as colorYellow } from "colors";
 
-import { DocNode, DocLinkTag, StringBuilder } from '@microsoft/tsdoc';
-import { ApiModel, IResolveDeclarationReferenceResult, ApiItem } from '@microsoft/api-extractor-model';
+import { DocNode, DocLinkTag, StringBuilder } from "@microsoft/tsdoc";
+import {
+  ApiModel,
+  IResolveDeclarationReferenceResult,
+  ApiItem,
+} from "@microsoft/api-extractor-model";
 
-import { CustomDocNodeKind } from '../nodes/CustomDocNodeKind';
-import { DocHeading } from '../nodes/DocHeading';
+import { CustomDocNodeKind } from "../nodes/CustomDocNodeKind";
+import { DocHeading } from "../nodes/DocHeading";
 // import { DocHorizontalRule } from '../nodes/DocHorizontalRule';
-import { DocNoteBox } from '../nodes/DocNoteBox';
-import { DocTable } from '../nodes/DocTable';
-import { DocTableCell } from '../nodes/DocTableCell';
-import { DocEmphasisSpan } from '../nodes/DocEmphasisSpan';
-import { MarkdownEmitter, IMarkdownEmitterContext, IMarkdownEmitterOptions } from './MarkdownEmitter';
-import { IndentedWriter } from '../utils/IndentedWriter';
+import { DocNoteBox } from "../nodes/DocNoteBox";
+import { DocTable } from "../nodes/DocTable";
+import { DocTableCell } from "../nodes/DocTableCell";
+import { DocEmphasisSpan } from "../nodes/DocEmphasisSpan";
+import {
+  MarkdownEmitter,
+  IMarkdownEmitterContext,
+  IMarkdownEmitterOptions,
+} from "./MarkdownEmitter";
+import { IndentedWriter } from "../utils/IndentedWriter";
 
 export interface ICustomMarkdownEmitterOptions extends IMarkdownEmitterOptions {
   contextApiItem: ApiItem | undefined;
@@ -40,7 +48,11 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
   }
 
   /** @override */
-  protected writeNode(docNode: DocNode, context: IMarkdownEmitterContext, docNodeSiblings: boolean): void {
+  protected writeNode(
+    docNode: DocNode,
+    context: IMarkdownEmitterContext,
+    docNodeSiblings: boolean
+  ): void {
     const writer: IndentedWriter = context.writer;
 
     switch (docNode.kind) {
@@ -51,19 +63,19 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         let prefix: string;
         switch (docHeading.level) {
           case 1:
-            prefix = '##';
+            prefix = "##";
             break;
           case 2:
-            prefix = '###';
+            prefix = "###";
             break;
           case 3:
-            prefix = '###';
+            prefix = "###";
             break;
           default:
-            prefix = '####';
+            prefix = "####";
         }
 
-        writer.writeLine(prefix + ' ' + this.getEscapedText(docHeading.title));
+        writer.writeLine(prefix + " " + this.getEscapedText(docHeading.title));
         writer.writeLine();
         break;
       }
@@ -71,7 +83,7 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         // const docHorizontalRule: DocHorizontalRule = docNode as DocHorizontalRule;
         writer.ensureSkippedLine();
         writer.writeLine();
-        writer.write('---');
+        writer.write("---");
 
         break;
       }
@@ -79,7 +91,7 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         const docNoteBox: DocNoteBox = docNode as DocNoteBox;
         writer.ensureNewLine();
 
-        writer.increaseIndent('> ');
+        writer.increaseIndent("> ");
 
         this.writeNode(docNoteBox.content, context, false);
         writer.ensureNewLine();
@@ -109,32 +121,32 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         }
 
         // write the table header (which is required by Markdown)
-        writer.write('| ');
+        writer.write("| ");
         for (let i: number = 0; i < columnCount; ++i) {
-          writer.write(' ');
+          writer.write(" ");
           if (docTable.header) {
             const cell: DocTableCell | undefined = docTable.header.cells[i];
             if (cell) {
               this.writeNode(cell.content, context, false);
             }
           }
-          writer.write(' |');
+          writer.write(" |");
         }
         writer.writeLine();
 
         // write the divider
-        writer.write('| ');
+        writer.write("| ");
         for (let i: number = 0; i < columnCount; ++i) {
-          writer.write(' --- |');
+          writer.write(" --- |");
         }
         writer.writeLine();
 
         for (const row of docTable.rows) {
-          writer.write('| ');
+          writer.write("| ");
           for (const cell of row.cells) {
-            writer.write(' ');
+            writer.write(" ");
             this.writeNode(cell.content, context, false);
-            writer.write(' |');
+            writer.write(" |");
           }
           writer.writeLine();
         }
@@ -167,28 +179,33 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
   ): void {
     const options: ICustomMarkdownEmitterOptions = context.options;
 
-    const result: IResolveDeclarationReferenceResult = this._apiModel.resolveDeclarationReference(
-      docLinkTag.codeDestination!,
-      options.contextApiItem
-    );
+    const result: IResolveDeclarationReferenceResult =
+      this._apiModel.resolveDeclarationReference(
+        docLinkTag.codeDestination!,
+        options.contextApiItem
+      );
 
     if (result.resolvedApiItem) {
-      const filename: string | undefined = options.onGetFilenameForApiItem(result.resolvedApiItem);
+      const filename: string | undefined = options.onGetFilenameForApiItem(
+        result.resolvedApiItem
+      );
 
       if (filename) {
-        let linkText: string = docLinkTag.linkText || '';
+        let linkText: string = docLinkTag.linkText || "";
         if (linkText.length === 0) {
           // Generate a name such as Namespace1.Namespace2.MyClass.myMethod()
           linkText = result.resolvedApiItem.getScopedNameWithinPackage();
         }
         if (linkText.length > 0) {
-          const encodedLinkText: string = this.getEscapedText(linkText.replace(/\s+/g, ' '));
+          const encodedLinkText: string = this.getEscapedText(
+            linkText.replace(/\s+/g, " ")
+          );
 
-          context.writer.write('[');
+          context.writer.write("[");
           context.writer.write(encodedLinkText);
           context.writer.write(`](${filename!})`);
         } else {
-          console.log(colorYellow('WARNING: Unable to determine link text'));
+          console.log(colorYellow("WARNING: Unable to determine link text"));
         }
       }
     } else if (result.errorMessage) {
