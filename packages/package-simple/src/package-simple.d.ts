@@ -2,11 +2,28 @@ interface PackageSimpleLocalInterface {
   propertyOne: string;
 }
 
+/**
+ * This is a really simple interface, the first one
+ */
 export interface PackageSimpleInterfaceOne {
+  /**
+   * This is the first property of the first simple interface.
+   */
   property1: number;
+  /**
+   * This is the test event property
+   * @eventProperty
+   */
+  propertyEvent: Event
 }
 
+/**
+ * This is the first simple function, it returns nothing
+ */
 export type simpleFunctionOne = (arg: string) => void;
+/**
+ * This is the second simple function, it returns a `PackageSimpleInterfaceOne`
+ */
 export type simpleFunctionTwo = (arg: PackageSimpleLocalInterface) => PackageSimpleInterfaceOne;
 export type simpleFunctionThree = (arg: PackageSimpleLocalInterface[]) => PackageSimpleInterfaceOne[];
 
@@ -46,4 +63,23 @@ export class PackageSimpleClass extends PackageSimpleLocalClass {
 
   toSubFunction(arg1: (arg1: Array<number>) => Array<number>): (a:string) => Array<boolean>;
   toSubFunctionArray(arg1: (arg1: number[]) => number[]): (a:string) => boolean[];
+}
+
+export enum PackageSimpleEnum {
+  /**
+   * The value for 1.
+   */
+   EnumValueOne,
+
+   /**
+    * The value for 2 with value `EnumValueTwo`.
+    */
+   EnumValueTwo
+}
+
+export enum PackageSimpleEnumValues {
+  Up = 1,
+  Down,
+  Left,
+  Right,
 }
