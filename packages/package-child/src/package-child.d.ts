@@ -44,3 +44,44 @@ export class MixinClass {
 }
 
 export type functionOne = (argOne: ParentClass[]) => ChildClass[];
+
+export enum PackageChildEnumValues {
+  Up = 1,
+  Down,
+  Left,
+  Right,
+}
+
+/**
+ * This is the child function description
+ * @param x The number
+ */
+export declare function PackageChildFunctionOne(
+  x: number,
+  a: PackageChildEnumValues,
+  c: ParentClass
+): void;
+
+/**
+ * This is the child variable function description
+ */
+export declare const PackageChildVariableFunction: (
+  x: number,
+  a: PackageChildEnumValues,
+  c: ParentClass
+) => void;
+
+/**
+ * This is the child variable string description
+ */
+export declare const PackageChildVariableString: string;
+
+/**
+ * This is the child variable enum description
+ */
+export declare const PackageChildVariableEnum: PackageChildEnumValues;
+
+/**
+ * This is the child variable parent description
+ */
+export declare const PackageChildVariableParent: ParentClass;
