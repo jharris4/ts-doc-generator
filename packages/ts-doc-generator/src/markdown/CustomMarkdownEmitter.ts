@@ -84,7 +84,7 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         writer.ensureSkippedLine();
         writer.writeLine();
         writer.write("---");
-
+        writer.writeLine();
         break;
       }
       case CustomDocNodeKind.NoteBox: {
