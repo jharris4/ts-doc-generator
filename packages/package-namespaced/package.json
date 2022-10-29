@@ -1,0 +1,5 @@
+{
+  "name": "package-namespaced",
+  "version": "1.0.0",
+  "types": "src/package-namespaced.d.ts"
+}
