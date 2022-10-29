@@ -91,3 +91,19 @@ export enum PackageSimpleEnumValues {
   Left,
   Right,
 }
+
+/**
+ * This is the simple function description
+ * @param x The number
+ */
+export declare function PackageSimpleFunctionOne(x?: number): void;
+
+/**
+ * This is the simple variable function description
+ */
+export declare const PackageSimpleVariableFunction: (x?: number) => void;
+
+/**
+ * This is the simple variable string description
+ */
+export declare const PackageSimpleVariableString: string;
