@@ -17,7 +17,8 @@
     "esModuleInterop": true,
     "noEmitOnError": false,
     "allowUnreachableCode": false,
-
+    "allowJs": false,
+    "checkJs": false,
     "types": [],
 
     "module": "commonjs",
@@ -25,7 +26,5 @@
     "lib": ["es2017"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.d.ts"],
-
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.d.ts"]
 }

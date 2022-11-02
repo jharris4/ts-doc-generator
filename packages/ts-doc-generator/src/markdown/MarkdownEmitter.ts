@@ -72,9 +72,25 @@ export class MarkdownEmitter {
   protected getEscapedText(text: string): string {
     const textWithBackslashes: string = text
       .replace(/\\/g, "\\\\") // first replace the escape character
-      .replace(/[*#[\]_|`~]/g, (x) => "\\" + x) // then escape any special characters
+      .replace(
+        // /[*#[\]_|`~]/g,
+        /[*[\]_|`~]/g,
+        (x) => "\\" + x
+      ) // then escape any special characters
       .replace(/---/g, "\\-\\-\\-") // hyphens only if it's 3 or more
-      .replace(/&/g, "&amp;")
+      // .replace(/&/g, "&amp;")
+      .replace(
+        // /&/g,
+        /&(?!(?:\#(?:(?<dec>[0-9]+)|[Xx](?<hex>[0-9A-Fa-f]+))|(?<named>[A-Za-z0-9]+));)/g,
+        "&amp;"
+      )
+      .replace(
+        // NEW/ADDED
+        // /[#]/g,
+        // TODO - here need to replace # but only if it's not part of &#123456; style patterns
+        /(?<!&)#|[#]$/g,
+        (x) => "\\" + x
+      )
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
     return textWithBackslashes;

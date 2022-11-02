@@ -17,9 +17,18 @@
     "@types/js-yaml": "3.12.1",
     "@types/node": "12.20.24",
     "@types/resolve": "1.17.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:clean": "rimraf lib",
+    "try": "--cwd ../../      /* TODO - these arent's quite working, it is hard to make it work with changed cwd */  ",
+    "extract": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts e",
+    "generate": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts g",
+    "generate-old": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts o",
+    "generate-new": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts n",
+    "docs": "npm run extract && npm run generate"
   }
 }

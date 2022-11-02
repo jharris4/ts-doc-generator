@@ -4,11 +4,15 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "",
+    "build": "tsc --project packages/ts-doc-generator/tsconfig.json",
     "temp1": "--esm",
     "temp2": "--compiler-options={\"module\":\"commonJS\"}",
     "temp": "--compiler-options={\"moduleResolution\":\"nodenext\",\"module\":\"ESNext\"}",
-    "generate": "ts-node --project packages/ts-doc-generator/tsconfig-node.json packages/ts-doc-generator/src/main.ts",
+    "extract": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts e",
+    "generate": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts g",
+    "generate-old": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts o",
+    "generate-new": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts n",
+    "build-docs": "npm run extract && npm run generate",
     "prettier": "prettier --write ."
   },
   "devDependencies": {

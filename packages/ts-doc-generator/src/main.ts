@@ -1,9 +1,15 @@
 import * as path from "path";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
-import { JsonFile, FileSystem } from "@rushstack/node-core-library";
-// import { MarkdownDocumenter  } from "./documenters/MarkdownDocumenter";
-import { MDDocumenter as MarkdownDocumenter } from "./documenters/MDDocumenter";
+import {
+  JsonFile,
+  FileSystem,
+  NewlineKind,
+} from "@rushstack/node-core-library";
+import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
+import { MDDocumenter } from "./documenters/MDDocumenter";
+import { NewDocumenter } from "./documenters/NewDocumenter";
+import { FileLevel } from "./documenters/FileLevel";
 
 interface ExtractorBundle {
   extractorConfig: ExtractorConfig | null;
@@ -90,8 +96,39 @@ const buildExtractorConfig = (
   };
 };
 
-const DO_EXTRACT = true;
-const DO_GENERATE = true;
+const args = process.argv.slice(2);
+const DO_EXTRACT = args.length === 0 || args.some((arg) => arg.includes("e"));
+const DO_GENERATE = args.length === 0 || args.some((arg) => arg.includes("g"));
+const DO_GENERATE_ORIGINAL =
+  args.length === 0 || args.some((arg) => arg.includes("o"));
+const DO_GENERATE_NEW =
+  args.length === 0 || args.some((arg) => arg.includes("n"));
+
+// TODO - make these CLI options
+/*
+- extract - only creates api.json
+- generate - only creates api.md
+- document - creates api.json and api.md
+- packageDirs
+  - packageDirs - "packages/mypackage                   - document mypackage
+  - packageDirs - "packages"                            - document all packages in packages directory
+  - packageDirs - ""                                    - document root package workspace packages
+- packagePaths
+  - packagePaths - "packages/mypackage/package.json"    - document mypackage
+  - packagePaths - "package.json"                       - document root package workspace packages
+- packageTypes
+  - packageTypes - "packages/mypackage/dist/index.d.ts" - document mypackage
+  - packageTypes - "packages/mypackage/dist/index.d.ts" - document mypackage, yourpackage
+                 - "packages/yourpackage/dist/index.d.ts"
+
+All of the package examples above except the last show single values,
+but each of them supports one or many values.
+
+let packageDirs: string | string[]; // "" | [""];
+let packagePaths: string | string[]; // "" | [""];
+let packageTypes: string | string[]; // "" | [""];
+
+*/
 
 async function main() {
   const docRootDir = process.cwd();
@@ -206,21 +243,45 @@ async function main() {
       }
     }
 
-    /*
-    tableOfContents = {
-      "nonEmptyCategoryNodeNames": ["References", "Interface6"],
-      "catchAllCategory": "References",
-      "categorizeByName": true,
-      "categoryInlineTag": "docCategory"
+    if (DO_GENERATE_ORIGINAL) {
+      const markdownDocumenter = new MarkdownDocumenter({
+        apiModel,
+        documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+        outputFolder,
+      });
+      markdownDocumenter.generateFiles();
+    } else if (DO_GENERATE_NEW) {
+      const markdownDocumenter = new NewDocumenter({
+        apiModel,
+        documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+        outputFolder,
+      });
+      markdownDocumenter.generateFiles();
+    } else {
+      const markdownDocumenter = new MDDocumenter(
+        {
+          apiModel,
+          // documenterConfig: {
+          //   configFilePath: "",
+          //   configFile: {
+          //     showInheritedMembers: true,
+          //     outputTarget: "markdown",
+          //     newlineKind: NewlineKind.CrLf,
+          //     markdownOptions: {
+          //       fileLevel: "package",
+          //       indexBreadcrumb: "Home",
+          //       indexFilename: "index.md",
+          //       indexTitle: "Sample API Docs"
+          //     },
+          //   },
+          // },
+          documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+          outputFolder,
+        },
+        FileLevel.Package
+      );
+      markdownDocumenter.generateFiles();
     }
-    */
-
-    const markdownDocumenter = new MarkdownDocumenter({
-      apiModel,
-      documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
-      outputFolder,
-    });
-    markdownDocumenter.generateFiles();
   }
 }
 

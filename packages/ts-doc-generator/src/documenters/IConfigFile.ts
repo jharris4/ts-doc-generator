@@ -68,6 +68,13 @@ export interface IConfigPlugin {
   enabledFeatureNames: string[];
 }
 
+export interface IConfigFileMarkdown {
+  fileLevel?: "model" | "package" | "namespace" | "export" | "member" | "all";
+  indexBreadcrumb?: string;
+  indexFilename?: string;
+  indexTitle?: string;
+}
+
 /**
  * This interface represents the api-documenter.json file format.
  */
@@ -76,6 +83,8 @@ export interface IConfigFile {
    * Specifies the output target.
    */
   outputTarget: "docfx" | "markdown";
+
+  markdownOptions: IConfigFileMarkdown;
 
   /**
    * Specifies what type of newlines API Documenter should use when writing output files.

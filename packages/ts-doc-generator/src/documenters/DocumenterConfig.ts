@@ -8,6 +8,7 @@ import {
   NewlineKind,
 } from "@rushstack/node-core-library";
 import { IConfigFile } from "./IConfigFile";
+import { FileLevel } from "./FileLevel";
 
 /**
  * Helper for loading the api-documenter.json file format.  Later when the schema is more mature,
@@ -24,6 +25,8 @@ export class DocumenterConfig {
    */
   public readonly newlineKind: NewlineKind;
 
+  public readonly fileLevel: FileLevel;
+
   /**
    * The JSON Schema for API Documenter config file (api-documenter.schema.json).
    */
@@ -36,7 +39,7 @@ export class DocumenterConfig {
    */
   public static readonly FILENAME: string = "api-documenter.json";
 
-  private constructor(filePath: string, configFile: IConfigFile) {
+  protected constructor(filePath: string, configFile: IConfigFile) {
     this.configFilePath = filePath;
     this.configFile = configFile;
 
@@ -50,6 +53,29 @@ export class DocumenterConfig {
       default:
         this.newlineKind = NewlineKind.CrLf;
         break;
+    }
+
+    if (configFile.markdownOptions) {
+      switch (configFile.markdownOptions.fileLevel) {
+        case "model":
+          this.fileLevel = FileLevel.Model;
+          break;
+        case "package":
+          this.fileLevel = FileLevel.Package;
+          break;
+        case "namespace":
+          this.fileLevel = FileLevel.Namespace;
+          break;
+        case "export":
+          this.fileLevel = FileLevel.Export;
+          break;
+        case "member":
+        default:
+          this.fileLevel = FileLevel.Member;
+          break;
+      }
+    } else {
+      this.fileLevel = FileLevel.Member;
     }
   }
 

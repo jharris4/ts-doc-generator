@@ -14,6 +14,31 @@
       "enum": ["docfx", "markdown"]
     },
 
+    "markdownOptions": {
+      "description": "Specifies what type of documentation will be generated",
+      "type": "object",
+      "properties": {
+        "fileLevel": {
+          "description": "Specifies what level to output separated files until",
+          "type": "string",
+          "enum": ["model", "package", "namespace", "export", "member"],
+          "default": "member"
+        },
+        "indexBreadcrumb": {
+          "description": "The text to show for the index/model in the breadcrumb",
+          "type": "string"
+        },
+        "indexFilename": {
+          "description": "The filename to use for the index/model markdown file",
+          "type": "string"
+        },
+        "indexTitle": {
+          "description": "The text to show for the main title of the index/model",
+          "type": "string"
+        }
+      }
+    },
+
     "newlineKind": {
       "description": "Specifies what type of newlines API Documenter should use when writing output files.  By default, the output files will be written with Windows-style newlines.  To use POSIX-style newlines, specify \"lf\" instead. To use the OS's default newline kind, specify \"os\".",
       "type": "string",
