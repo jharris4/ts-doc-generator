@@ -27,8 +27,8 @@
     "try": "--cwd ../../      /* TODO - these arent's quite working, it is hard to make it work with changed cwd */  ",
     "extract": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts e",
     "generate": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts g",
-    "generate-old": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts o",
-    "generate-new": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts n",
+    "generate-old": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts go",
+    "generate-new": "ts-node --cwd ../../ --project ./packages/ts-doc-generator/tsconfig.json ./packages/ts-doc-generator/src/main.ts gn",
     "docs": "npm run extract && npm run generate"
   }
 }

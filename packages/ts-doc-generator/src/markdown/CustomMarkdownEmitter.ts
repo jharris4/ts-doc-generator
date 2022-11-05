@@ -2,8 +2,9 @@
 // See LICENSE in the project root for license information.
 
 import { yellow as colorYellow } from "colors";
-
-import { DocNode, DocLinkTag, StringBuilder } from "@microsoft/tsdoc";
+import { DocNode, DocLinkTag, DocHtmlStartTag,
+  DocHtmlEndTag,
+  DocHtmlAttribute,StringBuilder } from "@microsoft/tsdoc";
 import {
   ApiModel,
   IResolveDeclarationReferenceResult,
@@ -11,6 +12,7 @@ import {
 } from "@microsoft/api-extractor-model";
 
 import { CustomDocNodeKind } from "../nodes/CustomDocNodeKind";
+import { DocAnchor } from "../nodes/DocAnchor";
 import { DocHeading } from "../nodes/DocHeading";
 // import { DocHorizontalRule } from '../nodes/DocHorizontalRule';
 import { DocNoteBox } from "../nodes/DocNoteBox";
@@ -23,6 +25,7 @@ import {
   IMarkdownEmitterOptions,
 } from "./MarkdownEmitter";
 import { IndentedWriter } from "../utils/IndentedWriter";
+
 
 export interface ICustomMarkdownEmitterOptions extends IMarkdownEmitterOptions {
   contextApiItem: ApiItem | undefined;
@@ -56,6 +59,33 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
     const writer: IndentedWriter = context.writer;
 
     switch (docNode.kind) {
+      case CustomDocNodeKind.Anchor: {
+        const docAnchor: DocAnchor = docNode as DocAnchor;
+        writer.ensureSkippedLine();
+        const { configuration, name } = docAnchor;
+
+        const anchorElement = 0;
+        super.writeNode(
+          new DocHtmlStartTag({
+            configuration,
+            name: "a",
+            htmlAttributes: [
+              new DocHtmlAttribute({
+                configuration,
+                name: "name",
+                value: JSON.stringify(name),
+              }),
+            ],
+          }),
+          context,
+          docNodeSiblings
+        );
+        super.writeNode(
+          new DocHtmlEndTag({ configuration, name: "a" }), context, docNodeSiblings
+        );
+        writer.writeLine();
+        break;
+      }
       case CustomDocNodeKind.Heading: {
         const docHeading: DocHeading = docNode as DocHeading;
         writer.ensureSkippedLine();

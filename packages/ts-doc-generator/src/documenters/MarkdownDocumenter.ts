@@ -52,7 +52,9 @@ import {
 } from "@microsoft/api-extractor-model";
 
 import { CustomDocNodes } from "../nodes/CustomDocNodeKind";
+import { DocAnchor } from "../nodes/DocAnchor";
 import { DocHeading } from "../nodes/DocHeading";
+import { DocHorizontalRule } from "../nodes/DocHorizontalRule";
 import { DocTable } from "../nodes/DocTable";
 import { DocEmphasisSpan } from "../nodes/DocEmphasisSpan";
 import { DocTableRow } from "../nodes/DocTableRow";
@@ -67,6 +69,8 @@ import {
 } from "../plugin/MarkdownDocumenterFeature";
 import { DocumenterConfig } from "./DocumenterConfig";
 import { MarkdownDocumenterAccessor } from "../plugin/MarkdownDocumenterAccessor";
+import { FileLevel } from "./FileLevel";
+import { createItemPath, ApiItemPath } from "./ApiItemPath";
 
 export interface IMarkdownDocumenterOptions {
   apiModel: ApiModel;
@@ -74,11 +78,17 @@ export interface IMarkdownDocumenterOptions {
   outputFolder: string;
 }
 
+export interface IExtraDocumenterOptions {
+  fileLevel: FileLevel;
+}
+
 /**
  * Renders API documentation in the Markdown file format.
  * For more info:  https://en.wikipedia.org/wiki/Markdown
  */
 export class MarkdownDocumenter {
+  private readonly _fileLevel: FileLevel;
+  private _fileItemPath: ApiItemPath;
   private readonly _apiModel: ApiModel;
   private readonly _documenterConfig: DocumenterConfig | undefined;
   private readonly _tsdocConfiguration: TSDocConfiguration;
@@ -86,7 +96,15 @@ export class MarkdownDocumenter {
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
 
-  public constructor(options: IMarkdownDocumenterOptions) {
+  public constructor(
+    options: IMarkdownDocumenterOptions,
+    extraOptions: IExtraDocumenterOptions
+  ) {
+    this._fileLevel = extraOptions.fileLevel;
+    this._fileItemPath = createItemPath(
+      extraOptions.fileLevel,
+      options.apiModel
+    );
     this._apiModel = options.apiModel;
     this._documenterConfig = options.documenterConfig;
     this._outputFolder = options.outputFolder;
@@ -114,18 +132,62 @@ export class MarkdownDocumenter {
     console.log();
     this._deleteOldOutputFiles();
 
-    this._writeApiItemPage(this._apiModel);
+    this._writeApiItemPage(this._apiModel, null);
 
     if (this._pluginLoader.markdownDocumenterFeature) {
       this._pluginLoader.markdownDocumenterFeature.onFinished({});
     }
   }
 
-  private _writeApiItemPage(apiItem: ApiItem): void {
+  private _writeApiItemPages(
+    apiItems: ApiItem[],
+    parentOutput: DocSection | null
+  ): void {
+    const configuration: TSDocConfiguration = this._tsdocConfiguration;
+    const itemPath: ApiItemPath = this._fileItemPath;
+
+    if (itemPath.getIsFileLevel()) {
+      if (apiItems.length > 0) {
+        let first = true;
+        if (itemPath.getIsFileLevelExact()) {
+          parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+        }
+        for (const apiItem of apiItems) {
+          if (first) {
+            first = false;
+          } else if (parentOutput) {
+            parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+          }
+          this._writeApiItemPage(apiItem, parentOutput);
+        }
+        if (itemPath.getIsFileLevelExact()) {
+          parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+        }
+      }
+    } else {
+      for (const apiItem of apiItems) {
+        this._writeApiItemPage(apiItem, parentOutput);
+      }
+    }
+  }
+
+  private _writeApiItemPage(
+    apiItem: ApiItem,
+    parentOutput: DocSection | null
+  ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
     const output: DocSection = new DocSection({ configuration });
+    const savedFileItemPath = this._fileItemPath;
+    const itemPath = (this._fileItemPath =
+      this._fileItemPath.createPathForItem(apiItem));
+    console.log("api item kind A: ", apiItem.kind + " " + itemPath.apiItem.kind);
 
-    this._writeBreadcrumb(output, apiItem);
+    if (itemPath.getIsFileLevel()) {
+      this._writeBreadcrumb(output, apiItem);
+    }
+
+    const itemAnchorLink = itemPath.getAnchorPath();
+    output.appendNode(new DocAnchor({ configuration, name: itemAnchorLink }));
 
     const scopedName: string = apiItem.getScopedNameWithinPackage();
 
@@ -327,41 +389,52 @@ export class MarkdownDocumenter {
       this._writeRemarksSection(output, apiItem);
     }
 
-    const filename: string = path.join(
-      this._outputFolder,
-      this._getFilenameForApiItem(apiItem)
-    );
-    const stringBuilder: StringBuilder = new StringBuilder();
+    console.log("api item kind B: ", apiItem.kind + " " + itemPath.apiItem.kind);
+    if (itemPath.getIsFileLevel()) {
+      const relativeFilename =
+        this._fileLevel === FileLevel.Model || apiItem === this._apiModel
+          ? "index.md"
+          : itemPath.getFilePath();
+      const filename: string = path.join(this._outputFolder, relativeFilename);
 
-    stringBuilder.append(
-      "<!-- Do not edit this file. It is automatically generated by API Documenter. -->\n\n"
-    );
+      const stringBuilder: StringBuilder = new StringBuilder();
 
-    this._markdownEmitter.emit(stringBuilder, output, {
-      contextApiItem: apiItem,
-      onGetFilenameForApiItem: (apiItemForFilename: ApiItem) => {
-        return this._getLinkFilenameForApiItem(apiItemForFilename);
-      },
-    });
+      stringBuilder.append(
+        "<!-- Do not edit this file. It is automatically generated by API Documenter. -->\n\n"
+      );
 
-    let pageContent: string = stringBuilder.toString();
+      this._markdownEmitter.emit(stringBuilder, output, {
+        contextApiItem: apiItem,
+        // this filename is actually used for building links, so the Filename part should be renamed...
+        onGetFilenameForApiItem: (apiItemForFilename: ApiItem) => {
+          return itemPath.getRelativeLink(apiItemForFilename);
+        },
+      });
 
-    if (this._pluginLoader.markdownDocumenterFeature) {
-      // Allow the plugin to customize the pageContent
-      const eventArgs: IMarkdownDocumenterFeatureOnBeforeWritePageArgs = {
-        apiItem: apiItem,
-        outputFilename: filename,
-        pageContent: pageContent,
-      };
-      this._pluginLoader.markdownDocumenterFeature.onBeforeWritePage(eventArgs);
-      pageContent = eventArgs.pageContent;
+      let pageContent: string = stringBuilder.toString();
+
+      if (this._pluginLoader.markdownDocumenterFeature) {
+        // Allow the plugin to customize the pageContent
+        const eventArgs: IMarkdownDocumenterFeatureOnBeforeWritePageArgs = {
+          apiItem: apiItem,
+          outputFilename: filename,
+          pageContent: pageContent,
+        };
+        this._pluginLoader.markdownDocumenterFeature.onBeforeWritePage(
+          eventArgs
+        );
+        pageContent = eventArgs.pageContent;
+      }
+
+      FileSystem.writeFile(filename, pageContent, {
+        convertLineEndings: this._documenterConfig
+          ? this._documenterConfig.newlineKind
+          : NewlineKind.CrLf,
+      });
+    } else if (parentOutput) {
+      parentOutput.appendNodes(output.nodes);
     }
-
-    FileSystem.writeFile(filename, pageContent, {
-      convertLineEndings: this._documenterConfig
-        ? this._documenterConfig.newlineKind
-        : NewlineKind.CrLf,
-    });
+    this._fileItemPath = savedFileItemPath;
   }
 
   private _writeHeritageTypes(
@@ -554,6 +627,8 @@ export class MarkdownDocumenter {
       headerTitles: ["Package", "Description"],
     });
 
+    const apiMembersPackages: ApiItem[] = [];
+
     for (const apiMember of apiModel.members) {
       const row: DocTableRow = new DocTableRow({ configuration }, [
         this._createTitleCell(apiMember),
@@ -563,7 +638,7 @@ export class MarkdownDocumenter {
       switch (apiMember.kind) {
         case ApiItemKind.Package:
           packagesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersPackages.push(apiMember);
           break;
       }
     }
@@ -572,6 +647,8 @@ export class MarkdownDocumenter {
       output.appendNode(new DocHeading({ configuration, title: "Packages" }));
       output.appendNode(packagesTable);
     }
+
+    this._writeApiItemPages(apiMembersPackages, output);
   }
 
   /**
@@ -622,6 +699,13 @@ export class MarkdownDocumenter {
       apiContainer.kind === ApiItemKind.Package
         ? (apiContainer as ApiPackage).entryPoints[0].members
         : (apiContainer as ApiNamespace).members;
+    const apiMembersClasses: ApiItem[] = [];
+    const apiMembersEnums: ApiItem[] = [];
+    const apiMembersInterfaces: ApiItem[] = [];
+    const apiMembersNamespaces: ApiItem[] = [];
+    const apiMembersFunctions: ApiItem[] = [];
+    const apiMembersTypeAliases: ApiItem[] = [];
+    const apiMembersVariables: ApiItem[] = [];
 
     for (const apiMember of apiMembers) {
       const row: DocTableRow = new DocTableRow({ configuration }, [
@@ -632,37 +716,37 @@ export class MarkdownDocumenter {
       switch (apiMember.kind) {
         case ApiItemKind.Class:
           classesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersClasses.push(apiMember);
           break;
 
         case ApiItemKind.Enum:
           enumerationsTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersEnums.push(apiMember);
           break;
 
         case ApiItemKind.Interface:
           interfacesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersInterfaces.push(apiMember);
           break;
 
         case ApiItemKind.Namespace:
           namespacesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersNamespaces.push(apiMember);
           break;
 
         case ApiItemKind.Function:
           functionsTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersFunctions.push(apiMember);
           break;
 
         case ApiItemKind.TypeAlias:
           typeAliasesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersTypeAliases.push(apiMember);
           break;
 
         case ApiItemKind.Variable:
           variablesTable.addRow(row);
-          this._writeApiItemPage(apiMember);
+          apiMembersVariables.push(apiMember);
           break;
       }
     }
@@ -704,6 +788,22 @@ export class MarkdownDocumenter {
       );
       output.appendNode(typeAliasesTable);
     }
+
+    this._writeApiItemPages(
+      Array.prototype.concat.apply(
+        [],
+        [
+          apiMembersClasses,
+          apiMembersEnums,
+          apiMembersInterfaces,
+          apiMembersNamespaces,
+          apiMembersFunctions,
+          apiMembersTypeAliases,
+          apiMembersVariables,
+        ]
+      ),
+      output
+    );
   }
 
   /**
@@ -734,6 +834,11 @@ export class MarkdownDocumenter {
 
     const apiMembers: readonly ApiItem[] =
       this._getMembersAndWriteIncompleteWarning(apiClass, output);
+    const apiMembersConstructors: ApiItem[] = [];
+    const apiMembersMethods: ApiItem[] = [];
+    const apiMembersProperties: ApiItem[] = [];
+    const apiMembersEvents: ApiItem[] = [];
+
     for (const apiMember of apiMembers) {
       const isInherited: boolean = apiMember.parent !== apiClass;
       switch (apiMember.kind) {
@@ -746,7 +851,7 @@ export class MarkdownDocumenter {
             ])
           );
 
-          this._writeApiItemPage(apiMember);
+          apiMembersConstructors.push(apiMember);
           break;
         }
         case ApiItemKind.Method: {
@@ -758,7 +863,7 @@ export class MarkdownDocumenter {
             ])
           );
 
-          this._writeApiItemPage(apiMember);
+          apiMembersMethods.push(apiMember);
           break;
         }
         case ApiItemKind.Property: {
@@ -771,6 +876,7 @@ export class MarkdownDocumenter {
                 this._createDescriptionCell(apiMember, isInherited),
               ])
             );
+            apiMembersEvents.push(apiMember);
           } else {
             propertiesTable.addRow(
               new DocTableRow({ configuration }, [
@@ -780,9 +886,9 @@ export class MarkdownDocumenter {
                 this._createDescriptionCell(apiMember, isInherited),
               ])
             );
+            apiMembersProperties.push(apiMember);
           }
 
-          this._writeApiItemPage(apiMember);
           break;
         }
       }
@@ -809,6 +915,19 @@ export class MarkdownDocumenter {
       output.appendNode(new DocHeading({ configuration, title: "Methods" }));
       output.appendNode(methodsTable);
     }
+
+    this._writeApiItemPages(
+      Array.prototype.concat.apply(
+        [],
+        [
+          apiMembersEvents,
+          apiMembersConstructors,
+          apiMembersProperties,
+          apiMembersMethods,
+        ]
+      ),
+      output
+    );
   }
 
   /**
@@ -873,6 +992,10 @@ export class MarkdownDocumenter {
 
     const apiMembers: readonly ApiItem[] =
       this._getMembersAndWriteIncompleteWarning(apiInterface, output);
+    const apiMembersMethods: ApiItem[] = [];
+    const apiMembersProperties: ApiItem[] = [];
+    const apiMembersEvents: ApiItem[] = [];
+
     for (const apiMember of apiMembers) {
       const isInherited: boolean = apiMember.parent !== apiInterface;
       switch (apiMember.kind) {
@@ -885,7 +1008,7 @@ export class MarkdownDocumenter {
             ])
           );
 
-          this._writeApiItemPage(apiMember);
+          apiMembersMethods.push(apiMember);
           break;
         }
         case ApiItemKind.PropertySignature: {
@@ -898,6 +1021,7 @@ export class MarkdownDocumenter {
                 this._createDescriptionCell(apiMember, isInherited),
               ])
             );
+            apiMembersEvents.push(apiMember);
           } else {
             propertiesTable.addRow(
               new DocTableRow({ configuration }, [
@@ -907,9 +1031,9 @@ export class MarkdownDocumenter {
                 this._createDescriptionCell(apiMember, isInherited),
               ])
             );
+            apiMembersProperties.push(apiMember);
           }
 
-          this._writeApiItemPage(apiMember);
           break;
         }
       }
@@ -929,6 +1053,14 @@ export class MarkdownDocumenter {
       output.appendNode(new DocHeading({ configuration, title: "Methods" }));
       output.appendNode(methodsTable);
     }
+
+    this._writeApiItemPages(
+      Array.prototype.concat.apply(
+        [],
+        [apiMembersEvents, apiMembersProperties, apiMembersMethods]
+      ),
+      output
+    );
   }
 
   /**
@@ -1346,44 +1478,8 @@ export class MarkdownDocumenter {
     return result.items;
   }
 
-  private _getFilenameForApiItem(apiItem: ApiItem): string {
-    if (apiItem.kind === ApiItemKind.Model) {
-      return "index.md";
-    }
-
-    let baseName: string = "";
-    for (const hierarchyItem of apiItem.getHierarchy()) {
-      // For overloaded methods, add a suffix such as "MyClass.myMethod_2".
-      let qualifiedName: string = Utilities.getSafeFilenameForName(
-        hierarchyItem.displayName
-      );
-      if (ApiParameterListMixin.isBaseClassOf(hierarchyItem)) {
-        if (hierarchyItem.overloadIndex > 1) {
-          // Subtract one for compatibility with earlier releases of API Documenter.
-          // (This will get revamped when we fix GitHub issue #1308)
-          qualifiedName += `_${hierarchyItem.overloadIndex - 1}`;
-        }
-      }
-
-      switch (hierarchyItem.kind) {
-        case ApiItemKind.Model:
-        case ApiItemKind.EntryPoint:
-        case ApiItemKind.EnumMember:
-          break;
-        case ApiItemKind.Package:
-          baseName = Utilities.getSafeFilenameForName(
-            PackageName.getUnscopedName(hierarchyItem.displayName)
-          );
-          break;
-        default:
-          baseName += "." + qualifiedName;
-      }
-    }
-    return baseName + ".md";
-  }
-
   private _getLinkFilenameForApiItem(apiItem: ApiItem): string {
-    return "./" + this._getFilenameForApiItem(apiItem);
+    return this._fileItemPath.getRelativeLink(apiItem);
   }
 
   private _deleteOldOutputFiles(): void {

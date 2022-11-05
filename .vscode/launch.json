@@ -7,6 +7,19 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Old Generator",
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--loader",
+        "ts-node/esm",
+        "--experimental-specifier-resolution=node"
+      ],
+      "args": ["go"],
+      "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Run Generator",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [

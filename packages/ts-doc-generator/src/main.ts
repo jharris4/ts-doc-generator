@@ -244,10 +244,13 @@ async function main() {
     }
 
     if (DO_GENERATE_ORIGINAL) {
+      // actually this is now the newest...
       const markdownDocumenter = new MarkdownDocumenter({
         apiModel,
         documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
         outputFolder,
+      }, {
+        fileLevel: FileLevel.Package
       });
       markdownDocumenter.generateFiles();
     } else if (DO_GENERATE_NEW) {

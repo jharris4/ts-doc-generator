@@ -21,6 +21,9 @@ import {
   DocBlock,
   DocComment,
   DocNodeContainer,
+  DocHtmlStartTag,
+  DocHtmlEndTag,
+  DocHtmlAttribute,
 } from "@microsoft/tsdoc";
 import {
   ApiModel,
@@ -75,19 +78,66 @@ import { FileLevel } from "./FileLevel";
 // todo - need to make ItemPaths (terrible name btw) handle the type suffix for last path (this.apiItem.kind)
 
 export namespace KindInfo {
+  const { Model, Package, Namespace } = ApiItemKind;
+  const { Class, Enum, Function, Interface, TypeAlias, Variable } = ApiItemKind;
+  const { ConstructSignature, Constructor, EnumMember } = ApiItemKind;
+  const { Method, MethodSignature } = ApiItemKind;
+  const { Property, PropertySignature } = ApiItemKind;
+  const { EntryPoint, CallSignature, IndexSignature, None } = ApiItemKind;
+
   interface KindInfo {
+    kind: ApiItemKind;
     labelTitle: string;
     labelTable: string;
+    memberKinds: ApiItemKind[];
   }
 
   function createKindInfoMap(): Map<ApiItemKind, KindInfo> {
+    const kindChildKindsMap: Map<ApiItemKind, ApiItemKind[]> = new Map();
+
+    const setChildKinds = (kind: ApiItemKind, childKinds: ApiItemKind[]) => {
+      kindChildKindsMap.set(kind, childKinds);
+    };
+
+    const getPackageMembers = (pkg: ApiPackage) => pkg.entryPoints[0].members;
+    const getOtherMembers = (item: ApiItem) => item.members;
+
+    const modelMemberKinds = [Package];
+
+    const packageOrNamespaceMemberKinds = [
+      Class,
+      Enum,
+      Interface,
+      Namespace,
+      Function,
+      TypeAlias,
+      Variable,
+    ];
+
+    const classMemberKinds = [Constructor];
+
+    const enumMemberKinds = [EnumMember];
+
+    const interfaceMemberKinds = [Constructor];
+
+    setChildKinds(Model, modelMemberKinds);
+    setChildKinds(Package, packageOrNamespaceMemberKinds);
+    setChildKinds(Namespace, packageOrNamespaceMemberKinds);
+    setChildKinds(Class, classMemberKinds);
+    setChildKinds(Enum, enumMemberKinds);
+    setChildKinds(Interface, interfaceMemberKinds);
+
     const kindInfoMap: Map<ApiItemKind, KindInfo> = new Map();
+
+    const getMembersByKind = (apiItem: ApiItem) => {};
+
     const addInfo = (
       kind: ApiItemKind,
       labelTitle: string,
-      labelTable: string
+      labelTable: string,
+      memberKinds: ApiItemKind[] = []
     ) => {
-      kindInfoMap.set(kind, { labelTitle, labelTable });
+      kindInfoMap.set(kind, { kind, labelTitle, labelTable, memberKinds });
     };
     addInfo(ApiItemKind.CallSignature, "", "");
     addInfo(ApiItemKind.Class, "class", "classes");
@@ -113,7 +163,12 @@ export namespace KindInfo {
   }
 
   const kindInfoMap = createKindInfoMap();
-  const createEmptyInfoMap = () => ({ labelTitle: "", labelTable: "" });
+  const createEmptyInfoMap = () => ({
+    kind: ApiItemKind.None,
+    memberKinds: [],
+    labelTitle: "",
+    labelTable: "",
+  });
 
   export function getKindInfo(apiItem: ApiItem): KindInfo {
     const kindInfo = kindInfoMap.get(apiItem.kind);
@@ -494,6 +549,42 @@ export class MDDocumenter {
       });
     }
 
+    const visitMembers = (item: ApiItem): void => {
+      const { kind, members } = item;
+      if (members && members.length > 0) {
+        const childMembers =
+          kind === ApiItemKind.Package
+            ? members.flatMap((m) => m.members)
+            : members;
+        if (
+          item.kind !== ApiItemKind.Model &&
+          item.kind !== ApiItemKind.Package
+        ) {
+          const nameMap: Map<string, ApiItem[]> = new Map();
+          for (const member of childMembers) {
+            const name = member.displayName.toLowerCase();
+            const existingItems = nameMap.get(name);
+            const newItems =
+              existingItems !== undefined
+                ? existingItems.concat(member)
+                : [member];
+            nameMap.set(name, newItems);
+          }
+          for (const member of childMembers) {
+            const name = member.displayName.toLowerCase();
+            const existingItems = nameMap.get(name);
+            if (existingItems !== undefined && existingItems.length > 1) {
+            }
+          }
+        }
+        console.log("visiting: " + kind + " " + item.displayName);
+        for (const member of childMembers) {
+          visitMembers(member);
+        }
+      }
+    };
+    visitMembers(this._apiModel);
+
     console.log();
     this._deleteOldOutputFiles();
 
@@ -519,6 +610,8 @@ export class MDDocumenter {
       ? itemPaths.getHeaderLevelChild()
       : itemPaths.getHeaderLevel();
     output.appendNode(new DocHeading({ configuration, title, level }));
+    // this._appendAnchor(output, title);
+    // this._appendAnchor(output, "abcdef");
   }
 
   private _appendHeading(
@@ -552,6 +645,24 @@ export class MDDocumenter {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
     output.appendNode(new DocHorizontalRule({ configuration }));
   }
+
+  // private _appendAnchor(output: DocSection, name: string): void {
+  //   const configuration: TSDocConfiguration = this._tsdocConfiguration;
+  //   output.appendNodes([
+  //     new DocHtmlStartTag({
+  //       configuration,
+  //       name: "a",
+  //       htmlAttributes: [
+  //         new DocHtmlAttribute({
+  //           configuration,
+  //           name: "name",
+  //           value: name,
+  //         }),
+  //       ],
+  //     }),
+  //     new DocHtmlEndTag({ configuration, name: "a" }),
+  //   ]);
+  // }
 
   private _writeApiItemPages(
     parentItem: ApiItem,
@@ -761,8 +872,10 @@ export class MDDocumenter {
 
       this._markdownEmitter.emit(stringBuilder, output, {
         contextApiItem: apiItem,
+        // this filename is actually used for building links, so the Filename part should be renamed...
         onGetFilenameForApiItem: (apiItemForFilename: ApiItem) => {
-          return this._getLinkFilenameForApiItem(apiItemForFilename);
+          // return filename;
+          return itemPaths.getRelativeLink(apiItemForFilename);
         },
       });
 

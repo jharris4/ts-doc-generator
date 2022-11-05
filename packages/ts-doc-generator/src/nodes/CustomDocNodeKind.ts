@@ -1,4 +1,5 @@
 import { TSDocConfiguration, DocNodeKind } from "@microsoft/tsdoc";
+import { DocAnchor } from "./DocAnchor";
 import { DocEmphasisSpan } from "./DocEmphasisSpan";
 import { DocHeading } from "./DocHeading";
 import { DocHorizontalRule } from "./DocHorizontalRule";
@@ -14,6 +15,7 @@ import { DocTableRow } from "./DocTableRow";
  * Identifies custom subclasses of {@link DocNode}.
  */
 export const enum CustomDocNodeKind {
+  Anchor = "Anchor",
   EmphasisSpan = "EmphasisSpan",
   Heading = "Heading",
   HorizontalRule = "HorizontalRule",
@@ -33,6 +35,10 @@ export class CustomDocNodes {
       configuration.docNodeManager.registerDocNodes(
         "@micrososft/api-documenter",
         [
+          {
+            docNodeKind: CustomDocNodeKind.Anchor,
+            constructor: DocAnchor,
+          },
           {
             docNodeKind: CustomDocNodeKind.EmphasisSpan,
             constructor: DocEmphasisSpan,
@@ -60,6 +66,7 @@ export class CustomDocNodes {
       configuration.docNodeManager.registerAllowableChildren(
         DocNodeKind.Section,
         [
+          CustomDocNodeKind.Anchor,
           CustomDocNodeKind.Heading,
           CustomDocNodeKind.HorizontalRule,
           CustomDocNodeKind.NoteBox,
