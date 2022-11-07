@@ -98,7 +98,11 @@ export class MarkdownEmitter {
 
   protected getTableEscapedText(text: string): string {
     return text
-      .replace(/&/g, "&amp;")
+      .replace(
+        ///&/g,
+        /&(?!(?:\#(?:(?<dec>[0-9]+)|[Xx](?<hex>[0-9A-Fa-f]+))|(?<named>[A-Za-z0-9]+));)/g,
+        "&amp;"
+      )
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
