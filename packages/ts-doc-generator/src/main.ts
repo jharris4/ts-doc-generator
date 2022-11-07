@@ -11,6 +11,10 @@ import { MDDocumenter } from "./documenters/MDDocumenter";
 import { NewDocumenter } from "./documenters/NewDocumenter";
 import { FileLevel } from "./documenters/FileLevel";
 
+const packageFilter = (path: string) => !path.includes("ts-doc-generator");
+// const packageFilter = (path: string) => path.includes("package-case");
+// const packageFilter = (path: string) => path.includes("package-namespaced");
+
 interface ExtractorBundle {
   extractorConfig: ExtractorConfig | null;
   extractorErrorMessage: string | null;
@@ -179,9 +183,7 @@ async function main() {
         );
       }
       // console.log("\n\n\n\n^^^^^^^^ package paths: ", packagePaths);
-      packagePaths = packagePaths.filter(
-        (path) => !path.includes("ts-doc-generator")
-      );
+      packagePaths = packagePaths.filter(packageFilter);
       // packagePaths = ["packages/ts-doc-generator"];
 
       if (packagePaths.length > 0) {
@@ -236,7 +238,7 @@ async function main() {
     const outputFolder = documenterOutputPath;
     FileSystem.ensureFolder(outputFolder);
     for (const filename of FileSystem.readFolderItemNames(inputFolder)) {
-      if (filename.match(/\.api\.json$/i)) {
+      if (filename.match(/\.api\.json$/i) && packageFilter(filename)) {
         console.log(`Reading ${filename}`);
         const filenamePath = path.join(inputFolder, filename);
         apiModel.loadPackage(filenamePath);
@@ -245,14 +247,26 @@ async function main() {
 
     if (DO_GENERATE_ORIGINAL) {
       // actually this is now the newest...
-      const markdownDocumenter = new MarkdownDocumenter({
-        apiModel,
-        documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
-        outputFolder,
-      }, {
-        fileLevel: FileLevel.Package
-      });
-      markdownDocumenter.generateFiles();
+
+      const fileLevels: FileLevel[] = Object.keys(FileLevel).map(
+        (fileLevel) => fileLevel as FileLevel
+      );
+      for (const fileLevel of fileLevels) {
+        const subOutputFolder = path.join(outputFolder, fileLevel);
+        FileSystem.ensureFolder(subOutputFolder);
+        const markdownDocumenter = new MarkdownDocumenter(
+          {
+            apiModel,
+            documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+            outputFolder: subOutputFolder,
+          },
+          {
+            fileLevel,
+            indexFilename: "index",
+          }
+        );
+        markdownDocumenter.generateFiles();
+      }
     } else if (DO_GENERATE_NEW) {
       const markdownDocumenter = new NewDocumenter({
         apiModel,
