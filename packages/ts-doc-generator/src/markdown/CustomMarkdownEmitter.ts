@@ -2,9 +2,14 @@
 // See LICENSE in the project root for license information.
 
 import { yellow as colorYellow } from "colors";
-import { DocNode, DocLinkTag, DocHtmlStartTag,
+import {
+  DocNode,
+  DocLinkTag,
+  DocHtmlStartTag,
   DocHtmlEndTag,
-  DocHtmlAttribute,StringBuilder } from "@microsoft/tsdoc";
+  DocHtmlAttribute,
+  StringBuilder,
+} from "@microsoft/tsdoc";
 import {
   ApiModel,
   IResolveDeclarationReferenceResult,
@@ -25,7 +30,6 @@ import {
   IMarkdownEmitterOptions,
 } from "./MarkdownEmitter";
 import { IndentedWriter } from "../utils/IndentedWriter";
-
 
 export interface ICustomMarkdownEmitterOptions extends IMarkdownEmitterOptions {
   contextApiItem: ApiItem | undefined;
@@ -81,7 +85,9 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
           docNodeSiblings
         );
         super.writeNode(
-          new DocHtmlEndTag({ configuration, name: "a" }), context, docNodeSiblings
+          new DocHtmlEndTag({ configuration, name: "a" }),
+          context,
+          docNodeSiblings
         );
         writer.writeLine();
         break;
@@ -112,8 +118,8 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
       case CustomDocNodeKind.HorizontalRule: {
         // const docHorizontalRule: DocHorizontalRule = docNode as DocHorizontalRule;
         writer.ensureSkippedLine();
-        writer.writeLine();
         writer.write("---");
+        writer.writeLine();
         writer.writeLine();
         break;
       }
@@ -150,9 +156,29 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
           }
         }
 
+        const skipIndexMap: Map<number, boolean> = new Map();
+
+        if (docTable.skipEmptyColumns) {
+          for (let i: number = 0; i < columnCount; ++i) {
+            let foundValue = false;
+            for (const row of docTable.rows) {
+              if (row.cells[i].content.nodes.length > 0) {
+                foundValue = true;
+                break;
+              }
+            }
+            if (!foundValue) {
+              skipIndexMap.set(i, true);
+            }
+          }
+        }
+
         // write the table header (which is required by Markdown)
         writer.write("| ");
         for (let i: number = 0; i < columnCount; ++i) {
+          if (skipIndexMap.get(i)) {
+            continue;
+          }
           writer.write(" ");
           if (docTable.header) {
             const cell: DocTableCell | undefined = docTable.header.cells[i];
@@ -167,15 +193,21 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         // write the divider
         writer.write("| ");
         for (let i: number = 0; i < columnCount; ++i) {
+          if (skipIndexMap.get(i)) {
+            continue;
+          }
           writer.write(" --- |");
         }
         writer.writeLine();
 
         for (const row of docTable.rows) {
           writer.write("| ");
-          for (const cell of row.cells) {
+          for (let i: number = 0; i < columnCount; ++i) {
+            if (skipIndexMap.get(i)) {
+              continue;
+            }
             writer.write(" ");
-            this.writeNode(cell.content, context, false);
+            this.writeNode(row.cells[i].content, context, false);
             writer.write(" |");
           }
           writer.writeLine();
