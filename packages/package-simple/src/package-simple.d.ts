@@ -8,8 +8,22 @@ interface PackageSimpleLocalInterface {
 export interface PackageSimpleInterfaceOne {
   /**
    * This is the first property of the first simple interface.
+   *
+   * @defaultValue 123
    */
   property1: number;
+  /**
+   * This is the second property of the first simple interface.
+   */
+  property2: string;
+  /**
+   * This is the third property of the first simple interface.
+   *
+   * @defaultValue
+   * The default is `456` unless
+   *  `Some.Flag` was specified.
+   */
+  property3: boolean;
   /**
    * This is the test event property
    * @eventProperty
