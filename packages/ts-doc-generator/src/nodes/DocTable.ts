@@ -12,6 +12,7 @@ import { DocTableCell } from "./DocTableCell";
 export interface IDocTableParameters extends IDocNodeParameters {
   headerCells?: ReadonlyArray<DocTableCell>;
   headerTitles?: string[];
+  skipEmptyColumns?: boolean;
 }
 
 /**
@@ -21,6 +22,7 @@ export class DocTable extends DocNode {
   public readonly header: DocTableRow;
 
   private _rows: DocTableRow[];
+  private _skipEmptyColumns: boolean;
 
   public constructor(
     parameters: IDocTableParameters,
@@ -30,6 +32,7 @@ export class DocTable extends DocNode {
 
     this.header = new DocTableRow({ configuration: this.configuration });
     this._rows = [];
+    this._skipEmptyColumns = parameters.skipEmptyColumns || true;
 
     if (parameters) {
       if (parameters.headerTitles) {
@@ -63,6 +66,10 @@ export class DocTable extends DocNode {
 
   public get rows(): ReadonlyArray<DocTableRow> {
     return this._rows;
+  }
+
+  public get skipEmptyColumns(): boolean {
+    return this._skipEmptyColumns;
   }
 
   public addRow(row: DocTableRow): void {
