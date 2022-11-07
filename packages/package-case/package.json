@@ -1,0 +1,5 @@
+{
+  "name": "package-case",
+  "version": "1.0.0",
+  "types": "src/package-case.d.ts"
+}
