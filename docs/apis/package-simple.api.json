@@ -1,0 +1,1205 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.33.5",
+    "schemaVersion": 1010,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "package-simple!",
+  "docComment": "",
+  "name": "package-simple",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "package-simple!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Class",
+          "canonicalReference": "package-simple!PackageSimpleClass:class",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export class PackageSimpleClass extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "PackageSimpleLocalClass",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleClass",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "package-simple!PackageSimpleClass:constructor(1)",
+              "docComment": "/**\n * Constructs a new instance of the `PackageSimpleClass` class\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(properties: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "properties",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "package-simple!PackageSimpleClass#subFile:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "subFile: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "subFile",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false,
+              "isProtected": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "package-simple!PackageSimpleClass#subFunction:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "subFunction: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(arg1: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<number>) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<number>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "subFunction",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              },
+              "isStatic": false,
+              "isProtected": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "package-simple!PackageSimpleClass#subVersion:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "subVersion: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "subVersion",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false,
+              "isProtected": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleClass#toSubFunction:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toSubFunction(\n    arg1: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(arg1: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<number>) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<number>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "\n  ): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(a: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<boolean>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 10
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "arg1",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 6
+                  },
+                  "isOptional": false
+                }
+              ],
+              "isOptional": false,
+              "name": "toSubFunction"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleClass#toSubFunctionArray:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toSubFunctionArray(\n    arg1: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(arg1: number[]) => number[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "\n  ): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(a: string) => boolean[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "arg1",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ],
+              "isOptional": false,
+              "name": "toSubFunctionArray"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleClass#toSubString:member(1)",
+              "docComment": "/**\n * Returns the sub equivalent of `JSON.stringify()`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toSubString(arg1: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "arg1",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ],
+              "isOptional": false,
+              "name": "toSubString"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleClass#toSubUrl:member(1)",
+              "docComment": "/**\n * return a sub url for the class, here's a code example `fetchSubPackageSimple(options?: PackageSimpleClass): string;`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toSubUrl(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [],
+              "isOptional": false,
+              "name": "toSubUrl"
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Enum",
+          "canonicalReference": "package-simple!PackageSimpleEnum:enum",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export enum PackageSimpleEnum "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleEnum",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnum.EnumValueOne:member",
+              "docComment": "/**\n * The value for 1.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "EnumValueOne"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "EnumValueOne"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnum.EnumValueTwo:member",
+              "docComment": "/**\n * The value for 2 with value `EnumValueTwo`.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "EnumValueTwo"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "EnumValueTwo"
+            }
+          ]
+        },
+        {
+          "kind": "Enum",
+          "canonicalReference": "package-simple!PackageSimpleEnumValues:enum",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export enum PackageSimpleEnumValues "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleEnumValues",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnumValues.Down:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Down"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "Down"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnumValues.Left:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Left"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "Left"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnumValues.Right:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Right"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "Right"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-simple!PackageSimpleEnumValues.Up:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Up = "
+                },
+                {
+                  "kind": "Content",
+                  "text": "1"
+                }
+              ],
+              "initializerTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "name": "Up"
+            }
+          ]
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "package-simple!PackageSimpleFunctionOne:function(1)",
+          "docComment": "/**\n * This is the simple function description\n *\n * @param x - The number\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function PackageSimpleFunctionOne(x?: "
+            },
+            {
+              "kind": "Content",
+              "text": "number"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "x",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "PackageSimpleFunctionOne"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-simple!PackageSimpleInterfaceOne:interface",
+          "docComment": "/**\n * This is a really simple interface, the first one\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface PackageSimpleInterfaceOne "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleInterfaceOne",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne#property1:member",
+              "docComment": "/**\n * This is the first property of the first simple interface.\n *\n * @defaultValue\n *\n * 123\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "property1: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "property1",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne#property2:member",
+              "docComment": "/**\n * This is the second property of the first simple interface.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "property2: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "property2",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne#property3:member",
+              "docComment": "/**\n * This is the third property of the first simple interface.\n *\n * @defaultValue\n *\n * The default is `456` unless `Some.Flag` was specified.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "property3: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "property3",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne#propertyEvent:member",
+              "docComment": "/**\n * This is the test event property\n *\n * @eventProperty\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "propertyEvent: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Event",
+                  "canonicalReference": "!Event:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "propertyEvent",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "package-simple!PackageSimpleLocalClass:class",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "class PackageSimpleLocalClass "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleLocalClass",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass:constructor(1)",
+              "docComment": "/**\n * Constructs a new instance of the `PackageSimpleLocalClass` class\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(properties: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "properties",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass#file:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "file: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "file",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false,
+              "isProtected": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass#toString:member(1)",
+              "docComment": "/**\n * Returns the equivalent of `JSON.stringify()`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toString(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [],
+              "isOptional": false,
+              "name": "toString"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass#toUrl:member(1)",
+              "docComment": "/**\n * return a url for the class, here's a code example `fetchPackageSimple(options?: PackageSimpleLocalClass): string;`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toUrl(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "isProtected": false,
+              "overloadIndex": 1,
+              "parameters": [],
+              "isOptional": false,
+              "name": "toUrl"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "package-simple!PackageSimpleLocalClass#version:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "version: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "version",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false,
+              "isProtected": false
+            }
+          ],
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-simple!PackageSimpleLocalInterface:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "interface PackageSimpleLocalInterface "
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "PackageSimpleLocalInterface",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-simple!PackageSimpleLocalInterface#propertyOne:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "propertyOne: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "propertyOne",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "package-simple!PackageSimpleVariableFunction:var",
+          "docComment": "/**\n * This is the simple variable function description\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "PackageSimpleVariableFunction: "
+            },
+            {
+              "kind": "Content",
+              "text": "(x?: number) => void"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "PackageSimpleVariableFunction",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "package-simple!PackageSimpleVariableString:var",
+          "docComment": "/**\n * This is the simple variable string description\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "PackageSimpleVariableString: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "PackageSimpleVariableString",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "package-simple!simpleFunctionOne:type",
+          "docComment": "/**\n * This is the first simple function, it returns nothing\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type simpleFunctionOne = "
+            },
+            {
+              "kind": "Content",
+              "text": "(arg: string) => void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "simpleFunctionOne",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "package-simple!simpleFunctionThree:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type simpleFunctionThree = "
+            },
+            {
+              "kind": "Content",
+              "text": "(\n  arg: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PackageSimpleLocalInterface",
+              "canonicalReference": "package-simple!PackageSimpleLocalInterface:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "[]\n) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "PackageSimpleInterfaceOne",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "simpleFunctionThree",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "package-simple!simpleFunctionTwo:type",
+          "docComment": "/**\n * This is the second simple function, it returns a `PackageSimpleInterfaceOne`\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type simpleFunctionTwo = "
+            },
+            {
+              "kind": "Content",
+              "text": "(\n  arg: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PackageSimpleLocalInterface",
+              "canonicalReference": "package-simple!PackageSimpleLocalInterface:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "\n) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "PackageSimpleInterfaceOne",
+              "canonicalReference": "package-simple!PackageSimpleInterfaceOne:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/package-simple.d.ts",
+          "releaseTag": "Public",
+          "name": "simpleFunctionTwo",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        }
+      ]
+    }
+  ]
+}
