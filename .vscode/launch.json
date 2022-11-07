@@ -38,6 +38,19 @@
       "program": "${workspaceFolder}/node_modules/@microsoft/api-documenter/lib/start.js",
       "args": ["markdown"],
       "outFiles": ["${workspaceFolder}/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Extractor",
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--loader",
+        "ts-node/esm",
+        "--experimental-specifier-resolution=node"
+      ],
+      "args": ["e"],
+      "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
     }
   ]
 }
