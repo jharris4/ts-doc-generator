@@ -22,7 +22,7 @@ const addMemberCollisions = (
       kind === ApiItemKind.Package
         ? members.flatMap((m) => m.members)
         : members;
-    if (item.kind !== ApiItemKind.Model && item.kind !== ApiItemKind.Package) {
+    if (item.kind !== ApiItemKind.Model) {
       const nameMap: Map<string, ApiItem[]> = new Map();
       const lowerNameMap: Map<string, ApiItem[]> = new Map();
       for (const member of childMembers) {
@@ -39,7 +39,7 @@ const addMemberCollisions = (
             ? existingLowerNameItems.concat(member)
             : [member];
         nameMap.set(name, newNameItems);
-        lowerNameMap.set(name, newLowerNameItems);
+        lowerNameMap.set(lowerName, newLowerNameItems);
       }
 
       if (childMembers.length !== nameMap.size) {
@@ -82,7 +82,6 @@ const addMemberCollisions = (
         }
       }
     }
-    console.log("visiting: " + kind + " " + item.displayName);
     for (const member of childMembers) {
       addMemberCollisions(member, nameCollisionIndexMap, caseCollisionIndexMap);
     }
@@ -219,6 +218,7 @@ export namespace IsKind {
 export interface IApiItemPathOptions {
   fileLevel: FileLevel;
   apiModel: ApiModel;
+  indexFilename: string;
   apiItem: ApiItem;
   collisionLookup?: CollisionLookup;
 }
@@ -228,6 +228,7 @@ export interface IApiItemPathOptions {
 export class ApiItemPath implements IApiItemPathOptions {
   private readonly _fileLevel: FileLevel;
   private readonly _apiModel: ApiModel;
+  private readonly _indexFilename: string;
   private readonly _collisionLookup: CollisionLookup;
   private readonly _apiItem: ApiItem;
 
@@ -236,7 +237,7 @@ export class ApiItemPath implements IApiItemPathOptions {
   private readonly _fileApiItems: ApiItem[];
   private readonly _anchorApiItems: ApiItem[];
 
-  public getPathForItem(apiItem: ApiItem, caseSensitive: boolean): string {
+  public getPathForItem(apiItem: ApiItem): string {
     const { kind, displayName } = apiItem;
     let path = displayName;
     if (kind === Package) {
@@ -255,7 +256,7 @@ export class ApiItemPath implements IApiItemPathOptions {
         this.collisionLookup.getItemNameCollisionIndex(apiItem);
       if (nameCollisionIndex !== undefined) {
         path = displayName + "-" + nameCollisionIndex;
-      } else if (caseSensitive) {
+      } else {
         const caseCollisionIndex =
           this.collisionLookup.getItemCaseCollisionIndex(apiItem);
         if (caseCollisionIndex !== undefined) {
@@ -269,6 +270,7 @@ export class ApiItemPath implements IApiItemPathOptions {
   public constructor(options: IApiItemPathOptions) {
     const fileLevel = (this._fileLevel = options.fileLevel);
     this._apiModel = options.apiModel;
+    this._indexFilename = options.indexFilename;
     this._collisionLookup = options.collisionLookup
       ? options.collisionLookup
       : createCollisionLookup(options.apiModel);
@@ -285,11 +287,14 @@ export class ApiItemPath implements IApiItemPathOptions {
         !IsKind.isIgnoredKind(hierarchyItem)
       ) {
         const isFileLevel = IsKind.isFileLevelKind(fileLevel, hierarchyItem);
-        const path = this.getPathForItem(hierarchyItem, !isFileLevel);
+        const path = this.getPathForItem(hierarchyItem);
         const targetPaths = isFileLevel ? filePaths : anchorPaths;
         const targetItems = isFileLevel ? fileApiItems : anchorApiItems;
+        // TODO - this getSafeFilenameForName makes lowercase and replaces non alpha/numeric characters with _
         targetPaths.push(
-          isFileLevel ? Utilities.getSafeFilenameForName(path) : path.toLowerCase()
+          isFileLevel
+            ? Utilities.getSafeFilenameForName(path)
+            : path.toLowerCase()
         );
         targetItems.push(hierarchyItem);
       }
@@ -302,6 +307,10 @@ export class ApiItemPath implements IApiItemPathOptions {
 
   public get apiModel() {
     return this._apiModel;
+  }
+
+  public get indexFilename() {
+    return this._indexFilename;
   }
 
   public get collisionLookup() {
@@ -341,30 +350,28 @@ export class ApiItemPath implements IApiItemPathOptions {
   }
 
   getIsFileLevelExact(): boolean {
-    return (
-      this.apiItem.parent !== undefined &&
-      IsKind.isFileLevelKindExact(this.fileLevel, this.apiItem.parent)
-    );
+    return IsKind.isFileLevelKindExact(this.fileLevel, this.apiItem);
   }
 
   /*
    * weirdly the level mappings are: 1 => ##, 2 => ###, 3 => ###, 4 => ####, 5 => ####
+   *
+   * // TODO - add support for headerIndent, defaults to "", could be "-" or "&nbsp;" etc
    */
   getHeaderLevel(): number {
     const { length } = this.anchorPaths;
     return length === 0 ? 1 : length === 1 ? 3 : 5;
   }
 
-  // TODO - add support for headerIndent, defaults to "", could be "-" or "&nbsp;" etc
-
-  getHeaderLevelChild(): number {
-    return this.anchorPaths.length === 0 ? 3 : 5;
+  getHeaderLevelChild(): number | undefined {
+    const { length } = this.anchorPaths;
+    return length === 0 ? 3 : length === 1 ? 5 : undefined;
   }
 
   getHeaderLink(): string {
     return this.anchorPaths.length > 0
       ? this.getAnchorPath()
-      : "#" + this.getPathForItem(this.apiItem, true);
+      : "#" + this.getPathForItem(this.apiItem);
   }
 
   getFilePath(): string {
@@ -384,26 +391,34 @@ export class ApiItemPath implements IApiItemPathOptions {
   }
 
   getRelativeLink(apiItem: ApiItem): string {
-    const { fileLevel, apiModel, collisionLookup } = this;
-    const itemPath = new ApiItemPath({
-      fileLevel,
-      apiModel,
-      collisionLookup,
-      apiItem,
-    });
-    const sameFile = this.lastFileItem === itemPath.lastFileItem;
-    return sameFile
-      ? itemPath.getHasAnchor()
-        ? "#" + itemPath.getAnchorPath()
-        : "./"
-      : itemPath.getExternalLink();
+    const { fileLevel, apiModel, indexFilename, collisionLookup } = this;
+    if (apiItem === apiModel) {
+      return "./" + indexFilename + ".md";
+    } else if (apiItem === this.apiItem) {
+      return this.getExternalLink();
+    } else {
+      const itemPath = new ApiItemPath({
+        fileLevel,
+        apiModel,
+        indexFilename,
+        collisionLookup,
+        apiItem,
+      });
+      const sameFile = this.lastFileItem === itemPath.lastFileItem;
+      return sameFile
+        ? itemPath.getHasAnchor()
+          ? "#" + itemPath.getAnchorPath()
+          : "./"
+        : itemPath.getExternalLink();
+    }
   }
 
   createPathForItem(apiItem: ApiItem): ApiItemPath {
-    const { fileLevel, apiModel, collisionLookup } = this;
+    const { fileLevel, apiModel, indexFilename, collisionLookup } = this;
     return new ApiItemPath({
       fileLevel,
       apiModel,
+      indexFilename,
       collisionLookup,
       apiItem,
     });
@@ -411,12 +426,14 @@ export class ApiItemPath implements IApiItemPathOptions {
 }
 
 export function createItemPath(
+  apiModel: ApiModel,
   fileLevel: FileLevel,
-  apiModel: ApiModel
+  indexFilename: string = "index"
 ): ApiItemPath {
   return new ApiItemPath({
     fileLevel,
     apiModel,
+    indexFilename,
     apiItem: apiModel,
   });
 }
