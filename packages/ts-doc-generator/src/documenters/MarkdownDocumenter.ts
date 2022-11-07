@@ -80,6 +80,7 @@ export interface IMarkdownDocumenterOptions {
 
 export interface IExtraDocumenterOptions {
   fileLevel: FileLevel;
+  indexFilename: string;
 }
 
 /**
@@ -95,6 +96,7 @@ export class MarkdownDocumenter {
   private readonly _markdownEmitter: CustomMarkdownEmitter;
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
+  private readonly _showDefaults: boolean;
 
   public constructor(
     options: IMarkdownDocumenterOptions,
@@ -102,8 +104,9 @@ export class MarkdownDocumenter {
   ) {
     this._fileLevel = extraOptions.fileLevel;
     this._fileItemPath = createItemPath(
+      options.apiModel,
       extraOptions.fileLevel,
-      options.apiModel
+      extraOptions.indexFilename
     );
     this._apiModel = options.apiModel;
     this._documenterConfig = options.documenterConfig;
@@ -112,6 +115,7 @@ export class MarkdownDocumenter {
     this._markdownEmitter = new CustomMarkdownEmitter(this._apiModel);
 
     this._pluginLoader = new PluginLoader();
+    this._showDefaults = true;
   }
 
   public generateFiles(): void {
@@ -141,34 +145,38 @@ export class MarkdownDocumenter {
 
   private _writeApiItemPages(
     apiItems: ApiItem[],
-    parentOutput: DocSection | null
+    parentOutput: DocSection | null,
+    addRule: boolean
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
-    const itemPath: ApiItemPath = this._fileItemPath;
-
-    if (itemPath.getIsFileLevel()) {
-      if (apiItems.length > 0) {
-        let first = true;
-        if (itemPath.getIsFileLevelExact()) {
-          parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-        }
-        for (const apiItem of apiItems) {
-          if (first) {
-            first = false;
-          } else if (parentOutput) {
-            parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-          }
-          this._writeApiItemPage(apiItem, parentOutput);
-        }
-        if (itemPath.getIsFileLevelExact()) {
-          parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-        }
-      }
-    } else {
-      for (const apiItem of apiItems) {
-        this._writeApiItemPage(apiItem, parentOutput);
-      }
+    for (const apiItem of apiItems) {
+      this._writeApiItemPage(apiItem, parentOutput);
     }
+    if (addRule && parentOutput) {
+      parentOutput.appendNode(new DocHorizontalRule({ configuration }));
+    }
+    // const configuration: TSDocConfiguration = this._tsdocConfiguration;
+    // const itemPath: ApiItemPath = this._fileItemPath;
+
+    // if (itemPath.getIsFileLevelExact()) {
+    //   if (apiItems.length > 0) {
+    //     let first = true;
+    //     parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+    //     for (const apiItem of apiItems) {
+    //       if (first) {
+    //         first = false;
+    //       } else {
+    //         parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+    //       }
+    //       this._writeApiItemPage(apiItem, parentOutput);
+    //     }
+    //     parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
+    //   }
+    // } else {
+    //   for (const apiItem of apiItems) {
+    //     this._writeApiItemPage(apiItem, parentOutput);
+    //   }
+    // }
   }
 
   private _writeApiItemPage(
@@ -177,59 +185,79 @@ export class MarkdownDocumenter {
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
     const output: DocSection = new DocSection({ configuration });
-    const savedFileItemPath = this._fileItemPath;
+    const savedFileItemPath = this._fileItemPath; // TODO - this isn't only for file level items! it should be renamed o currentItemPath
     const itemPath = (this._fileItemPath =
       this._fileItemPath.createPathForItem(apiItem));
-    console.log("api item kind A: ", apiItem.kind + " " + itemPath.apiItem.kind);
 
     if (itemPath.getIsFileLevel()) {
       this._writeBreadcrumb(output, apiItem);
     }
 
-    const itemAnchorLink = itemPath.getAnchorPath();
-    output.appendNode(new DocAnchor({ configuration, name: itemAnchorLink }));
+    if (itemPath.getHasAnchor()) {
+      const itemAnchorLink = itemPath.getAnchorPath();
+      output.appendNode(new DocAnchor({ configuration, name: itemAnchorLink }));
+    }
 
     const scopedName: string = apiItem.getScopedNameWithinPackage();
+    const level = itemPath.getHeaderLevel();
 
     switch (apiItem.kind) {
       case ApiItemKind.Class:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} class` })
+          new DocHeading({ configuration, level, title: `${scopedName} class` })
         );
         break;
       case ApiItemKind.Enum:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} enum` })
+          new DocHeading({ configuration, level, title: `${scopedName} enum` })
         );
         break;
       case ApiItemKind.Interface:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} interface` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} interface`,
+          })
         );
         break;
       case ApiItemKind.Constructor:
       case ApiItemKind.ConstructSignature:
-        output.appendNode(new DocHeading({ configuration, title: scopedName }));
+        output.appendNode(
+          new DocHeading({ configuration, level, title: scopedName })
+        );
         break;
       case ApiItemKind.Method:
       case ApiItemKind.MethodSignature:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} method` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} method`,
+          })
         );
         break;
       case ApiItemKind.Function:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} function` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} function`,
+          })
         );
         break;
       case ApiItemKind.Model:
         output.appendNode(
-          new DocHeading({ configuration, title: `API Reference` })
+          new DocHeading({ configuration, level, title: `API Reference` })
         );
         break;
       case ApiItemKind.Namespace:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} namespace` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} namespace`,
+          })
         );
         break;
       case ApiItemKind.Package:
@@ -240,6 +268,7 @@ export class MarkdownDocumenter {
         output.appendNode(
           new DocHeading({
             configuration,
+            level,
             title: `${unscopedPackageName} package`,
           })
         );
@@ -247,17 +276,25 @@ export class MarkdownDocumenter {
       case ApiItemKind.Property:
       case ApiItemKind.PropertySignature:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} property` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} property`,
+          })
         );
         break;
       case ApiItemKind.TypeAlias:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} type` })
+          new DocHeading({ configuration, level, title: `${scopedName} type` })
         );
         break;
       case ApiItemKind.Variable:
         output.appendNode(
-          new DocHeading({ configuration, title: `${scopedName} variable` })
+          new DocHeading({
+            configuration,
+            level,
+            title: `${scopedName} variable`,
+          })
         );
         break;
       default:
@@ -388,8 +425,8 @@ export class MarkdownDocumenter {
     if (appendRemarks) {
       this._writeRemarksSection(output, apiItem);
     }
+    this._writeDefaultSection(output, apiItem);
 
-    console.log("api item kind B: ", apiItem.kind + " " + itemPath.apiItem.kind);
     if (itemPath.getIsFileLevel()) {
       const relativeFilename =
         this._fileLevel === FileLevel.Model || apiItem === this._apiModel
@@ -553,18 +590,38 @@ export class MarkdownDocumenter {
     }
   }
 
-  private _writeRemarksSection(output: DocSection, apiItem: ApiItem): void {
-    const configuration: TSDocConfiguration = this._tsdocConfiguration;
+  private _appendHeading(output: DocSection, title: string): void {
+    const { configuration } = output;
+    if (this._fileLevel === FileLevel.Member) {
+      // This is for perfect compatibility with the original implementation
+      output.appendNode(new DocHeading({ configuration, title }));
+    } else {
+      const level = this._fileItemPath.getHeaderLevelChild();
+      const suffix = ":";
+      if (level !== undefined) {
+        output.appendNode(
+          new DocHeading({ configuration, title: title + suffix, level })
+        );
+      } else {
+        output.appendNode(
+          new DocParagraph({ configuration }, [
+            new DocEmphasisSpan({ configuration, bold: true }, [
+              new DocPlainText({ configuration, text: title + suffix }),
+            ]),
+          ])
+        );
+      }
+    }
+  }
 
+  private _writeRemarksSection(output: DocSection, apiItem: ApiItem): void {
     if (apiItem instanceof ApiDocumentedItem) {
       const tsdocComment: DocComment | undefined = apiItem.tsdocComment;
 
       if (tsdocComment) {
         // Write the @remarks block
         if (tsdocComment.remarksBlock) {
-          output.appendNode(
-            new DocHeading({ configuration, title: "Remarks" })
-          );
+          this._appendHeading(output, "Remarks");
           this._appendSection(output, tsdocComment.remarksBlock.content);
         }
 
@@ -580,11 +637,33 @@ export class MarkdownDocumenter {
           const heading: string =
             exampleBlocks.length > 1 ? `Example ${exampleNumber}` : "Example";
 
-          output.appendNode(new DocHeading({ configuration, title: heading }));
+          this._appendHeading(output, heading);
 
           this._appendSection(output, exampleBlock.content);
 
           ++exampleNumber;
+        }
+      }
+    }
+  }
+
+  private _writeDefaultSection(output: DocSection, apiItem: ApiItem): void {
+    if (
+      apiItem instanceof ApiPropertyItem &&
+      apiItem instanceof ApiDocumentedItem
+    ) {
+      const tsdocComment: DocComment | undefined = apiItem.tsdocComment;
+
+      if (tsdocComment) {
+        const defaultTags = tsdocComment.customBlocks.filter(
+          (b) =>
+            b.blockTag.tagNameWithUpperCase ===
+            StandardTags.defaultValue.tagNameWithUpperCase
+        );
+        if (defaultTags !== undefined && defaultTags.length === 1) {
+          const defaultTag = defaultTags[0];
+          this._appendHeading(output, "Default Value");
+          this._appendSection(output, defaultTag.content);
         }
       }
     }
@@ -606,7 +685,7 @@ export class MarkdownDocumenter {
 
         if (throwsBlocks.length > 0) {
           const heading: string = "Exceptions";
-          output.appendNode(new DocHeading({ configuration, title: heading }));
+          this._appendHeading(output, heading);
 
           for (const throwsBlock of throwsBlocks) {
             this._appendSection(output, throwsBlock.content);
@@ -643,12 +722,16 @@ export class MarkdownDocumenter {
       }
     }
 
-    if (packagesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Packages" }));
-      output.appendNode(packagesTable);
+    const useRule = this._fileItemPath.getIsFileLevelExact();
+    if (useRule) {
+      output.appendNode(new DocHorizontalRule({ configuration }));
     }
 
-    this._writeApiItemPages(apiMembersPackages, output);
+    if (packagesTable.rows.length > 0) {
+      this._appendHeading(output, "Packages");
+      output.appendNode(packagesTable);
+      this._writeApiItemPages(apiMembersPackages, output, useRule);
+    }
   }
 
   /**
@@ -751,59 +834,51 @@ export class MarkdownDocumenter {
       }
     }
 
+    const useRule = this._fileItemPath.getIsFileLevelExact();
+    if (useRule) {
+      output.appendNode(new DocHorizontalRule({ configuration }));
+    }
+
     if (classesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Classes" }));
+      this._appendHeading(output, "Classes");
       output.appendNode(classesTable);
+      this._writeApiItemPages(apiMembersClasses, output, useRule);
     }
 
     if (enumerationsTable.rows.length > 0) {
-      output.appendNode(
-        new DocHeading({ configuration, title: "Enumerations" })
-      );
+      this._appendHeading(output, "Enumerations");
       output.appendNode(enumerationsTable);
+      this._writeApiItemPages(apiMembersEnums, output, useRule);
     }
     if (functionsTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Functions" }));
+      this._appendHeading(output, "Functions");
       output.appendNode(functionsTable);
+      this._writeApiItemPages(apiMembersFunctions, output, useRule);
     }
 
     if (interfacesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Interfaces" }));
+      this._appendHeading(output, "Interfaces");
       output.appendNode(interfacesTable);
+      this._writeApiItemPages(apiMembersInterfaces, output, useRule);
     }
 
     if (namespacesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Namespaces" }));
+      this._appendHeading(output, "Namespaces");
       output.appendNode(namespacesTable);
-    }
-
-    if (variablesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Variables" }));
-      output.appendNode(variablesTable);
+      this._writeApiItemPages(apiMembersNamespaces, output, useRule);
     }
 
     if (typeAliasesTable.rows.length > 0) {
-      output.appendNode(
-        new DocHeading({ configuration, title: "Type Aliases" })
-      );
+      this._appendHeading(output, "Type Aliases");
       output.appendNode(typeAliasesTable);
+      this._writeApiItemPages(apiMembersTypeAliases, output, useRule);
     }
 
-    this._writeApiItemPages(
-      Array.prototype.concat.apply(
-        [],
-        [
-          apiMembersClasses,
-          apiMembersEnums,
-          apiMembersInterfaces,
-          apiMembersNamespaces,
-          apiMembersFunctions,
-          apiMembersTypeAliases,
-          apiMembersVariables,
-        ]
-      ),
-      output
-    );
+    if (variablesTable.rows.length > 0) {
+      this._appendHeading(output, "Variables");
+      output.appendNode(variablesTable);
+      this._writeApiItemPages(apiMembersVariables, output, useRule);
+    }
   }
 
   /**
@@ -824,7 +899,9 @@ export class MarkdownDocumenter {
 
     const propertiesTable: DocTable = new DocTable({
       configuration,
-      headerTitles: ["Property", "Modifiers", "Type", "Description"],
+      headerTitles: this._showDefaults
+        ? ["Property", "Modifiers", "Type", "Default", "Description"]
+        : ["Property", "Modifiers", "Type", "Description"],
     });
 
     const methodsTable: DocTable = new DocTable({
@@ -878,14 +955,26 @@ export class MarkdownDocumenter {
             );
             apiMembersEvents.push(apiMember);
           } else {
-            propertiesTable.addRow(
-              new DocTableRow({ configuration }, [
-                this._createTitleCell(apiMember),
-                this._createModifiersCell(apiMember),
-                this._createPropertyTypeCell(apiMember),
-                this._createDescriptionCell(apiMember, isInherited),
-              ])
-            );
+            if (this._showDefaults) {
+              propertiesTable.addRow(
+                new DocTableRow({ configuration }, [
+                  this._createTitleCell(apiMember),
+                  this._createModifiersCell(apiMember),
+                  this._createPropertyTypeCell(apiMember),
+                  this._createPropertyDefaultCell(apiMember),
+                  this._createDescriptionCell(apiMember, isInherited),
+                ])
+              );
+            } else {
+              propertiesTable.addRow(
+                new DocTableRow({ configuration }, [
+                  this._createTitleCell(apiMember),
+                  this._createModifiersCell(apiMember),
+                  this._createPropertyTypeCell(apiMember),
+                  this._createDescriptionCell(apiMember, isInherited),
+                ])
+              );
+            }
             apiMembersProperties.push(apiMember);
           }
 
@@ -894,40 +983,34 @@ export class MarkdownDocumenter {
       }
     }
 
+    const useRule = this._fileItemPath.getIsFileLevelExact();
+    if (useRule) {
+      output.appendNode(new DocHorizontalRule({ configuration }));
+    }
+
     if (eventsTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Events" }));
+      this._appendHeading(output, "Events");
       output.appendNode(eventsTable);
+      this._writeApiItemPages(apiMembersEvents, output, useRule);
     }
 
     if (constructorsTable.rows.length > 0) {
-      output.appendNode(
-        new DocHeading({ configuration, title: "Constructors" })
-      );
+      this._appendHeading(output, "Constructors");
       output.appendNode(constructorsTable);
+      this._writeApiItemPages(apiMembersConstructors, output, useRule);
     }
 
     if (propertiesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Properties" }));
+      this._appendHeading(output, "Properties");
       output.appendNode(propertiesTable);
+      this._writeApiItemPages(apiMembersProperties, output, useRule);
     }
 
     if (methodsTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Methods" }));
+      this._appendHeading(output, "Methods");
       output.appendNode(methodsTable);
+      this._writeApiItemPages(apiMembersMethods, output, useRule);
     }
-
-    this._writeApiItemPages(
-      Array.prototype.concat.apply(
-        [],
-        [
-          apiMembersEvents,
-          apiMembersConstructors,
-          apiMembersProperties,
-          apiMembersMethods,
-        ]
-      ),
-      output
-    );
   }
 
   /**
@@ -959,9 +1042,7 @@ export class MarkdownDocumenter {
     }
 
     if (enumMembersTable.rows.length > 0) {
-      output.appendNode(
-        new DocHeading({ configuration, title: "Enumeration Members" })
-      );
+      this._appendHeading(output, "Enumeration Members");
       output.appendNode(enumMembersTable);
     }
   }
@@ -982,7 +1063,9 @@ export class MarkdownDocumenter {
 
     const propertiesTable: DocTable = new DocTable({
       configuration,
-      headerTitles: ["Property", "Modifiers", "Type", "Description"],
+      headerTitles: this._showDefaults
+        ? ["Property", "Modifiers", "Type", "Default", "Description"]
+        : ["Property", "Modifiers", "Type", "Description"],
     });
 
     const methodsTable: DocTable = new DocTable({
@@ -1023,14 +1106,26 @@ export class MarkdownDocumenter {
             );
             apiMembersEvents.push(apiMember);
           } else {
-            propertiesTable.addRow(
-              new DocTableRow({ configuration }, [
-                this._createTitleCell(apiMember),
-                this._createModifiersCell(apiMember),
-                this._createPropertyTypeCell(apiMember),
-                this._createDescriptionCell(apiMember, isInherited),
-              ])
-            );
+            if (this._showDefaults) {
+              propertiesTable.addRow(
+                new DocTableRow({ configuration }, [
+                  this._createTitleCell(apiMember),
+                  this._createModifiersCell(apiMember),
+                  this._createPropertyTypeCell(apiMember),
+                  this._createPropertyDefaultCell(apiMember),
+                  this._createDescriptionCell(apiMember, isInherited),
+                ])
+              );
+            } else {
+              propertiesTable.addRow(
+                new DocTableRow({ configuration }, [
+                  this._createTitleCell(apiMember),
+                  this._createModifiersCell(apiMember),
+                  this._createPropertyTypeCell(apiMember),
+                  this._createDescriptionCell(apiMember, isInherited),
+                ])
+              );
+            }
             apiMembersProperties.push(apiMember);
           }
 
@@ -1039,28 +1134,28 @@ export class MarkdownDocumenter {
       }
     }
 
+    const useRule = this._fileItemPath.getIsFileLevelExact();
+    if (useRule) {
+      output.appendNode(new DocHorizontalRule({ configuration }));
+    }
+
     if (eventsTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Events" }));
+      this._appendHeading(output, "Events");
       output.appendNode(eventsTable);
+      this._writeApiItemPages(apiMembersEvents, output, useRule);
     }
 
     if (propertiesTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Properties" }));
+      this._appendHeading(output, "Properties");
       output.appendNode(propertiesTable);
+      this._writeApiItemPages(apiMembersProperties, output, useRule);
     }
 
     if (methodsTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Methods" }));
+      this._appendHeading(output, "Methods");
       output.appendNode(methodsTable);
+      this._writeApiItemPages(apiMembersMethods, output, useRule);
     }
-
-    this._writeApiItemPages(
-      Array.prototype.concat.apply(
-        [],
-        [apiMembersEvents, apiMembersProperties, apiMembersMethods]
-      ),
-      output
-    );
   }
 
   /**
@@ -1115,7 +1210,7 @@ export class MarkdownDocumenter {
     }
 
     if (parametersTable.rows.length > 0) {
-      output.appendNode(new DocHeading({ configuration, title: "Parameters" }));
+      this._appendHeading(output, "Parameters");
       output.appendNode(parametersTable);
     }
 
@@ -1340,6 +1435,33 @@ export class MarkdownDocumenter {
       section.appendNode(
         this._createParagraphForTypeExcerpt(apiItem.propertyTypeExcerpt)
       );
+    }
+
+    return new DocTableCell({ configuration }, section.nodes);
+  }
+
+  private _createPropertyDefaultCell(apiItem: ApiItem): DocTableCell {
+    const configuration: TSDocConfiguration = this._tsdocConfiguration;
+
+    const section: DocSection = new DocSection({ configuration });
+
+    if (
+      apiItem instanceof ApiPropertyItem &&
+      apiItem instanceof ApiDocumentedItem
+    ) {
+      const tsdocComment: DocComment | undefined = apiItem.tsdocComment;
+
+      if (tsdocComment) {
+        const defaultTags = tsdocComment.customBlocks.filter(
+          (b) =>
+            b.blockTag.tagNameWithUpperCase ===
+            StandardTags.defaultValue.tagNameWithUpperCase
+        );
+        if (defaultTags !== undefined && defaultTags.length === 1) {
+          const defaultTag = defaultTags[0];
+          section.appendNodes(defaultTag.content.nodes);
+        }
+      }
     }
 
     return new DocTableCell({ configuration }, section.nodes);
