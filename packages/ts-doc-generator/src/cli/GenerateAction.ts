@@ -53,13 +53,17 @@ export class GenerateAction extends BaseAction {
     const { apiModel, outputFolder } = this.buildApiModel();
 
     if (documenterConfig.configFile.outputTarget === "markdown") {
-      const markdownDocumenter: MarkdownDocumenter = new MarkdownDocumenter({
-        apiModel,
-        documenterConfig,
-        outputFolder,
-      }, {
-        fileLevel: FileLevel.Member
-      });
+      const markdownDocumenter: MarkdownDocumenter = new MarkdownDocumenter(
+        {
+          apiModel,
+          documenterConfig,
+          outputFolder,
+        },
+        {
+          fileLevel: FileLevel.Member,
+          indexFilename: "index",
+        }
+      );
       markdownDocumenter.generateFiles();
     } else {
       const yamlDocumenter: ExperimentalYamlDocumenter =

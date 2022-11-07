@@ -21,13 +21,17 @@ export class MarkdownAction extends BaseAction {
     // override
     const { apiModel, outputFolder } = this.buildApiModel();
 
-    const markdownDocumenter: MarkdownDocumenter = new MarkdownDocumenter({
-      apiModel,
-      documenterConfig: undefined,
-      outputFolder,
-    }, {
-      fileLevel: FileLevel.Member
-    });
+    const markdownDocumenter: MarkdownDocumenter = new MarkdownDocumenter(
+      {
+        apiModel,
+        documenterConfig: undefined,
+        outputFolder,
+      },
+      {
+        fileLevel: FileLevel.Member,
+        indexFilename: "index",
+      }
+    );
     markdownDocumenter.generateFiles();
   }
 }
