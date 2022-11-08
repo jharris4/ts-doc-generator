@@ -93,16 +93,18 @@ export class MarkdownDocumenter {
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
 
-  public constructor(
-    options: IMarkdownDocumenterOptions
-  ) {
+  public constructor(options: IMarkdownDocumenterOptions) {
     const { documenterConfig } = options;
-    const configFile: IConfigFile | undefined = (documenterConfig ? documenterConfig.configFile : undefined);
-    const fileLevel = this._fileLevel = documenterConfig ? documenterConfig.fileLevel : FileLevel.Member;
+    const configFile: IConfigFile | undefined = documenterConfig
+      ? documenterConfig.configFile
+      : undefined;
+    const fileLevel = (this._fileLevel = documenterConfig
+      ? documenterConfig.fileLevel
+      : FileLevel.Member);
     this._currentItemPath = createItemPath(
       options.apiModel,
       fileLevel,
-      configFile && configFile.markdownOptions?.indexFilename || "index"
+      (configFile && configFile.markdownOptions?.indexFilename) || "index"
     );
     this._apiModel = options.apiModel;
     this._documenterConfig = options.documenterConfig;
@@ -221,10 +223,10 @@ export class MarkdownDocumenter {
         break;
       case ApiItemKind.Model:
         const documenterConfig = this._documenterConfig;
-        const title = documenterConfig?.configFile.markdownOptions?.indexTitle || `API Reference`;
-        output.appendNode(
-          new DocHeading({ configuration, level, title })
-        );
+        const title =
+          documenterConfig?.configFile.markdownOptions?.indexTitle ||
+          `API Reference`;
+        output.appendNode(new DocHeading({ configuration, level, title }));
         break;
       case ApiItemKind.Namespace:
         output.appendNode(
@@ -679,7 +681,7 @@ export class MarkdownDocumenter {
     const packagesTable: DocTable = new DocTable({
       configuration,
       headerTitles: ["Package", "Description"],
-      skipEmptyColumns: this._getHideEmptyTableColumns()
+      skipEmptyColumns: this._getHideEmptyTableColumns(),
     });
 
     const apiMembersPackages: ApiItem[] = [];
@@ -859,12 +861,18 @@ export class MarkdownDocumenter {
 
   private _getShowPropertyDefaults(): boolean {
     const documenterConfig = this._documenterConfig;
-    return documenterConfig?.configFile.markdownOptions?.showPropertyDefaults || false;
+    return (
+      documenterConfig?.configFile.markdownOptions?.showPropertyDefaults ||
+      false
+    );
   }
 
   private _getHideEmptyTableColumns(): boolean {
     const documenterConfig = this._documenterConfig;
-    return documenterConfig?.configFile.markdownOptions?.hideEmptyTableColumns || false;
+    return (
+      documenterConfig?.configFile.markdownOptions?.hideEmptyTableColumns ||
+      false
+    );
   }
 
   /**
@@ -1480,7 +1488,9 @@ export class MarkdownDocumenter {
       new DocLinkTag({
         configuration,
         tagName: "@link",
-        linkText: documenterConfig?.configFile.markdownOptions?.indexBreadcrumb || "Home",
+        linkText:
+          documenterConfig?.configFile.markdownOptions?.indexBreadcrumb ||
+          "Home",
         urlDestination: this._getLinkFilenameForApiItem(this._apiModel),
       })
     );

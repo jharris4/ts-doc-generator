@@ -9,7 +9,13 @@ import {
 import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
 import { DocumenterConfig } from "./documenters/DocumenterConfig";
 
-export type FileLevel = "model" | "package" | "namespace" | "export" | "member" | "all";
+export type FileLevel =
+  | "model"
+  | "package"
+  | "namespace"
+  | "export"
+  | "member"
+  | "all";
 
 const packageFilter = (path: string) => !path.includes("ts-doc-generator");
 // const packageFilter = (path: string) => path.includes("package-case");
@@ -105,7 +111,9 @@ interface DocumenterBundle {
   documenterErrorMessage: string | null;
 }
 
-const buildDocumenterConfig = (fileLevel: FileLevel = "package"): DocumenterBundle => {
+const buildDocumenterConfig = (
+  fileLevel: FileLevel = "package"
+): DocumenterBundle => {
   let documenterConfig: DocumenterConfig | null = null;
   let documenterErrorMessage: string | null = null;
   try {
@@ -118,17 +126,16 @@ const buildDocumenterConfig = (fileLevel: FileLevel = "package"): DocumenterBund
         indexTitle: "API Reference",
         indexBreadcrumb: "Home",
         hideEmptyTableColumns: true,
-        showPropertyDefaults: true
-      }
+        showPropertyDefaults: true,
+      },
     });
   } catch (e) {
-    documenterErrorMessage =
-      "documenter error : " + getErrorMessage(e);
+    documenterErrorMessage = "documenter error : " + getErrorMessage(e);
   }
   return {
     documenterConfig,
-    documenterErrorMessage
-  }
+    documenterErrorMessage,
+  };
 };
 // TODO - make these CLI options
 /*
@@ -159,14 +166,18 @@ let packageTypes: string | string[]; // "" | [""];
 interface GenerateDocOptions {
   docRootDir: string;
   docApiDir: string;
-  docMarkdownDir: string,
-  operation: "extract" | "generate" | "document"
+  docMarkdownDir: string;
+  operation: "extract" | "generate" | "document";
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const hasArg = (char: string) => args.some((arg) => arg.includes(char));
-  const operation = hasArg("e") ? "extract" : hasArg("d") ? "document" : "generate";
+  const operation = hasArg("e")
+    ? "extract"
+    : hasArg("d")
+    ? "document"
+    : "generate";
   const docRootDir = process.cwd();
   const docApiDir = "docs/apis";
   const docMarkdownDir = "docs/generated";
@@ -284,19 +295,24 @@ async function generateApiDocs(options: GenerateDocOptions) {
       }
     }
 
-    const fileLevels: string[] = ["model", "package", "namespace", "export", "member"];
+    const fileLevels: string[] = [
+      "model",
+      "package",
+      "namespace",
+      "export",
+      "member",
+    ];
     for (const fileLevel of fileLevels) {
       const subOutputFolder = path.join(outputFolder, fileLevel);
       FileSystem.ensureFolder(subOutputFolder);
-      const { documenterConfig, documenterErrorMessage } = buildDocumenterConfig(fileLevel as FileLevel);
+      const { documenterConfig, documenterErrorMessage } =
+        buildDocumenterConfig(fileLevel as FileLevel);
       if (documenterConfig) {
-        const markdownDocumenter = new MarkdownDocumenter(
-          {
-            apiModel,
-            documenterConfig,
-            outputFolder: subOutputFolder,
-          }
-        );
+        const markdownDocumenter = new MarkdownDocumenter({
+          apiModel,
+          documenterConfig,
+          outputFolder: subOutputFolder,
+        });
         markdownDocumenter.generateFiles();
       } else {
         console.error("Generator error: " + documenterErrorMessage);

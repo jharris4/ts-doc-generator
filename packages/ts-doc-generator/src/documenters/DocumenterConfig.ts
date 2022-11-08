@@ -97,7 +97,9 @@ export class DocumenterConfig {
     return new DocumenterConfig(path.resolve(configFilePath), configFile);
   }
 
-  public static prepare(options: IDocumenterConfigPrepareOptions): DocumenterConfig {
+  public static prepare(
+    options: IDocumenterConfigPrepareOptions
+  ): DocumenterConfig {
     const outputTarget = options.outputTarget || "markdown";
 
     DocumenterConfig.jsonSchema.validateObject(options, "");
@@ -109,7 +111,7 @@ export class DocumenterConfig {
     return new DocumenterConfig("", {
       outputTarget,
       showInheritedMembers,
-      markdownOptions
+      markdownOptions,
     });
   }
 }
