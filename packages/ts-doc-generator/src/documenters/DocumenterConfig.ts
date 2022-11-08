@@ -7,8 +7,14 @@ import {
   JsonFile,
   NewlineKind,
 } from "@rushstack/node-core-library";
-import { IConfigFile } from "./IConfigFile";
+import { IConfigFile, IConfigFileMarkdown } from "./IConfigFile";
 import { FileLevel } from "./FileLevel";
+
+interface IDocumenterConfigPrepareOptions {
+  outputTarget: IConfigFile["outputTarget"];
+  markdownOptions?: IConfigFileMarkdown;
+  showInheritedMembers?: boolean;
+}
 
 /**
  * Helper for loading the api-documenter.json file format.  Later when the schema is more mature,
@@ -89,5 +95,21 @@ export class DocumenterConfig {
     );
 
     return new DocumenterConfig(path.resolve(configFilePath), configFile);
+  }
+
+  public static prepare(options: IDocumenterConfigPrepareOptions): DocumenterConfig {
+    const outputTarget = options.outputTarget || "markdown";
+
+    DocumenterConfig.jsonSchema.validateObject(options, "");
+
+    const markdownOptions = options.markdownOptions;
+
+    const showInheritedMembers = options.showInheritedMembers;
+
+    return new DocumenterConfig("", {
+      outputTarget,
+      showInheritedMembers,
+      markdownOptions
+    });
   }
 }
