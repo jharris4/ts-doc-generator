@@ -85,7 +85,7 @@ export interface IMarkdownDocumenterOptions {
  */
 export class MarkdownDocumenter {
   private readonly _fileLevel: FileLevel;
-  private _fileItemPath: ApiItemPath;
+  private _currentItemPath: ApiItemPath;
   private readonly _apiModel: ApiModel;
   private readonly _documenterConfig: DocumenterConfig | undefined;
   private readonly _tsdocConfiguration: TSDocConfiguration;
@@ -99,7 +99,7 @@ export class MarkdownDocumenter {
     const { documenterConfig } = options;
     const configFile: IConfigFile | undefined = (documenterConfig ? documenterConfig.configFile : undefined);
     const fileLevel = this._fileLevel = documenterConfig ? documenterConfig.fileLevel : FileLevel.Member;
-    this._fileItemPath = createItemPath(
+    this._currentItemPath = createItemPath(
       options.apiModel,
       fileLevel,
       configFile && configFile.markdownOptions?.indexFilename || "index"
@@ -140,38 +140,16 @@ export class MarkdownDocumenter {
 
   private _writeApiItemPages(
     apiItems: ApiItem[],
-    parentOutput: DocSection | null,
+    parentOutput: DocSection,
     addRule: boolean
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
     for (const apiItem of apiItems) {
       this._writeApiItemPage(apiItem, parentOutput);
     }
-    if (addRule && parentOutput) {
+    if (addRule) {
       parentOutput.appendNode(new DocHorizontalRule({ configuration }));
     }
-    // const configuration: TSDocConfiguration = this._tsdocConfiguration;
-    // const itemPath: ApiItemPath = this._fileItemPath;
-
-    // if (itemPath.getIsFileLevelExact()) {
-    //   if (apiItems.length > 0) {
-    //     let first = true;
-    //     parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-    //     for (const apiItem of apiItems) {
-    //       if (first) {
-    //         first = false;
-    //       } else {
-    //         parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-    //       }
-    //       this._writeApiItemPage(apiItem, parentOutput);
-    //     }
-    //     parentOutput?.appendNode(new DocHorizontalRule({ configuration }));
-    //   }
-    // } else {
-    //   for (const apiItem of apiItems) {
-    //     this._writeApiItemPage(apiItem, parentOutput);
-    //   }
-    // }
   }
 
   private _writeApiItemPage(
@@ -180,9 +158,9 @@ export class MarkdownDocumenter {
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
     const output: DocSection = new DocSection({ configuration });
-    const savedFileItemPath = this._fileItemPath; // TODO - this isn't only for file level items! it should be renamed o currentItemPath
-    const itemPath = (this._fileItemPath =
-      this._fileItemPath.createPathForItem(apiItem));
+    const savedItemPath = this._currentItemPath;
+    const itemPath = (this._currentItemPath =
+      this._currentItemPath.createPathForItem(apiItem));
 
     if (itemPath.getIsFileLevel()) {
       this._writeBreadcrumb(output, apiItem);
@@ -468,7 +446,7 @@ export class MarkdownDocumenter {
     } else if (parentOutput) {
       parentOutput.appendNodes(output.nodes);
     }
-    this._fileItemPath = savedFileItemPath;
+    this._currentItemPath = savedItemPath;
   }
 
   private _writeHeritageTypes(
@@ -593,7 +571,7 @@ export class MarkdownDocumenter {
       // This is for perfect compatibility with the original implementation
       output.appendNode(new DocHeading({ configuration, title }));
     } else {
-      const level = this._fileItemPath.getHeaderLevelChild();
+      const level = this._currentItemPath.getHeaderLevelChild();
       const suffix = ":";
       if (level !== undefined) {
         output.appendNode(
@@ -720,7 +698,7 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._fileItemPath.getIsFileLevelExact();
+    const useRule = this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -832,7 +810,7 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._fileItemPath.getIsFileLevelExact();
+    const useRule = this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -991,7 +969,7 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._fileItemPath.getIsFileLevelExact();
+    const useRule = this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -1142,7 +1120,7 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._fileItemPath.getIsFileLevelExact();
+    const useRule = this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -1610,7 +1588,7 @@ export class MarkdownDocumenter {
   }
 
   private _getLinkFilenameForApiItem(apiItem: ApiItem): string {
-    return this._fileItemPath.getRelativeLink(apiItem);
+    return this._currentItemPath.getRelativeLink(apiItem);
   }
 
   private _deleteOldOutputFiles(): void {
