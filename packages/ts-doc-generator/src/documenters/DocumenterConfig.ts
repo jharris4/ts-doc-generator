@@ -14,6 +14,7 @@ interface IDocumenterConfigPrepareOptions {
   outputTarget: IConfigFile["outputTarget"];
   markdownOptions?: IConfigFileMarkdown;
   showInheritedMembers?: boolean;
+  newlineKind: "lf" | "os" | "crlf";
 }
 
 /**
@@ -108,10 +109,13 @@ export class DocumenterConfig {
 
     const showInheritedMembers = options.showInheritedMembers;
 
+    const newlineKind = options.newlineKind;
+
     return new DocumenterConfig("", {
       outputTarget,
       showInheritedMembers,
       markdownOptions,
+      newlineKind,
     });
   }
 }

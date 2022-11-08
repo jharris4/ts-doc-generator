@@ -119,6 +119,7 @@ const buildDocumenterConfig = (
   try {
     documenterConfig = DocumenterConfig.prepare({
       outputTarget: "markdown",
+      newlineKind: "crlf",
       showInheritedMembers: false,
       markdownOptions: {
         fileLevel,
