@@ -7,27 +7,27 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Old Generator",
+      "name": "Extract",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
         "--loader",
         "ts-node/esm",
         "--experimental-specifier-resolution=node"
       ],
-      "args": ["go"],
+      "args": ["e"],
       "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Run Generator",
+      "name": "Document",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
         "--loader",
         "ts-node/esm",
         "--experimental-specifier-resolution=node"
       ],
-      "args": ["g"],
+      "args": ["d"],
       "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
     },
     {
@@ -42,14 +42,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run Extractor",
+      "name": "Generate",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
         "--loader",
         "ts-node/esm",
         "--experimental-specifier-resolution=node"
       ],
-      "args": ["e"],
+      "args": ["g"],
       "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
     }
   ]

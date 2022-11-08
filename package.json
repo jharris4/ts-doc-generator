@@ -9,10 +9,8 @@
     "temp2": "--compiler-options={\"module\":\"commonJS\"}",
     "temp": "--compiler-options={\"moduleResolution\":\"nodenext\",\"module\":\"ESNext\"}",
     "extract": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts e",
+    "document": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts d",
     "generate": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts g",
-    "generate-old": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts go",
-    "generate-new": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts gn",
-    "build-docs": "npm run extract && npm run generate",
     "prettier": "prettier --write ."
   },
   "devDependencies": {
