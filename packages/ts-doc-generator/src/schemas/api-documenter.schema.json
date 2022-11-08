@@ -35,6 +35,14 @@
         "indexTitle": {
           "description": "The text to show for the main title of the index/model",
           "type": "string"
+        },
+        "showPropertyDefaults": {
+          "description": "Whether to show the default values for member properties",
+          "type": "boolean"
+        },
+        "hideEmptyTableColumns": {
+          "description": "Whether to hide table columns when no cells in then have any values",
+          "type": "boolean"
         }
       }
     },
