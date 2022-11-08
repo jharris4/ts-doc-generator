@@ -168,6 +168,7 @@ interface GenerateDocOptions {
   docApiDir: string;
   docMarkdownDir: string;
   operation: "extract" | "generate" | "document";
+  fileLevel: "model" | "package" | "namespace" | "export" | "member" | "all";
 }
 
 async function main() {
@@ -181,7 +182,14 @@ async function main() {
   const docRootDir = process.cwd();
   const docApiDir = "docs/apis";
   const docMarkdownDir = "docs/generated";
-  generateApiDocs({ docRootDir, docApiDir, docMarkdownDir, operation });
+  const fileLevel = "all";
+  generateApiDocs({
+    docRootDir,
+    docApiDir,
+    docMarkdownDir,
+    operation,
+    fileLevel,
+  });
 }
 
 async function generateApiDocs(options: GenerateDocOptions) {
@@ -295,23 +303,38 @@ async function generateApiDocs(options: GenerateDocOptions) {
       }
     }
 
-    const fileLevels: string[] = [
-      "model",
-      "package",
-      "namespace",
-      "export",
-      "member",
-    ];
-    for (const fileLevel of fileLevels) {
-      const subOutputFolder = path.join(outputFolder, fileLevel);
-      FileSystem.ensureFolder(subOutputFolder);
+    if (options.fileLevel === "all") {
+      const fileLevels: string[] = [
+        "model",
+        "package",
+        "namespace",
+        "export",
+        "member",
+      ];
+      for (const fileLevel of fileLevels) {
+        const subOutputFolder = path.join(outputFolder, fileLevel);
+        FileSystem.ensureFolder(subOutputFolder);
+        const { documenterConfig, documenterErrorMessage } =
+          buildDocumenterConfig(fileLevel as FileLevel);
+        if (documenterConfig) {
+          const markdownDocumenter = new MarkdownDocumenter({
+            apiModel,
+            documenterConfig,
+            outputFolder: subOutputFolder,
+          });
+          markdownDocumenter.generateFiles();
+        } else {
+          console.error("Generator error: " + documenterErrorMessage);
+        }
+      }
+    } else {
       const { documenterConfig, documenterErrorMessage } =
-        buildDocumenterConfig(fileLevel as FileLevel);
+        buildDocumenterConfig(options.fileLevel as FileLevel);
       if (documenterConfig) {
         const markdownDocumenter = new MarkdownDocumenter({
           apiModel,
           documenterConfig,
-          outputFolder: subOutputFolder,
+          outputFolder,
         });
         markdownDocumenter.generateFiles();
       } else {
