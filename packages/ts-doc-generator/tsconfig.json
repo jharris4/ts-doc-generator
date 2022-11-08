@@ -4,7 +4,7 @@
   "compilerOptions": {
     "outDir": "./lib",
     "rootDir": "./src",
-
+    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "declaration": true,
@@ -25,6 +25,6 @@
     "target": "es2020",
     "lib": ["es2020"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/schemas/*.json"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.d.ts"]
 }
