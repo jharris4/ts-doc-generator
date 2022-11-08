@@ -68,6 +68,7 @@ import {
   MarkdownDocumenterFeatureContext,
 } from "../plugin/MarkdownDocumenterFeature";
 import { DocumenterConfig } from "./DocumenterConfig";
+import { IConfigFile } from "./IConfigFile";
 import { MarkdownDocumenterAccessor } from "../plugin/MarkdownDocumenterAccessor";
 import { FileLevel } from "./FileLevel";
 import { createItemPath, ApiItemPath } from "./ApiItemPath";
@@ -76,11 +77,6 @@ export interface IMarkdownDocumenterOptions {
   apiModel: ApiModel;
   documenterConfig: DocumenterConfig | undefined;
   outputFolder: string;
-}
-
-export interface IExtraDocumenterOptions {
-  fileLevel: FileLevel;
-  indexFilename: string;
 }
 
 /**
@@ -96,17 +92,17 @@ export class MarkdownDocumenter {
   private readonly _markdownEmitter: CustomMarkdownEmitter;
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
-  private readonly _showDefaults: boolean;
 
   public constructor(
-    options: IMarkdownDocumenterOptions,
-    extraOptions: IExtraDocumenterOptions
+    options: IMarkdownDocumenterOptions
   ) {
-    this._fileLevel = extraOptions.fileLevel;
+    const { documenterConfig } = options;
+    const configFile: IConfigFile | undefined = (documenterConfig ? documenterConfig.configFile : undefined);
+    const fileLevel = this._fileLevel = documenterConfig ? documenterConfig.fileLevel : FileLevel.Member;
     this._fileItemPath = createItemPath(
       options.apiModel,
-      extraOptions.fileLevel,
-      extraOptions.indexFilename
+      fileLevel,
+      configFile && configFile.markdownOptions?.indexFilename || "index"
     );
     this._apiModel = options.apiModel;
     this._documenterConfig = options.documenterConfig;
@@ -115,7 +111,6 @@ export class MarkdownDocumenter {
     this._markdownEmitter = new CustomMarkdownEmitter(this._apiModel);
 
     this._pluginLoader = new PluginLoader();
-    this._showDefaults = true;
   }
 
   public generateFiles(): void {
@@ -247,8 +242,10 @@ export class MarkdownDocumenter {
         );
         break;
       case ApiItemKind.Model:
+        const documenterConfig = this._documenterConfig;
+        const title = documenterConfig?.configFile.markdownOptions?.indexTitle || `API Reference`;
         output.appendNode(
-          new DocHeading({ configuration, level, title: `API Reference` })
+          new DocHeading({ configuration, level, title })
         );
         break;
       case ApiItemKind.Namespace:
@@ -704,6 +701,7 @@ export class MarkdownDocumenter {
     const packagesTable: DocTable = new DocTable({
       configuration,
       headerTitles: ["Package", "Description"],
+      skipEmptyColumns: this._getHideEmptyTableColumns()
     });
 
     const apiMembersPackages: ApiItem[] = [];
@@ -881,6 +879,16 @@ export class MarkdownDocumenter {
     }
   }
 
+  private _getShowPropertyDefaults(): boolean {
+    const documenterConfig = this._documenterConfig;
+    return documenterConfig?.configFile.markdownOptions?.showPropertyDefaults || false;
+  }
+
+  private _getHideEmptyTableColumns(): boolean {
+    const documenterConfig = this._documenterConfig;
+    return documenterConfig?.configFile.markdownOptions?.hideEmptyTableColumns || false;
+  }
+
   /**
    * GENERATE PAGE: CLASS
    */
@@ -899,7 +907,7 @@ export class MarkdownDocumenter {
 
     const propertiesTable: DocTable = new DocTable({
       configuration,
-      headerTitles: this._showDefaults
+      headerTitles: this._getShowPropertyDefaults()
         ? ["Property", "Modifiers", "Type", "Default", "Description"]
         : ["Property", "Modifiers", "Type", "Description"],
     });
@@ -955,7 +963,7 @@ export class MarkdownDocumenter {
             );
             apiMembersEvents.push(apiMember);
           } else {
-            if (this._showDefaults) {
+            if (this._getShowPropertyDefaults()) {
               propertiesTable.addRow(
                 new DocTableRow({ configuration }, [
                   this._createTitleCell(apiMember),
@@ -1063,7 +1071,7 @@ export class MarkdownDocumenter {
 
     const propertiesTable: DocTable = new DocTable({
       configuration,
-      headerTitles: this._showDefaults
+      headerTitles: this._getShowPropertyDefaults()
         ? ["Property", "Modifiers", "Type", "Default", "Description"]
         : ["Property", "Modifiers", "Type", "Description"],
     });
@@ -1106,7 +1114,7 @@ export class MarkdownDocumenter {
             );
             apiMembersEvents.push(apiMember);
           } else {
-            if (this._showDefaults) {
+            if (this._getShowPropertyDefaults()) {
               propertiesTable.addRow(
                 new DocTableRow({ configuration }, [
                   this._createTitleCell(apiMember),
@@ -1488,12 +1496,13 @@ export class MarkdownDocumenter {
 
   private _writeBreadcrumb(output: DocSection, apiItem: ApiItem): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
+    const documenterConfig = this._documenterConfig;
 
     output.appendNodeInParagraph(
       new DocLinkTag({
         configuration,
         tagName: "@link",
-        linkText: "Home",
+        linkText: documenterConfig?.configFile.markdownOptions?.indexBreadcrumb || "Home",
         urlDestination: this._getLinkFilenameForApiItem(this._apiModel),
       })
     );
