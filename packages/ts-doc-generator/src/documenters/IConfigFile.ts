@@ -68,8 +68,20 @@ export interface IConfigPlugin {
   enabledFeatureNames: string[];
 }
 
+export type FileLevelString =
+  | "model"
+  | "package"
+  | "namespace"
+  | "export"
+  | "member"
+  | "all";
+
+export type NewlineKindString = "crlf" | "lf" | "os";
+
+export type OutputTarget = "docfx" | "markdown";
+
 export interface IConfigFileMarkdown {
-  fileLevel?: "model" | "package" | "namespace" | "export" | "member" | "all";
+  fileLevel?: FileLevelString;
   indexBreadcrumb?: string;
   indexFilename?: string;
   indexTitle?: string;
@@ -77,14 +89,20 @@ export interface IConfigFileMarkdown {
   hideEmptyTableColumns?: boolean;
 }
 
-/**
- * This interface represents the api-documenter.json file format.
- */
-export interface IConfigFile {
+export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
+  fileLevel: FileLevelString;
+  indexBreadcrumb: string;
+  indexFilename: string;
+  indexTitle: string;
+  showPropertyDefaults: boolean;
+  hideEmptyTableColumns: boolean;
+}
+
+export interface IConfigFileBase {
   /**
    * Specifies the output target.
    */
-  outputTarget: "docfx" | "markdown";
+  outputTarget?: OutputTarget;
 
   markdownOptions?: IConfigFileMarkdown;
 
@@ -96,7 +114,7 @@ export interface IConfigFile {
    * To use POSIX-style newlines, specify "lf" instead.
    * To use the OS's default newline kind, specify "os".
    */
-  newlineKind?: "crlf" | "lf" | "os";
+  newlineKind?: NewlineKindString;
 
   /**
    * This enables an experimental feature that will be officially released with the next major version
@@ -119,4 +137,17 @@ export interface IConfigFile {
    * Specifies whether inherited members should also be shown on an API item's page.
    */
   showInheritedMembers?: boolean;
+}
+
+/**
+ * This interface represents the api-documenter.json file format.
+ */
+export interface IConfigFile extends IConfigFileBase {
+  outputTarget: OutputTarget;
+}
+
+export interface IConfigFileFull extends IConfigFile {
+  showInheritedMembers: boolean;
+  newlineKind: NewlineKindString;
+  markdownOptions: IConfigFileMarkdownFull;
 }

@@ -68,7 +68,6 @@ import {
   MarkdownDocumenterFeatureContext,
 } from "../plugin/MarkdownDocumenterFeature";
 import { DocumenterConfig } from "./DocumenterConfig";
-import { IConfigFile } from "./IConfigFile";
 import { MarkdownDocumenterAccessor } from "../plugin/MarkdownDocumenterAccessor";
 import { FileLevel } from "./FileLevel";
 import { createItemPath, ApiItemPath } from "./ApiItemPath";
@@ -87,27 +86,23 @@ export class MarkdownDocumenter {
   private readonly _fileLevel: FileLevel;
   private _currentItemPath: ApiItemPath;
   private readonly _apiModel: ApiModel;
-  private readonly _documenterConfig: DocumenterConfig | undefined;
   private readonly _tsdocConfiguration: TSDocConfiguration;
   private readonly _markdownEmitter: CustomMarkdownEmitter;
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
+  private readonly _documenterConfig: DocumenterConfig;
 
   public constructor(options: IMarkdownDocumenterOptions) {
-    const { documenterConfig } = options;
-    const configFile: IConfigFile | undefined = documenterConfig
-      ? documenterConfig.configFile
-      : undefined;
-    const fileLevel = (this._fileLevel = documenterConfig
-      ? documenterConfig.fileLevel
-      : FileLevel.Member);
+    const documenterConfig = (this._documenterConfig = DocumenterConfig.prepare(
+      options.documenterConfig?.configFile
+    ));
+    const fileLevel = (this._fileLevel = documenterConfig.fileLevel);
     this._currentItemPath = createItemPath(
       options.apiModel,
       fileLevel,
-      (configFile && configFile.markdownOptions?.indexFilename) || "index"
+      documenterConfig.configFile.markdownOptions.indexFilename
     );
     this._apiModel = options.apiModel;
-    this._documenterConfig = options.documenterConfig;
     this._outputFolder = options.outputFolder;
     this._tsdocConfiguration = CustomDocNodes.configuration;
     this._markdownEmitter = new CustomMarkdownEmitter(this._apiModel);
@@ -222,10 +217,8 @@ export class MarkdownDocumenter {
         );
         break;
       case ApiItemKind.Model:
-        const documenterConfig = this._documenterConfig;
         const title =
-          documenterConfig?.configFile.markdownOptions?.indexTitle ||
-          `API Reference`;
+          this._documenterConfig.configFile.markdownOptions.indexTitle;
         output.appendNode(new DocHeading({ configuration, level, title }));
         break;
       case ApiItemKind.Namespace:
@@ -441,9 +434,7 @@ export class MarkdownDocumenter {
       }
 
       FileSystem.writeFile(filename, pageContent, {
-        convertLineEndings: this._documenterConfig
-          ? this._documenterConfig.newlineKind
-          : NewlineKind.CrLf,
+        convertLineEndings: this._documenterConfig.newlineKind,
       });
     } else if (parentOutput) {
       parentOutput.appendNodes(output.nodes);
@@ -860,19 +851,13 @@ export class MarkdownDocumenter {
   }
 
   private _getShowPropertyDefaults(): boolean {
-    const documenterConfig = this._documenterConfig;
-    return (
-      documenterConfig?.configFile.markdownOptions?.showPropertyDefaults ||
-      false
-    );
+    return this._documenterConfig.configFile.markdownOptions
+      .showPropertyDefaults;
   }
 
   private _getHideEmptyTableColumns(): boolean {
-    const documenterConfig = this._documenterConfig;
-    return (
-      documenterConfig?.configFile.markdownOptions?.hideEmptyTableColumns ||
-      false
-    );
+    return this._documenterConfig.configFile.markdownOptions
+      .hideEmptyTableColumns;
   }
 
   /**
@@ -1482,15 +1467,13 @@ export class MarkdownDocumenter {
 
   private _writeBreadcrumb(output: DocSection, apiItem: ApiItem): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
-    const documenterConfig = this._documenterConfig;
 
     output.appendNodeInParagraph(
       new DocLinkTag({
         configuration,
         tagName: "@link",
         linkText:
-          documenterConfig?.configFile.markdownOptions?.indexBreadcrumb ||
-          "Home",
+          this._documenterConfig.configFile.markdownOptions.indexBreadcrumb,
         urlDestination: this._getLinkFilenameForApiItem(this._apiModel),
       })
     );
@@ -1564,9 +1547,7 @@ export class MarkdownDocumenter {
     output: DocSection
   ): readonly ApiItem[] {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
-    const showInheritedMembers: boolean =
-      !!this._documenterConfig?.configFile.showInheritedMembers;
-    if (!showInheritedMembers) {
+    if (!this._documenterConfig.configFile.showInheritedMembers) {
       return apiClassOrInterface.members;
     }
 

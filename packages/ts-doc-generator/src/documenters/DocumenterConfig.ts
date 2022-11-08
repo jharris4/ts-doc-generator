@@ -7,15 +7,8 @@ import {
   JsonFile,
   NewlineKind,
 } from "@rushstack/node-core-library";
-import { IConfigFile, IConfigFileMarkdown } from "./IConfigFile";
+import { IConfigFile, IConfigFileFull, IConfigFileBase } from "./IConfigFile";
 import { FileLevel } from "./FileLevel";
-
-interface IDocumenterConfigPrepareOptions {
-  outputTarget: IConfigFile["outputTarget"];
-  markdownOptions?: IConfigFileMarkdown;
-  showInheritedMembers?: boolean;
-  newlineKind: "lf" | "os" | "crlf";
-}
 
 /**
  * Helper for loading the api-documenter.json file format.  Later when the schema is more mature,
@@ -24,7 +17,7 @@ interface IDocumenterConfigPrepareOptions {
  */
 export class DocumenterConfig {
   public readonly configFilePath: string;
-  public readonly configFile: IConfigFile;
+  public readonly configFile: IConfigFileFull;
 
   /**
    * Specifies what type of newlines API Documenter should use when writing output files.  By default, the output files
@@ -46,7 +39,7 @@ export class DocumenterConfig {
    */
   public static readonly FILENAME: string = "api-documenter.json";
 
-  protected constructor(filePath: string, configFile: IConfigFile) {
+  protected constructor(filePath: string, configFile: IConfigFileFull) {
     this.configFilePath = filePath;
     this.configFile = configFile;
 
@@ -95,27 +88,56 @@ export class DocumenterConfig {
       DocumenterConfig.jsonSchema
     );
 
-    return new DocumenterConfig(path.resolve(configFilePath), configFile);
+    return new DocumenterConfig(
+      path.resolve(configFilePath),
+      DocumenterConfig.getDefaultConfig(configFile)
+    );
   }
 
-  public static prepare(
-    options: IDocumenterConfigPrepareOptions
-  ): DocumenterConfig {
-    const outputTarget = options.outputTarget || "markdown";
+  public static prepare(options?: IConfigFileBase): DocumenterConfig {
+    const preparedConfig = DocumenterConfig.getDefaultConfig(options);
+    DocumenterConfig.jsonSchema.validateObject(preparedConfig, "");
 
-    DocumenterConfig.jsonSchema.validateObject(options, "");
+    return new DocumenterConfig("", preparedConfig);
+  }
 
-    const markdownOptions = options.markdownOptions;
-
-    const showInheritedMembers = options.showInheritedMembers;
-
-    const newlineKind = options.newlineKind;
-
-    return new DocumenterConfig("", {
-      outputTarget,
-      showInheritedMembers,
-      markdownOptions,
-      newlineKind,
-    });
+  public static getDefaultConfig(config?: IConfigFileBase): IConfigFileFull {
+    const markdownOptions = config ? config.markdownOptions || {} : {};
+    return {
+      outputTarget:
+        config?.outputTarget !== undefined ? config.outputTarget : "markdown",
+      newlineKind:
+        config?.newlineKind !== undefined ? config.newlineKind : "crlf",
+      showInheritedMembers:
+        config?.showInheritedMembers !== undefined
+          ? config.showInheritedMembers
+          : false,
+      markdownOptions: {
+        fileLevel:
+          markdownOptions.fileLevel !== undefined
+            ? markdownOptions.fileLevel
+            : "member",
+        indexFilename:
+          markdownOptions.indexFilename !== undefined
+            ? markdownOptions.indexFilename
+            : "index",
+        indexTitle:
+          markdownOptions.indexTitle !== undefined
+            ? markdownOptions.indexTitle
+            : "API Reference",
+        indexBreadcrumb:
+          markdownOptions.indexBreadcrumb !== undefined
+            ? markdownOptions.indexBreadcrumb
+            : "Home",
+        hideEmptyTableColumns:
+          markdownOptions.hideEmptyTableColumns !== undefined
+            ? markdownOptions.hideEmptyTableColumns
+            : false,
+        showPropertyDefaults:
+          markdownOptions.showPropertyDefaults !== undefined
+            ? markdownOptions.showPropertyDefaults
+            : false,
+      },
+    };
   }
 }

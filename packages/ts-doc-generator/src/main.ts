@@ -8,14 +8,11 @@ import {
 } from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
 import { DocumenterConfig } from "./documenters/DocumenterConfig";
-
-export type FileLevel =
-  | "model"
-  | "package"
-  | "namespace"
-  | "export"
-  | "member"
-  | "all";
+import {
+  FileLevelString,
+  NewlineKindString,
+  IConfigFileMarkdown,
+} from "./documenters/IConfigFile";
 
 const packageFilter = (path: string) => !path.includes("ts-doc-generator");
 // const packageFilter = (path: string) => path.includes("package-case");
@@ -111,23 +108,58 @@ interface DocumenterBundle {
   documenterErrorMessage: string | null;
 }
 
-const buildDocumenterConfig = (
-  fileLevel: FileLevel = "package"
+interface BuildDocConfigOptions {
+  fileLevel?: FileLevelString;
+  indexFilename?: string;
+  indexTitle?: string;
+  indexBreadcrumb?: string;
+  hideEmptyTableColumns?: boolean;
+  showPropertyDefaults?: boolean;
+  showInheritedMembers?: boolean;
+  newlineKind?: NewlineKindString;
+}
+
+const buildMarkdownDocumenterConfig = (
+  options: BuildDocConfigOptions = {}
 ): DocumenterBundle => {
+  const {
+    fileLevel,
+    indexFilename,
+    indexTitle,
+    indexBreadcrumb,
+    hideEmptyTableColumns,
+    showPropertyDefaults,
+    showInheritedMembers,
+    newlineKind,
+  } = options;
+  const defaultConfig = DocumenterConfig.getDefaultConfig({
+    outputTarget: "markdown",
+    newlineKind,
+    showInheritedMembers,
+    markdownOptions: {
+      fileLevel,
+      indexFilename,
+      indexTitle,
+      indexBreadcrumb,
+      hideEmptyTableColumns,
+      showPropertyDefaults,
+    },
+  });
+
   let documenterConfig: DocumenterConfig | null = null;
   let documenterErrorMessage: string | null = null;
   try {
     documenterConfig = DocumenterConfig.prepare({
       outputTarget: "markdown",
-      newlineKind: "crlf",
-      showInheritedMembers: false,
+      newlineKind,
+      showInheritedMembers,
       markdownOptions: {
         fileLevel,
-        indexFilename: "index",
-        indexTitle: "API Reference",
-        indexBreadcrumb: "Home",
-        hideEmptyTableColumns: true,
-        showPropertyDefaults: true,
+        indexFilename,
+        indexTitle,
+        indexBreadcrumb,
+        hideEmptyTableColumns,
+        showPropertyDefaults,
       },
     });
   } catch (e) {
@@ -164,12 +196,26 @@ let packageTypes: string | string[]; // "" | [""];
 
 */
 
-interface GenerateDocOptions {
+interface GenerateDocOptions extends BuildDocConfigOptions {
   docRootDir: string;
   docApiDir: string;
   docMarkdownDir: string;
   operation: "extract" | "generate" | "document";
-  fileLevel: "model" | "package" | "namespace" | "export" | "member" | "all";
+  // fileLevel: FileLevelString;
+  markdownOptions: IConfigFileMarkdown;
+  showInheritedMembers: boolean;
+  newlineKind: NewlineKindString;
+}
+
+interface GenerateDocOptionsMaybe extends BuildDocConfigOptions {
+  docRootDir: string;
+  docApiDir: string;
+  docMarkdownDir: string;
+  operation: "extract" | "generate" | "document";
+  // fileLevel: FileLevelString;
+  markdownOptions?: IConfigFileMarkdown;
+  showInheritedMembers?: boolean;
+  newlineKind?: NewlineKindString;
 }
 
 async function main() {
@@ -183,18 +229,57 @@ async function main() {
   const docRootDir = process.cwd();
   const docApiDir = "docs/apis";
   const docMarkdownDir = "docs/generated";
+
+  // optional
+  const showInheritedMembers = false;
+  const newlineKind = "crlf";
   const fileLevel = "all";
+  const indexFilename = "index";
+  const indexTitle = "API Reference";
+  const indexBreadcrumb = "Home";
+  const showPropertyDefaults = true;
+  const hideEmptyTableColumns = true;
+
   generateApiDocs({
     docRootDir,
     docApiDir,
     docMarkdownDir,
     operation,
-    fileLevel,
+    showInheritedMembers,
+    newlineKind,
+    markdownOptions: {
+      fileLevel,
+      indexFilename,
+      indexTitle,
+      indexBreadcrumb,
+      showPropertyDefaults,
+      hideEmptyTableColumns,
+    },
   });
 }
 
-async function generateApiDocs(options: GenerateDocOptions) {
-  const { docRootDir, docApiDir, docMarkdownDir, operation } = options;
+function prepareOptions(
+  maybeOptions: GenerateDocOptionsMaybe
+): GenerateDocOptions {
+  const { docRootDir, docApiDir, docMarkdownDir, operation } = maybeOptions;
+  const { markdownOptions, showInheritedMembers, newlineKind } =
+    DocumenterConfig.getDefaultConfig(maybeOptions);
+  return {
+    docRootDir,
+    docApiDir,
+    docMarkdownDir,
+    operation,
+    markdownOptions,
+    showInheritedMembers,
+    newlineKind,
+  };
+}
+
+async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
+  const options: GenerateDocOptions = prepareOptions(maybeOptions);
+  const { docRootDir, docApiDir, docMarkdownDir, operation, markdownOptions } =
+    options;
+  const { fileLevel } = markdownOptions;
   const makeCurrent = (relativePath: string) =>
     path.join(docRootDir, relativePath);
 
@@ -304,7 +389,7 @@ async function generateApiDocs(options: GenerateDocOptions) {
       }
     }
 
-    if (options.fileLevel === "all") {
+    if (fileLevel === "all") {
       const fileLevels: string[] = [
         "model",
         "package",
@@ -316,7 +401,9 @@ async function generateApiDocs(options: GenerateDocOptions) {
         const subOutputFolder = path.join(outputFolder, fileLevel);
         FileSystem.ensureFolder(subOutputFolder);
         const { documenterConfig, documenterErrorMessage } =
-          buildDocumenterConfig(fileLevel as FileLevel);
+          buildMarkdownDocumenterConfig({
+            fileLevel: fileLevel as FileLevelString,
+          });
         if (documenterConfig) {
           const markdownDocumenter = new MarkdownDocumenter({
             apiModel,
@@ -330,7 +417,7 @@ async function generateApiDocs(options: GenerateDocOptions) {
       }
     } else {
       const { documenterConfig, documenterErrorMessage } =
-        buildDocumenterConfig(options.fileLevel as FileLevel);
+        buildMarkdownDocumenterConfig({ fileLevel });
       if (documenterConfig) {
         const markdownDocumenter = new MarkdownDocumenter({
           apiModel,
