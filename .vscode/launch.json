@@ -33,15 +33,6 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run Documenter CLI",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/node_modules/@microsoft/api-documenter/lib/start.js",
-      "args": ["markdown"],
-      "outFiles": ["${workspaceFolder}/**/*.js"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "Generate",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
@@ -51,6 +42,15 @@
       ],
       "args": ["g"],
       "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Documenter CLI",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/node_modules/@microsoft/api-documenter/lib/start.js",
+      "args": ["markdown"],
+      "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]
 }
