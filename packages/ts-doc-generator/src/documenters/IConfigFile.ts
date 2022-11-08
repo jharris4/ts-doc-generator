@@ -73,6 +73,8 @@ export interface IConfigFileMarkdown {
   indexBreadcrumb?: string;
   indexFilename?: string;
   indexTitle?: string;
+  showPropertyDefaults?: boolean;
+  hideEmptyTableColumns?: boolean;
 }
 
 /**
@@ -84,7 +86,7 @@ export interface IConfigFile {
    */
   outputTarget: "docfx" | "markdown";
 
-  markdownOptions: IConfigFileMarkdown;
+  markdownOptions?: IConfigFileMarkdown;
 
   /**
    * Specifies what type of newlines API Documenter should use when writing output files.
