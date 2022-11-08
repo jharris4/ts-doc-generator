@@ -7,9 +7,9 @@ import {
   NewlineKind,
 } from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
-import { MDDocumenter } from "./documenters/MDDocumenter";
-import { NewDocumenter } from "./documenters/NewDocumenter";
-import { FileLevel } from "./documenters/FileLevel";
+import { DocumenterConfig } from "./documenters/DocumenterConfig";
+
+export type FileLevel = "model" | "package" | "namespace" | "export" | "member" | "all";
 
 const packageFilter = (path: string) => !path.includes("ts-doc-generator");
 // const packageFilter = (path: string) => path.includes("package-case");
@@ -27,7 +27,7 @@ const buildExtractorConfig = (
   packagePath: string,
   extractorOutputPath: string,
   includePaths: string[] = ["**/*.d.ts"]
-) => {
+): ExtractorBundle => {
   let extractorConfig: ExtractorConfig | null = null;
   let extractorErrorMessage: string | null = null;
   const packageJSONPath = path.join(packagePath, "package.json");
@@ -100,14 +100,36 @@ const buildExtractorConfig = (
   };
 };
 
-const args = process.argv.slice(2);
-const DO_EXTRACT = args.length === 0 || args.some((arg) => arg.includes("e"));
-const DO_GENERATE = args.length === 0 || args.some((arg) => arg.includes("g"));
-const DO_GENERATE_ORIGINAL =
-  args.length === 0 || args.some((arg) => arg.includes("o"));
-const DO_GENERATE_NEW =
-  args.length === 0 || args.some((arg) => arg.includes("n"));
+interface DocumenterBundle {
+  documenterConfig: DocumenterConfig | null;
+  documenterErrorMessage: string | null;
+}
 
+const buildDocumenterConfig = (fileLevel: FileLevel = "package"): DocumenterBundle => {
+  let documenterConfig: DocumenterConfig | null = null;
+  let documenterErrorMessage: string | null = null;
+  try {
+    documenterConfig = DocumenterConfig.prepare({
+      outputTarget: "markdown",
+      showInheritedMembers: false,
+      markdownOptions: {
+        fileLevel,
+        indexFilename: "index",
+        indexTitle: "API Reference",
+        indexBreadcrumb: "Home",
+        hideEmptyTableColumns: true,
+        showPropertyDefaults: true
+      }
+    });
+  } catch (e) {
+    documenterErrorMessage =
+      "documenter error : " + getErrorMessage(e);
+  }
+  return {
+    documenterConfig,
+    documenterErrorMessage
+  }
+};
 // TODO - make these CLI options
 /*
 - extract - only creates api.json
@@ -134,20 +156,37 @@ let packageTypes: string | string[]; // "" | [""];
 
 */
 
+interface GenerateDocOptions {
+  docRootDir: string;
+  docApiDir: string;
+  docMarkdownDir: string,
+  operation: "extract" | "generate" | "document"
+}
+
 async function main() {
+  const args = process.argv.slice(2);
+  const hasArg = (char: string) => args.some((arg) => arg.includes(char));
+  const operation = hasArg("e") ? "extract" : hasArg("d") ? "document" : "generate";
   const docRootDir = process.cwd();
+  const docApiDir = "docs/apis";
+  const docMarkdownDir = "docs/generated";
+  generateApiDocs({ docRootDir, docApiDir, docMarkdownDir, operation });
+}
+
+async function generateApiDocs(options: GenerateDocOptions) {
+  const { docRootDir, docApiDir, docMarkdownDir, operation } = options;
   const makeCurrent = (relativePath: string) =>
     path.join(docRootDir, relativePath);
 
-  const extractorOutputPath = makeCurrent("docs/apis");
-  const documenterOutputPath = makeCurrent("docs/generated");
+  const extractorOutputPath = makeCurrent(docApiDir);
+  const documenterOutputPath = makeCurrent(docMarkdownDir);
 
   FileSystem.ensureFolder(extractorOutputPath);
   FileSystem.ensureFolder(documenterOutputPath);
 
   const pkg = JsonFile.load(makeCurrent("package.json"));
 
-  if (DO_EXTRACT) {
+  if (operation === "extract" || operation === "generate") {
     const extractorConfigs: Array<ExtractorConfig> = [];
     const extractorErrorMessages: string[] = [];
     const addExtractorConfig = (extractorBundle: ExtractorBundle) => {
@@ -229,7 +268,7 @@ async function main() {
 
     console.log("**** succeededExtractors: ", succeededExtractors.length);
   }
-  if (DO_GENERATE) {
+  if (operation === "document" || operation === "generate") {
     const apiModel = new ApiModel();
     const inputFolder = extractorOutputPath;
     if (!FileSystem.exists(inputFolder)) {
@@ -245,60 +284,27 @@ async function main() {
       }
     }
 
-    if (DO_GENERATE_ORIGINAL) {
-      // actually this is now the newest...
-
-      const fileLevels: FileLevel[] = Object.keys(FileLevel).map(
-        (fileLevel) => fileLevel as FileLevel
-      );
-      for (const fileLevel of fileLevels) {
-        const subOutputFolder = path.join(outputFolder, fileLevel);
-        FileSystem.ensureFolder(subOutputFolder);
+    const fileLevels: string[] = ["model", "package", "namespace", "export", "member"];
+    for (const fileLevel of fileLevels) {
+      const subOutputFolder = path.join(outputFolder, fileLevel);
+      FileSystem.ensureFolder(subOutputFolder);
+      const { documenterConfig, documenterErrorMessage } = buildDocumenterConfig(fileLevel as FileLevel);
+      if (documenterConfig) {
         const markdownDocumenter = new MarkdownDocumenter(
           {
             apiModel,
-            documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
+            documenterConfig,
             outputFolder: subOutputFolder,
-          },
-          {
-            fileLevel,
-            indexFilename: "index",
           }
         );
         markdownDocumenter.generateFiles();
+      } else {
+        console.error("Generator error: " + documenterErrorMessage);
       }
-    } else if (DO_GENERATE_NEW) {
-      const markdownDocumenter = new NewDocumenter({
-        apiModel,
-        documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
-        outputFolder,
-      });
-      markdownDocumenter.generateFiles();
-    } else {
-      const markdownDocumenter = new MDDocumenter(
-        {
-          apiModel,
-          // documenterConfig: {
-          //   configFilePath: "",
-          //   configFile: {
-          //     showInheritedMembers: true,
-          //     outputTarget: "markdown",
-          //     newlineKind: NewlineKind.CrLf,
-          //     markdownOptions: {
-          //       fileLevel: "package",
-          //       indexBreadcrumb: "Home",
-          //       indexFilename: "index.md",
-          //       indexTitle: "Sample API Docs"
-          //     },
-          //   },
-          // },
-          documenterConfig: undefined, // { showInheritedMembers: true, tableOfContents: {} }
-          outputFolder,
-        },
-        FileLevel.Package
-      );
-      markdownDocumenter.generateFiles();
     }
+  }
+  if (operation === "generate") {
+    FileSystem.ensureEmptyFolder(extractorOutputPath);
   }
 }
 
