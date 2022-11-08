@@ -4,7 +4,6 @@
 import { TsDocGeneratorCommandLine } from "./TsDocGeneratorCommandLine";
 import { BaseAction } from "./BaseAction";
 import { MarkdownDocumenter } from "../documenters/MarkdownDocumenter";
-import { FileLevel } from "../documenters/FileLevel";
 
 export class MarkdownAction extends BaseAction {
   public constructor(parser: TsDocGeneratorCommandLine) {
@@ -26,10 +25,6 @@ export class MarkdownAction extends BaseAction {
         apiModel,
         documenterConfig: undefined,
         outputFolder,
-      },
-      {
-        fileLevel: FileLevel.Member,
-        indexFilename: "index",
       }
     );
     markdownDocumenter.generateFiles();

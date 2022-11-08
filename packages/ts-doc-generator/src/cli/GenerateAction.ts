@@ -10,7 +10,6 @@ import { ExperimentalYamlDocumenter } from "../documenters/ExperimentalYamlDocum
 
 import { FileSystem } from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "../documenters/MarkdownDocumenter";
-import { FileLevel } from "../documenters/FileLevel";
 
 export class GenerateAction extends BaseAction {
   public constructor(parser: TsDocGeneratorCommandLine) {
@@ -58,10 +57,6 @@ export class GenerateAction extends BaseAction {
           apiModel,
           documenterConfig,
           outputFolder,
-        },
-        {
-          fileLevel: FileLevel.Member,
-          indexFilename: "index",
         }
       );
       markdownDocumenter.generateFiles();
