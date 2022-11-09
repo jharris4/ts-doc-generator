@@ -1,11 +1,7 @@
 import * as path from "path";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
-import {
-  JsonFile,
-  FileSystem,
-  NewlineKind,
-} from "@rushstack/node-core-library";
+import { JsonFile, FileSystem } from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
 import { DocumenterConfig } from "./documenters/DocumenterConfig";
 import {
@@ -132,20 +128,6 @@ const buildMarkdownDocumenterConfig = (
     showInheritedMembers,
     newlineKind,
   } = options;
-  const defaultConfig = DocumenterConfig.getDefaultConfig({
-    outputTarget: "markdown",
-    newlineKind,
-    showInheritedMembers,
-    markdownOptions: {
-      fileLevel,
-      indexFilename,
-      indexTitle,
-      indexBreadcrumb,
-      hideEmptyTableColumns,
-      showPropertyDefaults,
-    },
-  });
-
   let documenterConfig: DocumenterConfig | null = null;
   let documenterErrorMessage: string | null = null;
   try {
@@ -277,9 +259,7 @@ function prepareOptions(
 
 async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
   const options: GenerateDocOptions = prepareOptions(maybeOptions);
-  const { docRootDir, docApiDir, docMarkdownDir, operation, markdownOptions } =
-    options;
-  const { fileLevel } = markdownOptions;
+  const { docRootDir, docApiDir, docMarkdownDir, operation } = options;
   const makeCurrent = (relativePath: string) =>
     path.join(docRootDir, relativePath);
 
@@ -388,6 +368,25 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
         apiModel.loadPackage(filenamePath);
       }
     }
+    const { showInheritedMembers, newlineKind, markdownOptions } = options;
+    const {
+      fileLevel,
+      indexFilename,
+      indexTitle,
+      indexBreadcrumb,
+      hideEmptyTableColumns,
+      showPropertyDefaults,
+    } = markdownOptions;
+
+    const baseDocumenterConfig = {
+      indexFilename,
+      indexTitle,
+      indexBreadcrumb,
+      hideEmptyTableColumns,
+      showPropertyDefaults,
+      showInheritedMembers,
+      newlineKind,
+    };
 
     if (fileLevel === "all") {
       const fileLevels: string[] = [
@@ -402,6 +401,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
         FileSystem.ensureFolder(subOutputFolder);
         const { documenterConfig, documenterErrorMessage } =
           buildMarkdownDocumenterConfig({
+            ...baseDocumenterConfig,
             fileLevel: fileLevel as FileLevelString,
           });
         if (documenterConfig) {
@@ -417,7 +417,10 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
       }
     } else {
       const { documenterConfig, documenterErrorMessage } =
-        buildMarkdownDocumenterConfig({ fileLevel });
+        buildMarkdownDocumenterConfig({
+          ...baseDocumenterConfig,
+          fileLevel,
+        });
       if (documenterConfig) {
         const markdownDocumenter = new MarkdownDocumenter({
           apiModel,
