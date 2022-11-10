@@ -1,15 +1,29 @@
 {
   "name": "api-docdown",
+  "description": "An all in one tool to convert monorepos with typescript type definitions into markdown api documentation",
   "version": "1.0.0",
+  "author": "jharris4",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jharris4/ts-doc-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jharris4/ts-doc-generator/issues"
+  },
   "bin": {
     "api-docdown": "./bin/api-docdown"
   },
   "main": "lib/index.js",
-  "typings": "dist/api-docdown.d.ts",
+  "typings": "lib/api-docdown.d.ts",
+  "files": [
+    "bin/",
+    "lib/"
+  ],
   "dependencies": {
     "@microsoft/api-extractor": "^7.33.6",
     "@microsoft/api-documenter": "^7.19.24",
-    "api-markdown-documenter": "*",
+    "api-markdown-documenter": "^1.0.0",
     "glob": "^8.0.3",
     "micromatch": "^4.0.5"
   },

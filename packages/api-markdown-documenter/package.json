@@ -1,12 +1,30 @@
 {
   "name": "api-markdown-documenter",
+  "description": "A fork of the api-documenter package that provides functionality for grouping the generated markdown files by file level",
   "version": "1.0.0",
+  "author": "jharris4",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jharris4/ts-doc-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jharris4/ts-doc-generator/issues"
+  },
   "bin": {
     "api-markdown-documenter": "./bin/api-markdown-documenter"
   },
   "main": "lib/index.js",
-  "typings": "dist/rollup.d.ts",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "bin/",
+    "lib/"
+  ],
   "dependencies": {
+    "@microsoft/api-extractor-model": "^7.25.2",
+    "@microsoft/tsdoc": "^0.14.2",
+    "@rushstack/node-core-library": "^3.53.2",
+    "@rushstack/ts-command-line": "^4.13.1",
     "colors": "~1.2.1",
     "js-yaml": "~3.13.1",
     "resolve": "~1.17.0"
