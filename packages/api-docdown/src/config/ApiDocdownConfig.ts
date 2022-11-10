@@ -61,6 +61,8 @@ export class ApiDocdownConfig {
     const { showBreadcrumb = true } = markdownOptions;
     const { useIndex = true } = markdownOptions;
     const { indexBreadcrumbUrl = "" } = markdownOptions;
+    const { includePackageNames = [] } = config;
+    const { excludePackageNames = [] } = config;
 
     return {
       docRootDir,
@@ -81,6 +83,8 @@ export class ApiDocdownConfig {
         useIndex,
         indexBreadcrumbUrl,
       },
+      includePackageNames,
+      excludePackageNames,
     };
   }
 }

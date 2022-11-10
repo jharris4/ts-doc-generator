@@ -17,5 +17,8 @@
     "showPropertyDefaults": true,
     "hideEmptyTableColumns": true,
     "showBreadcrumb": true
-  }
+  },
+
+  "includePackageNames": [],
+  "excludePackageNames": ["api-*"]
 }

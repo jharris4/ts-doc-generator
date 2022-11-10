@@ -48,6 +48,23 @@
       "default": "crlf"
     },
 
+    "includePackageNames": {
+      "description": "When specified, only packages matching this micromatch pattern will be processed",
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": []
+    },
+    "excludePackageNames": {
+      "description": "When specified, any packages matching this micromatch pattern will be excluded from processing",
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": []
+    },
+
     "markdownOptions": {
       "description": "Specifies what type of documentation will be generated",
       "type": "object",

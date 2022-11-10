@@ -7,11 +7,15 @@
   "main": "lib/index.js",
   "typings": "dist/api-docdown.d.ts",
   "dependencies": {
-    "@microsoft/api-extractor": "^7.33.4",
-    "@microsoft/api-documenter": "^7.19.22",
-    "api-markdown-documenter": "*"
+    "@microsoft/api-extractor": "^7.33.6",
+    "@microsoft/api-documenter": "^7.19.24",
+    "api-markdown-documenter": "*",
+    "glob": "^8.0.3",
+    "micromatch": "^4.0.5"
   },
   "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/micromatch": "^4.0.2",
     "@types/node": "12.20.24",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",

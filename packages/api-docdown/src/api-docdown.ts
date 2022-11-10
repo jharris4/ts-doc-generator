@@ -1,7 +1,13 @@
 import * as path from "path";
+import * as glob from "glob";
+import * as micromatch from "micromatch";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
-import { JsonFile, FileSystem } from "@rushstack/node-core-library";
+import {
+  JsonFile,
+  FileSystem,
+  PackageName,
+} from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "api-markdown-documenter/lib/documenters/MarkdownDocumenter";
 import { DocumenterConfig } from "api-markdown-documenter/lib/documenters/DocumenterConfig";
 import {
@@ -10,13 +16,10 @@ import {
   IConfigFileMarkdown,
 } from "api-markdown-documenter/lib/documenters/IConfigFile";
 
-const packageFilter = (path: string) => !path.includes("api-");
-// const packageFilter = (path: string) => path.includes("package-case");
-// const packageFilter = (path: string) => path.includes("package-namespaced");
-
 interface ExtractorBundle {
   extractorConfig: ExtractorConfig | null;
   extractorErrorMessage: string | null;
+  packageName: string;
 }
 
 const getErrorMessage = (error: unknown) =>
@@ -29,11 +32,13 @@ const buildExtractorConfig = (
 ): ExtractorBundle => {
   let extractorConfig: ExtractorConfig | null = null;
   let extractorErrorMessage: string | null = null;
+  let packageName: string = "";
   const packageJSONPath = path.join(packagePath, "package.json");
   try {
     const pkg = JsonFile.load(packageJSONPath);
     const { name, types, typings } = pkg;
     if (name && (types || typings)) {
+      packageName = PackageName.getUnscopedName(name);
       const typeEntry = path.join(packagePath, types || typings);
       const extractorConfigObject = {
         projectFolder: packagePath,
@@ -96,6 +101,7 @@ const buildExtractorConfig = (
   return {
     extractorConfig,
     extractorErrorMessage,
+    packageName,
   };
 };
 
@@ -186,6 +192,8 @@ interface GenerateDocOptions {
   markdownOptions: IConfigFileMarkdown;
   showInheritedMembers: boolean;
   newlineKind: NewlineKindString;
+  includePackageNames: string[];
+  excludePackageNames: string[];
 }
 
 export interface GenerateDocOptionsMaybe {
@@ -196,12 +204,15 @@ export interface GenerateDocOptionsMaybe {
   markdownOptions?: IConfigFileMarkdown;
   showInheritedMembers?: boolean;
   newlineKind?: NewlineKindString;
+  includePackageNames?: string[];
+  excludePackageNames?: string[];
 }
 
 function prepareOptions(
   maybeOptions: GenerateDocOptionsMaybe
 ): GenerateDocOptions {
   const { docRootDir, docApiDir, docMarkdownDir, operation } = maybeOptions;
+  const { includePackageNames = [], excludePackageNames = [] } = maybeOptions;
   const { markdownOptions, showInheritedMembers, newlineKind } =
     DocumenterConfig.getDefaultConfig(maybeOptions);
   return {
@@ -212,6 +223,8 @@ function prepareOptions(
     markdownOptions,
     showInheritedMembers,
     newlineKind,
+    includePackageNames,
+    excludePackageNames,
   };
 }
 
@@ -231,12 +244,47 @@ function makeRelative(dir: string, base: string): string {
   }
 }
 
+function ensureTrailingSlash(pattern: string): string {
+  return pattern.endsWith("/") ? pattern : pattern + "/";
+}
+
+function isMatch(
+  matchPackagePaths: string[],
+  packagePath: string,
+  include: boolean
+): boolean {
+  if (matchPackagePaths.length === 0) {
+    return include;
+  }
+  return micromatch.isMatch(packagePath, matchPackagePaths);
+}
+
+function getPackageNameFilter(options: {
+  includePackageNames: string[];
+  excludePackageNames: string[];
+}): (packageName: string) => boolean {
+  const { includePackageNames, excludePackageNames } = options;
+  if (includePackageNames.length > 0 || excludePackageNames.length > 0) {
+    return (packageName: string) => {
+      const isIncluded = isMatch(includePackageNames, packageName, true);
+      const isExcluded = isMatch(excludePackageNames, packageName, false);
+      return isIncluded && !isExcluded;
+    };
+  }
+  return () => true;
+}
+
 export function generateApiDocs(
   maybeOptions: GenerateDocOptionsMaybe,
   cwd?: string
 ) {
   const options: GenerateDocOptions = prepareOptions(maybeOptions);
   const { docRootDir, docApiDir, docMarkdownDir, operation } = options;
+  const { includePackageNames, excludePackageNames } = options;
+  const packageNameFilter = getPackageNameFilter({
+    includePackageNames,
+    excludePackageNames,
+  });
 
   const rootPath = getPath(docRootDir, cwd);
   const makeRootRel = (relativePath: string) =>
@@ -254,11 +302,19 @@ export function generateApiDocs(
     const extractorConfigs: Array<ExtractorConfig> = [];
     const extractorErrorMessages: string[] = [];
     const addExtractorConfig = (extractorBundle: ExtractorBundle) => {
-      const { extractorConfig, extractorErrorMessage } = extractorBundle;
-      if (extractorConfig) {
+      const { extractorConfig, extractorErrorMessage, packageName } =
+        extractorBundle;
+      if (
+        packageName !== "" &&
+        packageNameFilter(packageName) &&
+        extractorConfig
+      ) {
         extractorConfigs.push(extractorConfig);
       }
-      if (extractorErrorMessage) {
+      if (
+        (packageName === "" || packageNameFilter(packageName)) &&
+        extractorErrorMessage
+      ) {
         extractorErrorMessages.push(extractorErrorMessage);
       }
     };
@@ -267,27 +323,18 @@ export function generateApiDocs(
         buildExtractorConfig(makeRootRel(""), extractorOutputPath)
       );
     } else if (pkg.workspaces) {
-      let packagePaths: Array<string> = [];
-      const workspaces = pkg.workspaces.map((workspace: string) => {
-        const lastSlashIndex = workspace.lastIndexOf("/");
-        if (lastSlashIndex !== -1) {
-          if (workspace.substring(lastSlashIndex).indexOf("*") !== -1) {
-            return workspace.substring(0, lastSlashIndex);
-          }
-        }
-        return workspace;
-      });
-      for (let workspace of workspaces) {
-        // console.log("check: ", workspace, FileSystem.getRealPath(workspace));
-        packagePaths = packagePaths.concat(
-          FileSystem.readFolderItems(makeRootRel(workspace))
-            .filter((i) => i.isDirectory())
-            .map((i) => path.join(workspace, i.name))
-        );
-      }
-      // console.log("\n\n\n\n^^^^^^^^ package paths: ", packagePaths);
-      packagePaths = packagePaths.filter(packageFilter);
-      // packagePaths = ["packages/ts-doc-generator"];
+      let packagePaths: string[] = [];
+
+      packagePaths = pkg.workspaces.reduce(
+        (packagePaths: string[], workspace: string): string[] => {
+          const workspacePackagePaths = glob.sync(
+            ensureTrailingSlash(workspace)
+          );
+          packagePaths = packagePaths.concat(workspacePackagePaths);
+          return packagePaths;
+        },
+        []
+      );
 
       if (packagePaths.length > 0) {
         for (let packagePath of packagePaths) {
@@ -341,7 +388,7 @@ export function generateApiDocs(
     const outputFolder = documenterOutputPath;
     FileSystem.ensureFolder(outputFolder);
     for (const filename of FileSystem.readFolderItemNames(inputFolder)) {
-      if (filename.match(/\.api\.json$/i) && packageFilter(filename)) {
+      if (filename.match(/\.api\.json$/i) && packageNameFilter(filename)) {
         console.log(`Reading ${filename}`);
         const filenamePath = path.join(inputFolder, filename);
         apiModel.loadPackage(filenamePath);

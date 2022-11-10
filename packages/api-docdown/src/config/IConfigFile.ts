@@ -61,6 +61,9 @@ export interface IConfigFileBase {
   newlineKind?: NewlineKindString;
 
   markdownOptions?: IConfigFileMarkdown;
+
+  includePackageNames?: string[];
+  excludePackageNames?: string[];
 }
 
 /**
@@ -89,4 +92,7 @@ export interface IConfigFileFull extends IConfigFile {
   newlineKind: NewlineKindString;
 
   markdownOptions: IConfigFileMarkdown;
+
+  includePackageNames: string[];
+  excludePackageNames: string[];
 }

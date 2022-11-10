@@ -43,6 +43,8 @@ async function main() {
       useIndex,
       indexBreadcrumbUrl,
     },
+    includePackageNames: [],
+    excludePackageNames: [],
   });
 }
 
