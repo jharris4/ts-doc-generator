@@ -1,0 +1,5 @@
+{
+  "name": "package-missing-types",
+  "version": "1.0.0",
+  "types": "src/package-missing-types.d.ts"
+}
