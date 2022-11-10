@@ -61,6 +61,7 @@ export class ApiDocdownConfig {
     const { showBreadcrumb = true } = markdownOptions;
     const { useIndex = true } = markdownOptions;
     const { indexBreadcrumbUrl = "" } = markdownOptions;
+    const { showRules = true } = markdownOptions;
     const { includePackageNames = [] } = config;
     const { excludePackageNames = [] } = config;
 
@@ -82,6 +83,7 @@ export class ApiDocdownConfig {
         showBreadcrumb,
         useIndex,
         indexBreadcrumbUrl,
+        showRules,
       },
       includePackageNames,
       excludePackageNames,

@@ -23,6 +23,7 @@ export interface IConfigFileMarkdown {
   showBreadcrumb?: boolean;
   useIndex?: boolean;
   indexBreadcrumbUrl?: string;
+  showRules?: boolean;
 }
 
 export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
@@ -35,6 +36,7 @@ export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
   showBreadcrumb: boolean;
   useIndex: boolean;
   indexBreadcrumbUrl: string;
+  showRules: boolean;
 }
 
 export interface IConfigFileBase {

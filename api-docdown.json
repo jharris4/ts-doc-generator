@@ -16,7 +16,10 @@
     "indexBreadcrumbTitle": "Home",
     "showPropertyDefaults": true,
     "hideEmptyTableColumns": true,
-    "showBreadcrumb": true
+    "showBreadcrumb": true,
+    "indexBreadcrumbUrl": "",
+    "useIndex": true,
+    "showRules": true
   },
 
   "includePackageNames": [],

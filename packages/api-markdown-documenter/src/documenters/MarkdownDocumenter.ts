@@ -78,6 +78,48 @@ export interface IMarkdownDocumenterOptions {
   outputFolder: string;
 }
 
+export interface DocumenterStats {
+  packageCount: number;
+  fileCount: number;
+}
+
+class Logger {
+  private readonly _packageNames: string[] = [];
+  private readonly _fileNames: string[] = [];
+
+  logPackage(packageName: string): void {
+    this._packageNames.push(packageName);
+  }
+
+  logFile(fileName: string): void {
+    this._fileNames.push(fileName);
+  }
+
+  get packageNames(): string[] {
+    return this._packageNames;
+  }
+
+  get packageCount(): number {
+    return this._packageNames.length;
+  }
+
+  get fileNames(): string[] {
+    return this._fileNames;
+  }
+
+  get fileCount(): number {
+    return this._fileNames.length;
+  }
+
+  get stats(): DocumenterStats {
+    const { fileCount, packageCount } = this;
+    return {
+      fileCount,
+      packageCount,
+    };
+  }
+}
+
 /**
  * Renders API documentation in the Markdown file format.
  * For more info:  https://en.wikipedia.org/wiki/Markdown
@@ -91,6 +133,7 @@ export class MarkdownDocumenter {
   private readonly _outputFolder: string;
   private readonly _pluginLoader: PluginLoader;
   private readonly _documenterConfig: DocumenterConfig;
+  private readonly _logger: Logger;
 
   public constructor(options: IMarkdownDocumenterOptions) {
     const documenterConfig = (this._documenterConfig = DocumenterConfig.prepare(
@@ -108,9 +151,10 @@ export class MarkdownDocumenter {
     this._markdownEmitter = new CustomMarkdownEmitter(this._apiModel);
 
     this._pluginLoader = new PluginLoader();
+    this._logger = new Logger();
   }
 
-  public generateFiles(): void {
+  public generateFiles(): DocumenterStats {
     if (this._documenterConfig) {
       this._pluginLoader.load(this._documenterConfig, () => {
         return new MarkdownDocumenterFeatureContext({
@@ -125,7 +169,7 @@ export class MarkdownDocumenter {
       });
     }
 
-    console.log();
+    // console.log();
     this._deleteOldOutputFiles();
 
     this._writeApiItemPage(this._apiModel, null);
@@ -133,6 +177,7 @@ export class MarkdownDocumenter {
     if (this._pluginLoader.markdownDocumenterFeature) {
       this._pluginLoader.markdownDocumenterFeature.onFinished({});
     }
+    return this._logger.stats;
   }
 
   private _writeApiItemPages(
@@ -144,7 +189,10 @@ export class MarkdownDocumenter {
     for (const apiItem of apiItems) {
       this._writeApiItemPage(apiItem, parentOutput);
     }
-    if (addRule) {
+    if (
+      addRule &&
+      this._documenterConfig.configFile.markdownOptions.showRules
+    ) {
       parentOutput.appendNode(new DocHorizontalRule({ configuration }));
     }
   }
@@ -231,7 +279,8 @@ export class MarkdownDocumenter {
         );
         break;
       case ApiItemKind.Package:
-        console.log(`Writing ${apiItem.displayName} package`);
+        // console.log(`Writing ${apiItem.displayName} package`);
+        this._logger.logPackage(apiItem.displayName);
         const unscopedPackageName: string = PackageName.getUnscopedName(
           apiItem.displayName
         );
@@ -433,6 +482,7 @@ export class MarkdownDocumenter {
         pageContent = eventArgs.pageContent;
       }
 
+      this._logger.logFile(filename);
       FileSystem.writeFile(filename, pageContent, {
         convertLineEndings: this._documenterConfig.newlineKind,
       });
@@ -691,7 +741,9 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._currentItemPath.getIsFileLevelExact();
+    const useRule =
+      this._documenterConfig.configFile.markdownOptions.showRules &&
+      this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -803,7 +855,9 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._currentItemPath.getIsFileLevelExact();
+    const useRule =
+      this._documenterConfig.configFile.markdownOptions.showRules &&
+      this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -962,7 +1016,9 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._currentItemPath.getIsFileLevelExact();
+    const useRule =
+      this._documenterConfig.configFile.markdownOptions.showRules &&
+      this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -1113,7 +1169,9 @@ export class MarkdownDocumenter {
       }
     }
 
-    const useRule = this._currentItemPath.getIsFileLevelExact();
+    const useRule =
+      this._documenterConfig.configFile.markdownOptions.showRules &&
+      this._currentItemPath.getIsFileLevelExact();
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
@@ -1466,18 +1524,32 @@ export class MarkdownDocumenter {
   }
 
   private _writeBreadcrumb(output: DocSection, apiItem: ApiItem): void {
+    const {
+      showBreadcrumb,
+      indexBreadcrumbTitle,
+      indexBreadcrumbUrl,
+      useIndex,
+    } = this._documenterConfig.configFile.markdownOptions;
+    if (!showBreadcrumb) {
+      return;
+    }
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
 
-    output.appendNodeInParagraph(
-      new DocLinkTag({
-        configuration,
-        tagName: "@link",
-        linkText:
-          this._documenterConfig.configFile.markdownOptions
-            .indexBreadcrumbTitle,
-        urlDestination: this._getLinkFilenameForApiItem(this._apiModel),
-      })
-    );
+    if (useIndex) {
+      const indexUrlDestination =
+        indexBreadcrumbUrl !== ""
+          ? indexBreadcrumbUrl
+          : this._getLinkFilenameForApiItem(this._apiModel);
+
+      output.appendNodeInParagraph(
+        new DocLinkTag({
+          configuration,
+          tagName: "@link",
+          linkText: indexBreadcrumbTitle,
+          urlDestination: indexUrlDestination,
+        })
+      );
+    }
 
     for (const hierarchyItem of apiItem.getHierarchy()) {
       switch (hierarchyItem.kind) {
@@ -1570,11 +1642,11 @@ export class MarkdownDocumenter {
     }
 
     // Log the messages for diagnostic purposes.
-    for (const message of result.messages) {
-      console.log(
-        `Diagnostic message for findMembersWithInheritance: ${message.text}`
-      );
-    }
+    // for (const message of result.messages) {
+    //   console.log(
+    //     `Diagnostic message for findMembersWithInheritance: ${message.text}`
+    //   );
+    // }
 
     return result.items;
   }
@@ -1584,7 +1656,7 @@ export class MarkdownDocumenter {
   }
 
   private _deleteOldOutputFiles(): void {
-    console.log("Deleting old output from " + this._outputFolder);
+    // console.log("Deleting old output from " + this._outputFolder);
     FileSystem.ensureEmptyFolder(this._outputFolder);
   }
 }

@@ -149,6 +149,10 @@ export class DocumenterConfig {
           markdownOptions.indexBreadcrumbUrl !== undefined
             ? markdownOptions.indexBreadcrumbUrl
             : "",
+        showRules:
+          markdownOptions.showRules !== undefined
+            ? markdownOptions.showRules
+            : false,
       },
     };
   }

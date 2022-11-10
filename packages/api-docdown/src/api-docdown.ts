@@ -1,7 +1,12 @@
 import * as path from "path";
 import * as glob from "glob";
 import * as micromatch from "micromatch";
-import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
+import {
+  Extractor,
+  ExtractorConfig,
+  ExtractorMessage,
+  ExtractorResult,
+} from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
 import {
   JsonFile,
@@ -37,8 +42,10 @@ const buildExtractorConfig = (
   try {
     const pkg = JsonFile.load(packageJSONPath);
     const { name, types, typings } = pkg;
-    if (name && (types || typings)) {
+    if (name) {
       packageName = PackageName.getUnscopedName(name);
+    }
+    if (name && (types || typings)) {
       const typeEntry = path.join(packagePath, types || typings);
       const extractorConfigObject = {
         projectFolder: packagePath,
@@ -95,9 +102,9 @@ const buildExtractorConfig = (
   } catch (e) {
     extractorErrorMessage = "package.json not found: " + packageJSONPath;
   }
-  if (extractorErrorMessage) {
-    console.error(extractorErrorMessage);
-  }
+  // if (extractorErrorMessage) {
+  //   console.error(extractorErrorMessage);
+  // }
   return {
     extractorConfig,
     extractorErrorMessage,
@@ -117,6 +124,10 @@ interface BuildDocConfigOptions {
   indexBreadcrumbTitle?: string;
   hideEmptyTableColumns?: boolean;
   showPropertyDefaults?: boolean;
+  showBreadcrumb?: boolean;
+  useIndex?: boolean;
+  indexBreadcrumbUrl?: string;
+  showRules?: boolean;
   showInheritedMembers?: boolean;
   newlineKind?: NewlineKindString;
 }
@@ -131,6 +142,10 @@ const buildMarkdownDocumenterConfig = (
     indexBreadcrumbTitle,
     hideEmptyTableColumns,
     showPropertyDefaults,
+    showBreadcrumb,
+    useIndex,
+    indexBreadcrumbUrl,
+    showRules,
     showInheritedMembers,
     newlineKind,
   } = options;
@@ -148,6 +163,10 @@ const buildMarkdownDocumenterConfig = (
         indexBreadcrumbTitle,
         hideEmptyTableColumns,
         showPropertyDefaults,
+        showBreadcrumb,
+        useIndex,
+        indexBreadcrumbUrl,
+        showRules,
       },
     });
   } catch (e) {
@@ -274,6 +293,12 @@ function getPackageNameFilter(options: {
   return () => true;
 }
 
+interface ExtractorResultBundle {
+  extractorConfig: ExtractorConfig;
+  extractorResult: ExtractorResult | null;
+  errorMessage: string | null;
+}
+
 export function generateApiDocs(
   maybeOptions: GenerateDocOptionsMaybe,
   cwd?: string
@@ -349,35 +374,73 @@ export function generateApiDocs(
       }
     }
 
-    const succeededExtractors: Array<any> = [];
-    const failedExtractors: Array<any> = [];
+    const succeededExtractors: ExtractorResultBundle[] = [];
+    const failedExtractors: ExtractorResultBundle[] = [];
     if (extractorConfigs.length > 0) {
       FileSystem.ensureEmptyFolder(extractorOutputPath);
       for (let extractorConfig of extractorConfigs) {
         try {
           const extractorResult = Extractor.invoke(extractorConfig, {
             localBuild: true,
-            showVerboseMessages: true,
+            showVerboseMessages: false,
+            showDiagnostics: false,
+            messageCallback: (message: ExtractorMessage) => {
+              message.handled = true;
+            },
           });
 
           if (extractorResult.succeeded) {
-            succeededExtractors.push({ extractorConfig, extractorResult });
+            succeededExtractors.push({
+              extractorConfig,
+              extractorResult,
+              errorMessage: null,
+            });
           } else {
-            console.error(
-              `API Extractor completed with ${extractorResult.errorCount} errors` +
-                ` and ${extractorResult.warningCount} warnings`
-            );
-            console.log("extractor no success result: ", extractorResult);
-            failedExtractors.push({ extractorConfig, extractorResult });
+            // console.error(
+            //   `API Extractor completed with ${extractorResult.errorCount} errors` +
+            //     ` and ${extractorResult.warningCount} warnings`
+            // );
+            // console.log("extractor no success result: ", extractorResult);
+            failedExtractors.push({
+              extractorConfig,
+              extractorResult,
+              errorMessage: null,
+            });
           }
         } catch (e) {
-          console.log("error e", e);
-          failedExtractors.push({ extractorConfig, extractorResult: null });
+          // console.log("error e", e);
+          failedExtractors.push({
+            extractorConfig,
+            extractorResult: null,
+            errorMessage: getErrorMessage(e),
+          });
         }
       }
     }
 
-    console.log("**** succeededExtractors: ", succeededExtractors.length);
+    const succeededCount = succeededExtractors.length;
+    const failedCount = extractorErrorMessages.length + failedExtractors.length;
+
+    const totalCount = succeededCount + failedCount;
+    console.log("Extractors succeeded: " + succeededCount + " / " + totalCount);
+    if (failedCount > 0) {
+      console.log("Extractors failed: " + failedCount + " / " + totalCount);
+      for (let errorMessage of extractorErrorMessages) {
+        console.error(errorMessage + "\n");
+      }
+      for (let failedExtractor of failedExtractors) {
+        const { extractorResult, errorMessage } = failedExtractor;
+        if (extractorResult) {
+          console.error(
+            `API Extractor completed with ${extractorResult.errorCount} errors` +
+              ` and ${extractorResult.warningCount} warnings` +
+              "\n"
+          );
+        } else if (errorMessage) {
+          console.error(errorMessage + "\n");
+        }
+      }
+    }
   }
   if (operation === "document" || operation === "generate") {
     const apiModel = new ApiModel();
@@ -387,12 +450,17 @@ export function generateApiDocs(
     }
     const outputFolder = documenterOutputPath;
     FileSystem.ensureFolder(outputFolder);
+    const apiFilenames: string[] = [];
     for (const filename of FileSystem.readFolderItemNames(inputFolder)) {
       if (filename.match(/\.api\.json$/i) && packageNameFilter(filename)) {
-        console.log(`Reading ${filename}`);
+        // console.log(`Reading ${filename}`);
+        apiFilenames.push(filename);
         const filenamePath = path.join(inputFolder, filename);
         apiModel.loadPackage(filenamePath);
       }
+    }
+    if (operation === "document") {
+      console.log("Documenter loaded api files: " + apiFilenames.length);
     }
     const { showInheritedMembers, newlineKind, markdownOptions } = options;
     const {
@@ -402,6 +470,10 @@ export function generateApiDocs(
       indexBreadcrumbTitle,
       hideEmptyTableColumns,
       showPropertyDefaults,
+      showBreadcrumb,
+      indexBreadcrumbUrl,
+      useIndex,
+      showRules
     } = markdownOptions;
 
     const baseDocumenterConfig = {
@@ -410,6 +482,10 @@ export function generateApiDocs(
       indexBreadcrumbTitle,
       hideEmptyTableColumns,
       showPropertyDefaults,
+      showBreadcrumb,
+      indexBreadcrumbUrl,
+      useIndex,
+      showRules,
       showInheritedMembers,
       newlineKind,
     };
@@ -436,7 +512,8 @@ export function generateApiDocs(
             documenterConfig,
             outputFolder: subOutputFolder,
           });
-          markdownDocumenter.generateFiles();
+          const { packageCount, fileCount } = markdownDocumenter.generateFiles();
+          console.log("Documenter with fileLevel " + fileLevel + " created " + fileCount + " files for " + packageCount + " packages");
         } else {
           console.error("Generator error: " + documenterErrorMessage);
         }
@@ -453,7 +530,8 @@ export function generateApiDocs(
           documenterConfig,
           outputFolder,
         });
-        markdownDocumenter.generateFiles();
+        const { packageCount, fileCount } = markdownDocumenter.generateFiles();
+        console.log("Documenter created " + fileCount + " files for " + packageCount + " packages");
       } else {
         console.error("Generator error: " + documenterErrorMessage);
       }

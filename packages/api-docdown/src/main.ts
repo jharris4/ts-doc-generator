@@ -24,6 +24,7 @@ async function main() {
   const showBreadcrumb = true;
   const useIndex = true;
   const indexBreadcrumbUrl = "";
+  const showRules = true;
 
   generateApiDocs({
     docRootDir,
@@ -42,9 +43,10 @@ async function main() {
       showBreadcrumb,
       useIndex,
       indexBreadcrumbUrl,
+      showRules,
     },
     includePackageNames: [],
-    excludePackageNames: [],
+    excludePackageNames: ["api-*"],
   });
 }
 

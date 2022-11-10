@@ -114,6 +114,11 @@
           "description": "Allows a custom url to be used as the destination for the index in the breadcrumb (ignored if empty)",
           "type": "string",
           "default": ""
+        },
+        "showRules": {
+          "description": "Whether to show horizontal rules between top level sections for the top file level child groups",
+          "type": "boolean",
+          "default": true
         }
       },
       "additionalProperties": false
