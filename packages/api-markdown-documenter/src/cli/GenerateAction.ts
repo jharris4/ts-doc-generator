@@ -3,7 +3,7 @@
 
 import * as path from "path";
 
-import { TsDocGeneratorCommandLine } from "./TsDocGeneratorCommandLine";
+import { ApiMarkdownDocumenterCommandLine } from "./ApiMarkdownDocumenterCommandLine";
 import { BaseAction } from "./BaseAction";
 import { DocumenterConfig } from "../documenters/DocumenterConfig";
 import { ExperimentalYamlDocumenter } from "../documenters/ExperimentalYamlDocumenter";
@@ -12,7 +12,7 @@ import { FileSystem } from "@rushstack/node-core-library";
 import { MarkdownDocumenter } from "../documenters/MarkdownDocumenter";
 
 export class GenerateAction extends BaseAction {
-  public constructor(parser: TsDocGeneratorCommandLine) {
+  public constructor(parser: ApiMarkdownDocumenterCommandLine) {
     super({
       actionName: "generate",
       summary: "EXPERIMENTAL",

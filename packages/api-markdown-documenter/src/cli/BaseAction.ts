@@ -67,7 +67,7 @@ export abstract class BaseAction extends CommandLineAction {
 
     for (const filename of FileSystem.readFolderItemNames(inputFolder)) {
       if (filename.match(/\.api\.json$/i)) {
-        console.log(`Reading ${filename}`);
+        //console.log(`Reading ${filename}`);
         const filenamePath: string = path.join(inputFolder, filename);
         apiModel.loadPackage(filenamePath);
       }

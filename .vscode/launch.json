@@ -15,7 +15,7 @@
         "--experimental-specifier-resolution=node"
       ],
       "args": ["e"],
-      "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
+      "program": "${workspaceFolder}/packages/api-docdown/src/main.ts"
     },
     {
       "type": "node",
@@ -28,7 +28,7 @@
         "--experimental-specifier-resolution=node"
       ],
       "args": ["d"],
-      "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
+      "program": "${workspaceFolder}/packages/api-docdown/src/main.ts"
     },
     {
       "type": "node",
@@ -41,7 +41,7 @@
         "--experimental-specifier-resolution=node"
       ],
       "args": ["g"],
-      "program": "${workspaceFolder}/packages/ts-doc-generator/src/main.ts"
+      "program": "${workspaceFolder}/packages/api-docdown/src/main.ts"
     },
     {
       "type": "node",

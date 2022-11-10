@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
-import { TsDocGeneratorCommandLine } from "./TsDocGeneratorCommandLine";
+import { ApiMarkdownDocumenterCommandLine } from "./ApiMarkdownDocumenterCommandLine";
 import { BaseAction } from "./BaseAction";
 import { MarkdownDocumenter } from "../documenters/MarkdownDocumenter";
 
 export class MarkdownAction extends BaseAction {
-  public constructor(parser: TsDocGeneratorCommandLine) {
+  public constructor(parser: ApiMarkdownDocumenterCommandLine) {
     super({
       actionName: "markdown",
       summary: "Generate documentation as Markdown files (*.md)",

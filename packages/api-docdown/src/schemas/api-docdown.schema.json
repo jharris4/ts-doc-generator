@@ -1,0 +1,107 @@
+{
+  "title": "API Docdown Configuration",
+  "description": "Describes how the API Docdown tool will process a project.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Part of the JSON Schema standard, this optional keyword declares the URL of the schema that the file conforms to. Editors may download the schema and use it to perform syntax highlighting.",
+      "type": "string"
+    },
+
+    "docRootDir": {
+      "description": "Specifies what type of documentation will be generated",
+      "type": "string",
+      "default": "."
+    },
+    "docApiDir": {
+      "description": "Specifies what type of documentation will be generated",
+      "type": "string",
+      "default": "docs/api"
+    },
+    "docMarkdownDir": {
+      "description": "Specifies what type of documentation will be generated",
+      "type": "string",
+      "default": "docs/md"
+    },
+
+    "generateApi": {
+      "description": "Specifies whether the api json files will be written to files when using operation generate",
+      "type": "boolean",
+      "default": false
+    },
+
+    "operation": {
+      "description": "Whether to extract the api json files, document those to md files, or generate for both",
+      "type": "string",
+      "enum": ["extract", "document", "generate"],
+      "default": "generate"
+    },
+    "showInheritedMembers": {
+      "description": "Specifies whether inherited members should also be shown on an API item's page.",
+      "type": "boolean",
+      "default": false
+    },
+    "newlineKind": {
+      "description": "Specifies what type of newlines API Documenter should use when writing output files.  By default, the output files will be written with Windows-style newlines.  To use POSIX-style newlines, specify \"lf\" instead. To use the OS's default newline kind, specify \"os\".",
+      "type": "string",
+      "enum": ["crlf", "lf", "os"],
+      "default": "crlf"
+    },
+
+    "markdownOptions": {
+      "description": "Specifies what type of documentation will be generated",
+      "type": "object",
+      "properties": {
+        "fileLevel": {
+          "description": "Specifies what level to output separated files until",
+          "type": "string",
+          "enum": ["model", "package", "namespace", "export", "member", "all"],
+          "default": "package"
+        },
+        "indexBreadcrumbTitle": {
+          "description": "The text to show for the index/model in the breadcrumb",
+          "type": "string",
+          "default": "Home"
+        },
+        "indexFilename": {
+          "description": "The filename to use for the index/model markdown file",
+          "type": "string",
+          "default": "index"
+        },
+        "indexTitle": {
+          "description": "The text to show for the main title of the index/model",
+          "type": "string",
+          "default": "API Reference"
+        },
+        "showPropertyDefaults": {
+          "description": "Whether to show the default values for member properties",
+          "type": "boolean",
+          "default": true
+        },
+        "hideEmptyTableColumns": {
+          "description": "Whether to hide table columns when no cells in then have any values",
+          "type": "boolean",
+          "default": true
+        },
+        "showBreadcrumb": {
+          "description": "Whether to show the breadcrumb at the top of each markdown file",
+          "type": "boolean",
+          "default": true
+        },
+        "useIndex": {
+          "description": "Whether to output the index markdown file (and whether to include it in the breadcrumb)",
+          "type": "boolean",
+          "default": true
+        },
+        "indexBreadcrumbUrl": {
+          "description": "Allows a custom url to be used as the destination for the index in the breadcrumb (ignored if empty)",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "additionalProperties": false
+}

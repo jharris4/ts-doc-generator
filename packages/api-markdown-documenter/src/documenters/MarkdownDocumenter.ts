@@ -1473,7 +1473,8 @@ export class MarkdownDocumenter {
         configuration,
         tagName: "@link",
         linkText:
-          this._documenterConfig.configFile.markdownOptions.indexBreadcrumb,
+          this._documenterConfig.configFile.markdownOptions
+            .indexBreadcrumbTitle,
         urlDestination: this._getLinkFilenameForApiItem(this._apiModel),
       })
     );

@@ -2,15 +2,15 @@ import * as path from "path";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import { ApiModel } from "@microsoft/api-extractor-model";
 import { JsonFile, FileSystem } from "@rushstack/node-core-library";
-import { MarkdownDocumenter } from "./documenters/MarkdownDocumenter";
-import { DocumenterConfig } from "./documenters/DocumenterConfig";
+import { MarkdownDocumenter } from "api-markdown-documenter/lib/documenters/MarkdownDocumenter";
+import { DocumenterConfig } from "api-markdown-documenter/lib/documenters/DocumenterConfig";
 import {
   FileLevelString,
   NewlineKindString,
   IConfigFileMarkdown,
-} from "./documenters/IConfigFile";
+} from "api-markdown-documenter/lib/documenters/IConfigFile";
 
-const packageFilter = (path: string) => !path.includes("ts-doc-generator");
+const packageFilter = (path: string) => !path.includes("api-");
 // const packageFilter = (path: string) => path.includes("package-case");
 // const packageFilter = (path: string) => path.includes("package-namespaced");
 
@@ -108,7 +108,7 @@ interface BuildDocConfigOptions {
   fileLevel?: FileLevelString;
   indexFilename?: string;
   indexTitle?: string;
-  indexBreadcrumb?: string;
+  indexBreadcrumbTitle?: string;
   hideEmptyTableColumns?: boolean;
   showPropertyDefaults?: boolean;
   showInheritedMembers?: boolean;
@@ -122,7 +122,7 @@ const buildMarkdownDocumenterConfig = (
     fileLevel,
     indexFilename,
     indexTitle,
-    indexBreadcrumb,
+    indexBreadcrumbTitle,
     hideEmptyTableColumns,
     showPropertyDefaults,
     showInheritedMembers,
@@ -139,7 +139,7 @@ const buildMarkdownDocumenterConfig = (
         fileLevel,
         indexFilename,
         indexTitle,
-        indexBreadcrumb,
+        indexBreadcrumbTitle,
         hideEmptyTableColumns,
         showPropertyDefaults,
       },
@@ -178,66 +178,24 @@ let packageTypes: string | string[]; // "" | [""];
 
 */
 
-interface GenerateDocOptions extends BuildDocConfigOptions {
+interface GenerateDocOptions {
   docRootDir: string;
   docApiDir: string;
   docMarkdownDir: string;
   operation: "extract" | "generate" | "document";
-  // fileLevel: FileLevelString;
   markdownOptions: IConfigFileMarkdown;
   showInheritedMembers: boolean;
   newlineKind: NewlineKindString;
 }
 
-interface GenerateDocOptionsMaybe extends BuildDocConfigOptions {
+export interface GenerateDocOptionsMaybe {
   docRootDir: string;
   docApiDir: string;
   docMarkdownDir: string;
   operation: "extract" | "generate" | "document";
-  // fileLevel: FileLevelString;
   markdownOptions?: IConfigFileMarkdown;
   showInheritedMembers?: boolean;
   newlineKind?: NewlineKindString;
-}
-
-async function main() {
-  const args = process.argv.slice(2);
-  const hasArg = (char: string) => args.some((arg) => arg.includes(char));
-  const operation = hasArg("e")
-    ? "extract"
-    : hasArg("d")
-    ? "document"
-    : "generate";
-  const docRootDir = process.cwd();
-  const docApiDir = "docs/apis";
-  const docMarkdownDir = "docs/generated";
-
-  // optional
-  const showInheritedMembers = false;
-  const newlineKind = "crlf";
-  const fileLevel = "all";
-  const indexFilename = "index";
-  const indexTitle = "API Reference";
-  const indexBreadcrumb = "Home";
-  const showPropertyDefaults = true;
-  const hideEmptyTableColumns = true;
-
-  generateApiDocs({
-    docRootDir,
-    docApiDir,
-    docMarkdownDir,
-    operation,
-    showInheritedMembers,
-    newlineKind,
-    markdownOptions: {
-      fileLevel,
-      indexFilename,
-      indexTitle,
-      indexBreadcrumb,
-      showPropertyDefaults,
-      hideEmptyTableColumns,
-    },
-  });
 }
 
 function prepareOptions(
@@ -257,19 +215,40 @@ function prepareOptions(
   };
 }
 
-async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
+function getPath(dir: string, cwd?: string): string {
+  if (cwd && dir.startsWith(".")) {
+    return path.join(cwd, dir.substring(1));
+  } else {
+    return dir;
+  }
+}
+
+function makeRelative(dir: string, base: string): string {
+  if (!dir.startsWith("/")) {
+    return path.join(base, dir);
+  } else {
+    return dir;
+  }
+}
+
+export function generateApiDocs(
+  maybeOptions: GenerateDocOptionsMaybe,
+  cwd?: string
+) {
   const options: GenerateDocOptions = prepareOptions(maybeOptions);
   const { docRootDir, docApiDir, docMarkdownDir, operation } = options;
-  const makeCurrent = (relativePath: string) =>
-    path.join(docRootDir, relativePath);
 
-  const extractorOutputPath = makeCurrent(docApiDir);
-  const documenterOutputPath = makeCurrent(docMarkdownDir);
+  const rootPath = getPath(docRootDir, cwd);
+  const makeRootRel = (relativePath: string) =>
+    makeRelative(relativePath, rootPath);
+
+  const extractorOutputPath = makeRootRel(getPath(docApiDir, cwd));
+  const documenterOutputPath = makeRootRel(getPath(docMarkdownDir, cwd));
 
   FileSystem.ensureFolder(extractorOutputPath);
   FileSystem.ensureFolder(documenterOutputPath);
 
-  const pkg = JsonFile.load(makeCurrent("package.json"));
+  const pkg = JsonFile.load(makeRootRel("package.json"));
 
   if (operation === "extract" || operation === "generate") {
     const extractorConfigs: Array<ExtractorConfig> = [];
@@ -285,7 +264,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
     };
     if (pkg.types || pkg.typings) {
       addExtractorConfig(
-        buildExtractorConfig(makeCurrent(""), extractorOutputPath)
+        buildExtractorConfig(makeRootRel(""), extractorOutputPath)
       );
     } else if (pkg.workspaces) {
       let packagePaths: Array<string> = [];
@@ -301,7 +280,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
       for (let workspace of workspaces) {
         // console.log("check: ", workspace, FileSystem.getRealPath(workspace));
         packagePaths = packagePaths.concat(
-          FileSystem.readFolderItems(makeCurrent(workspace))
+          FileSystem.readFolderItems(makeRootRel(workspace))
             .filter((i) => i.isDirectory())
             .map((i) => path.join(workspace, i.name))
         );
@@ -314,7 +293,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
         for (let packagePath of packagePaths) {
           addExtractorConfig(
             buildExtractorConfig(
-              makeCurrent(packagePath),
+              makeRootRel(packagePath),
               extractorOutputPath,
               ["**/*.d.ts"]
             )
@@ -373,7 +352,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
       fileLevel,
       indexFilename,
       indexTitle,
-      indexBreadcrumb,
+      indexBreadcrumbTitle,
       hideEmptyTableColumns,
       showPropertyDefaults,
     } = markdownOptions;
@@ -381,7 +360,7 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
     const baseDocumenterConfig = {
       indexFilename,
       indexTitle,
-      indexBreadcrumb,
+      indexBreadcrumbTitle,
       hideEmptyTableColumns,
       showPropertyDefaults,
       showInheritedMembers,
@@ -437,5 +416,3 @@ async function generateApiDocs(maybeOptions: GenerateDocOptionsMaybe) {
     FileSystem.ensureEmptyFolder(extractorOutputPath);
   }
 }
-
-main().catch(console.error);

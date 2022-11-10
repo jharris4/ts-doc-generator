@@ -11,7 +11,8 @@
     "outputTarget": {
       "description": "Specifies what type of documentation will be generated",
       "type": "string",
-      "enum": ["docfx", "markdown"]
+      "enum": ["docfx", "markdown"],
+      "default": "markdown"
     },
 
     "markdownOptions": {
@@ -24,27 +25,48 @@
           "enum": ["model", "package", "namespace", "export", "member"],
           "default": "member"
         },
-        "indexBreadcrumb": {
+        "indexBreadcrumbTitle": {
           "description": "The text to show for the index/model in the breadcrumb",
-          "type": "string"
+          "type": "string",
+          "default": "Home"
         },
         "indexFilename": {
           "description": "The filename to use for the index/model markdown file",
-          "type": "string"
+          "type": "string",
+          "default": "index"
         },
         "indexTitle": {
           "description": "The text to show for the main title of the index/model",
-          "type": "string"
+          "type": "string",
+          "default": "API Reference"
         },
         "showPropertyDefaults": {
           "description": "Whether to show the default values for member properties",
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "hideEmptyTableColumns": {
           "description": "Whether to hide table columns when no cells in then have any values",
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
+        },
+        "showBreadcrumb": {
+          "description": "Whether to show the breadcrumb at the top of each markdown file",
+          "type": "boolean",
+          "default": true
+        },
+        "useIndex": {
+          "description": "Whether to output the index markdown file (and whether to include it in the breadcrumb)",
+          "type": "boolean",
+          "default": true
+        },
+        "indexBreadcrumbUrl": {
+          "description": "Allows a custom url to be used as the destination for the index in the breadcrumb (ignored if empty)",
+          "type": "string",
+          "default": ""
         }
-      }
+      },
+      "additionalProperties": false
     },
 
     "newlineKind": {
@@ -56,23 +78,27 @@
 
     "newDocfxNamespaces": {
       "description": "This enables an experimental feature that will be officially released with the next major version of API Documenter.  It requires DocFX 2.46 or newer.  It enables documentation for namespaces and adds them to the table of contents.  This will also affect file layout as namespaced items will be nested under a directory for the namespace instead of just within the package.",
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
 
     "plugins": {
       "description": "Specifies plugin packages to be loaded",
-      "type": "array"
+      "type": "array",
+      "default": []
     },
 
     "tableOfContents": {
       "description": "Configures how the table of contents is generated.",
       "type": "object",
-      "additionalProperties": true
+      "additionalProperties": true,
+      "default": null
     },
 
     "showInheritedMembers": {
       "description": "Specifies whether inherited members should also be shown on an API item's page.",
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     }
   },
 

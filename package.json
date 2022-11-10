@@ -1,21 +1,26 @@
 {
   "private": "true",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "sample-packages/*"
   ],
   "scripts": {
-    "build": "tsc --project packages/ts-doc-generator/tsconfig.json",
-    "temp1": "--esm",
-    "temp2": "--compiler-options={\"module\":\"commonJS\"}",
-    "temp": "--compiler-options={\"moduleResolution\":\"nodenext\",\"module\":\"ESNext\"}",
-    "extract": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts e",
-    "document": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts d",
-    "generate": "ts-node --project packages/ts-doc-generator/tsconfig.json packages/ts-doc-generator/src/main.ts g",
-    "prettier": "prettier --write ."
+    "build-documenter": "tsc --project packages/api-markdown-documenter/tsconfig.json",
+    "build-docdown": "tsc --project packages/api-docdown/tsconfig.json",
+    "build": "yarn build-documenter && yarn build-docdown",
+    "extract": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts e",
+    "document": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts d",
+    "generate": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts g",
+    "prettier": "prettier --write .",
+    "test-cli-help": "api-docdown",
+    "test-cli-extract": "api-docdown extract",
+    "test-cli-document": "api-docdown document",
+    "test-cli-generate": "api-docdown generate"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
     "pretty-quick": "^3.1.3",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "api-docdown": "*"
   }
 }

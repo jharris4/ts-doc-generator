@@ -6,7 +6,7 @@ import {
   CommandLineChoiceParameter,
 } from "@rushstack/ts-command-line";
 
-import { TsDocGeneratorCommandLine } from "./TsDocGeneratorCommandLine";
+import { ApiMarkdownDocumenterCommandLine } from "./ApiMarkdownDocumenterCommandLine";
 import { BaseAction } from "./BaseAction";
 
 import { YamlDocumenter } from "../documenters/YamlDocumenter";
@@ -17,7 +17,7 @@ export class YamlAction extends BaseAction {
   private readonly _newDocfxNamespacesParameter: CommandLineFlagParameter;
   private readonly _yamlFormatParameter: CommandLineChoiceParameter;
 
-  public constructor(parser: TsDocGeneratorCommandLine) {
+  public constructor(parser: ApiMarkdownDocumenterCommandLine) {
     super({
       actionName: "yaml",
       summary:

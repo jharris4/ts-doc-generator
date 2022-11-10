@@ -82,20 +82,26 @@ export type OutputTarget = "docfx" | "markdown";
 
 export interface IConfigFileMarkdown {
   fileLevel?: FileLevelString;
-  indexBreadcrumb?: string;
+  indexBreadcrumbTitle?: string;
   indexFilename?: string;
   indexTitle?: string;
   showPropertyDefaults?: boolean;
   hideEmptyTableColumns?: boolean;
+  showBreadcrumb?: boolean;
+  useIndex?: boolean;
+  indexBreadcrumbUrl?: string;
 }
 
 export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
   fileLevel: FileLevelString;
-  indexBreadcrumb: string;
+  indexBreadcrumbTitle: string;
   indexFilename: string;
   indexTitle: string;
   showPropertyDefaults: boolean;
   hideEmptyTableColumns: boolean;
+  showBreadcrumb: boolean;
+  useIndex: boolean;
+  indexBreadcrumbUrl: string;
 }
 
 export interface IConfigFileBase {

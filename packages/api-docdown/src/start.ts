@@ -6,7 +6,7 @@ import { bold as colorBold, cyan as colorCyan } from "colors";
 
 import { PackageJsonLookup } from "@rushstack/node-core-library";
 
-import { TsDocGeneratorCommandLine } from "./cli/TsDocGeneratorCommandLine";
+import { ApiDocdownCommandLine } from "./cli/ApiDocdownCommandLine";
 
 const myPackageVersion: string =
   PackageJsonLookup.loadOwnPackageJson(__dirname).version;
@@ -14,12 +14,12 @@ const myPackageVersion: string =
 console.log(
   os.EOL +
     colorBold(
-      `ts-doc-generator ${myPackageVersion} ` +
-        colorCyan(" - https://api-extractor.com/") +
+      `api-docdown ${myPackageVersion} ` +
+        // colorCyan(" - https://api-extractor.com/") +
         os.EOL
     )
 );
 
-const parser: TsDocGeneratorCommandLine = new TsDocGeneratorCommandLine();
+const parser: ApiDocdownCommandLine = new ApiDocdownCommandLine();
 
 parser.execute().catch(console.error); // CommandLineParser.execute() should never reject the promise

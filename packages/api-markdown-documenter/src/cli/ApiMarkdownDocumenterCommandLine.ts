@@ -6,10 +6,10 @@ import { MarkdownAction } from "./MarkdownAction";
 import { YamlAction } from "./YamlAction";
 import { GenerateAction } from "./GenerateAction";
 
-export class TsDocGeneratorCommandLine extends CommandLineParser {
+export class ApiMarkdownDocumenterCommandLine extends CommandLineParser {
   public constructor() {
     super({
-      toolFilename: "api-documenter",
+      toolFilename: "api-markdown-documenter",
       toolDescription:
         "Reads *.api.json files produced by api-extractor, " +
         " and generates API documentation in various output formats.",

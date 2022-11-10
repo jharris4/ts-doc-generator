@@ -125,9 +125,9 @@ export class DocumenterConfig {
           markdownOptions.indexTitle !== undefined
             ? markdownOptions.indexTitle
             : "API Reference",
-        indexBreadcrumb:
-          markdownOptions.indexBreadcrumb !== undefined
-            ? markdownOptions.indexBreadcrumb
+        indexBreadcrumbTitle:
+          markdownOptions.indexBreadcrumbTitle !== undefined
+            ? markdownOptions.indexBreadcrumbTitle
             : "Home",
         hideEmptyTableColumns:
           markdownOptions.hideEmptyTableColumns !== undefined
@@ -137,6 +137,18 @@ export class DocumenterConfig {
           markdownOptions.showPropertyDefaults !== undefined
             ? markdownOptions.showPropertyDefaults
             : false,
+        showBreadcrumb:
+          markdownOptions.showBreadcrumb !== undefined
+            ? markdownOptions.showBreadcrumb
+            : true,
+        useIndex:
+          markdownOptions.useIndex !== undefined
+            ? markdownOptions.useIndex
+            : true,
+        indexBreadcrumbUrl:
+          markdownOptions.indexBreadcrumbUrl !== undefined
+            ? markdownOptions.indexBreadcrumbUrl
+            : "",
       },
     };
   }
