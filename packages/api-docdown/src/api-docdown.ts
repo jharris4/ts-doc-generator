@@ -473,7 +473,7 @@ export function generateApiDocs(
       showBreadcrumb,
       indexBreadcrumbUrl,
       useIndex,
-      showRules
+      showRules,
     } = markdownOptions;
 
     const baseDocumenterConfig = {
@@ -512,8 +512,17 @@ export function generateApiDocs(
             documenterConfig,
             outputFolder: subOutputFolder,
           });
-          const { packageCount, fileCount } = markdownDocumenter.generateFiles();
-          console.log("Documenter with fileLevel " + fileLevel + " created " + fileCount + " files for " + packageCount + " packages");
+          const { packageCount, fileCount } =
+            markdownDocumenter.generateFiles();
+          console.log(
+            "Documenter with fileLevel " +
+              fileLevel +
+              " created " +
+              fileCount +
+              " files for " +
+              packageCount +
+              " packages"
+          );
         } else {
           console.error("Generator error: " + documenterErrorMessage);
         }
@@ -531,7 +540,13 @@ export function generateApiDocs(
           outputFolder,
         });
         const { packageCount, fileCount } = markdownDocumenter.generateFiles();
-        console.log("Documenter created " + fileCount + " files for " + packageCount + " packages");
+        console.log(
+          "Documenter created " +
+            fileCount +
+            " files for " +
+            packageCount +
+            " packages"
+        );
       } else {
         console.error("Generator error: " + documenterErrorMessage);
       }
