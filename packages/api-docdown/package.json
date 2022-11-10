@@ -1,7 +1,7 @@
 {
   "name": "api-docdown",
   "description": "An all in one tool to convert monorepos with typescript type definitions into markdown api documentation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "jharris4",
   "license": "GPL-3.0",
   "repository": {
@@ -23,7 +23,7 @@
   "dependencies": {
     "@microsoft/api-extractor": "^7.33.6",
     "@microsoft/api-documenter": "^7.19.24",
-    "api-markdown-documenter": "^1.0.0",
+    "api-markdown-documenter": "^1.0.1",
     "glob": "^8.0.3",
     "micromatch": "^4.0.5"
   },
