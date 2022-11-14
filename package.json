@@ -10,6 +10,7 @@
     "build": "yarn build-documenter && yarn build-docdown",
     "extract": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts e",
     "document": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts d",
+    "document-original": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts o",
     "generate": "ts-node --project packages/api-docdown/tsconfig.json packages/api-docdown/src/main.ts g",
     "prettier": "prettier --write .",
     "test-cli-help": "api-docdown",
