@@ -1,0 +1,6 @@
+{
+    "name": "package-callsignature",
+    "version": "1.0.0",
+    "types": "src/package-callsignature.d.ts"
+  }
+  
