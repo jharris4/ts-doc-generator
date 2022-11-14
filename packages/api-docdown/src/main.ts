@@ -7,6 +7,8 @@ async function main() {
     ? "extract"
     : hasArg("d")
     ? "document"
+    : hasArg("o")
+    ? "document-original"
     : "generate";
   const docRootDir = process.cwd();
   const docApiDir = "docs/apis";
