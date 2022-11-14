@@ -13,8 +13,10 @@ import {
   FileSystem,
   PackageName,
 } from "@rushstack/node-core-library";
+import { MarkdownDocumenter as OriginalMarkdownDocument } from "@microsoft/api-documenter/lib/documenters/MarkdownDocumenter";
 import { MarkdownDocumenter } from "api-markdown-documenter/lib/documenters/MarkdownDocumenter";
 import { DocumenterConfig } from "api-markdown-documenter/lib/documenters/DocumenterConfig";
+
 import {
   FileLevelString,
   NewlineKindString,
@@ -207,7 +209,7 @@ interface GenerateDocOptions {
   docRootDir: string;
   docApiDir: string;
   docMarkdownDir: string;
-  operation: "extract" | "generate" | "document";
+  operation: "extract" | "generate" | "document" | "document-original";
   markdownOptions: IConfigFileMarkdown;
   showInheritedMembers: boolean;
   newlineKind: NewlineKindString;
@@ -219,7 +221,7 @@ export interface GenerateDocOptionsMaybe {
   docRootDir: string;
   docApiDir: string;
   docMarkdownDir: string;
-  operation: "extract" | "generate" | "document";
+  operation: "extract" | "generate" | "document" | "document-original";
   markdownOptions?: IConfigFileMarkdown;
   showInheritedMembers?: boolean;
   newlineKind?: NewlineKindString;
@@ -442,7 +444,7 @@ export function generateApiDocs(
       }
     }
   }
-  if (operation === "document" || operation === "generate") {
+  if (operation === "document" || operation === "document-original" || operation === "generate") {
     const apiModel = new ApiModel();
     const inputFolder = extractorOutputPath;
     if (!FileSystem.exists(inputFolder)) {
@@ -458,6 +460,29 @@ export function generateApiDocs(
         const filenamePath = path.join(inputFolder, filename);
         apiModel.loadPackage(filenamePath);
       }
+    }
+    if (operation === "document-original") {
+      const { showInheritedMembers, newlineKind } = options;
+      const baseDocumenterConfig = {
+        showInheritedMembers,
+        newlineKind,
+      };
+      const { documenterConfig, documenterErrorMessage } =
+        buildMarkdownDocumenterConfig({
+          ...baseDocumenterConfig
+        });
+      if (documenterConfig) {
+        const markdownDocumenter = new OriginalMarkdownDocument({
+          apiModel,
+          documenterConfig,
+          outputFolder,
+        });
+        markdownDocumenter.generateFiles();
+        console.log("Original Api Documenter completed");
+      } else {
+        console.error("Original Api Documenter error: " + documenterErrorMessage);
+      }
+      return;
     }
     if (operation === "document") {
       console.log("Documenter loaded api files: " + apiFilenames.length);
@@ -548,7 +573,7 @@ export function generateApiDocs(
             " packages"
         );
       } else {
-        console.error("Generator error: " + documenterErrorMessage);
+        console.error("Markdown Documenter error: " + documenterErrorMessage);
       }
     }
   }
