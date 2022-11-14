@@ -23,7 +23,12 @@ export interface WithCaseClashInterface {
  * Lowercase class name
  */
 export class aclass {
-  lowerFunction(): void;
+  /**
+   * This is the lower function of the lowercase a class
+   * @param a - some string of text
+   * @param b - some number that you choose
+   */
+  lowerFunction(a: string, b: number): void;
 }
 
 /**
