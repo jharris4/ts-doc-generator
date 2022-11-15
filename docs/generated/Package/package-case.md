@@ -33,22 +33,33 @@ export class aclass
 
 #### Methods:
 
-|  Method |
-|  --- |
-|  [lowerFunction()](#aclass~0.lowerfunction) |
+|  Method | Description |
+|  --- | --- |
+|  [lowerFunction(a, b)](#aclass~0.lowerfunction) | This is the lower function of the lowercase a class |
 
 <a name="aclass~0.lowerfunction"></a>
 
 #### aclass.lowerFunction() method
 
+This is the lower function of the lowercase a class
+
 <b>Signature:</b>
 
 ```typescript
-lowerFunction(): void;
+lowerFunction(a: string, b: number): void;
 ```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  a | string | some string of text |
+|  b | number | some number that you choose |
+
 <b>Returns:</b>
 
 void
+
+<br>
 
 <a name="aclass~1"></a>
 
@@ -121,6 +132,8 @@ Interface with case clash on property names
 ```typescript
 property: string;
 ```
+
+<br>
 
 <a name="withcaseclashinterface.property~1"></a>
 

@@ -130,6 +130,9 @@ interface BuildDocConfigOptions {
   useIndex?: boolean;
   indexBreadcrumbUrl?: string;
   showRules?: boolean;
+  showLineBreaks?: boolean;
+  showCallSignatures?: boolean;
+  collapseCallSignatures?: boolean;
   showInheritedMembers?: boolean;
   newlineKind?: NewlineKindString;
 }
@@ -148,6 +151,9 @@ const buildMarkdownDocumenterConfig = (
     useIndex,
     indexBreadcrumbUrl,
     showRules,
+    showLineBreaks,
+    showCallSignatures,
+    collapseCallSignatures,
     showInheritedMembers,
     newlineKind,
   } = options;
@@ -169,6 +175,9 @@ const buildMarkdownDocumenterConfig = (
         useIndex,
         indexBreadcrumbUrl,
         showRules,
+        showLineBreaks,
+        showCallSignatures,
+        collapseCallSignatures,
       },
     });
   } catch (e) {
@@ -444,7 +453,11 @@ export function generateApiDocs(
       }
     }
   }
-  if (operation === "document" || operation === "document-original" || operation === "generate") {
+  if (
+    operation === "document" ||
+    operation === "document-original" ||
+    operation === "generate"
+  ) {
     const apiModel = new ApiModel();
     const inputFolder = extractorOutputPath;
     if (!FileSystem.exists(inputFolder)) {
@@ -469,7 +482,7 @@ export function generateApiDocs(
       };
       const { documenterConfig, documenterErrorMessage } =
         buildMarkdownDocumenterConfig({
-          ...baseDocumenterConfig
+          ...baseDocumenterConfig,
         });
       if (documenterConfig) {
         const markdownDocumenter = new OriginalMarkdownDocument({
@@ -480,7 +493,9 @@ export function generateApiDocs(
         markdownDocumenter.generateFiles();
         console.log("Original Api Documenter completed");
       } else {
-        console.error("Original Api Documenter error: " + documenterErrorMessage);
+        console.error(
+          "Original Api Documenter error: " + documenterErrorMessage
+        );
       }
       return;
     }
@@ -499,6 +514,9 @@ export function generateApiDocs(
       indexBreadcrumbUrl,
       useIndex,
       showRules,
+      showLineBreaks,
+      showCallSignatures,
+      collapseCallSignatures,
     } = markdownOptions;
 
     const baseDocumenterConfig = {
@@ -511,6 +529,9 @@ export function generateApiDocs(
       indexBreadcrumbUrl,
       useIndex,
       showRules,
+      showLineBreaks,
+      showCallSignatures,
+      collapseCallSignatures,
       showInheritedMembers,
       newlineKind,
     };

@@ -10,12 +10,437 @@
 
 |  Package | Description |
 |  --- | --- |
+|  [package-callsignature](#package-callsignature) | This package shows how the markdown documenter can handle call signatures |
 |  [package-case](#package-case) | package-case summary goes here |
 |  [package-child](#package-child) |  |
 |  [package-external](#package-external) |  |
 |  [package-namespaced](#package-namespaced) |  |
 |  [package-parent](#package-parent) |  |
 |  [package-simple](#package-simple) |  |
+
+<a name="package-callsignature"></a>
+
+### package-callsignature package
+
+This package shows how the markdown documenter can handle call signatures
+
+#### Remarks:
+
+The original documenter did not support outputting call signatures, this is a new feature.
+
+#### Enumerations:
+
+|  Enumeration | Description |
+|  --- | --- |
+|  [SomeEnum](#package-callsignature.someenum) | This enum is referenced by other examples |
+
+<a name="package-callsignature.someenum"></a>
+
+#### SomeEnum enum
+
+This enum is referenced by other examples
+
+<b>Signature:</b>
+
+```typescript
+export enum SomeEnum 
+```
+<b>Enumeration Members:</b>
+
+|  Member | Description |
+|  --- | --- |
+|  ValueOne | The docs for value one. |
+|  ValueThree | The docs for value three. |
+|  ValueTwo | The docs for value two. |
+
+<b>Remarks:</b>
+
+It is referred to by the [ListenerTwo](#package-callsignature.listenertwo) interface call signature parameters
+
+#### Function Interfaces:
+
+|  Function Interface | Description |
+|  --- | --- |
+|  [InterfaceForFunction](#package-callsignature.interfaceforfunction) | Interface with a single call signature member. |
+|  [ListenerOne](#package-callsignature.listenerone) | This is the first sample listener interface call function |
+|  [ListenerTwo](#package-callsignature.listenertwo) | This is the second sample listener interface call function |
+
+<a name="package-callsignature.interfaceforfunction"></a>
+
+#### InterfaceForFunction function interface
+
+Interface with a single call signature member.
+
+<b>Remarks:</b>
+
+This interface is functionally equivalent to `type InterfaceForFunction = (paramA: string, paramB: number) => boolean`
+
+The call signature allows documentation for the call signature parameters
+
+<b>Signature:</b>
+
+```typescript
+export interface InterfaceForFunction {
+  (paramA: string, paramB: number): boolean;
+}
+```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  paramA | string | Here we can add docs for paramA |
+|  paramB | number | Here we can also add docs for paramB |
+
+<b>Returns:</b>
+
+boolean
+
+<b>Remarks:</b>
+
+The call signature can also have remarks
+
+<br>
+
+<a name="package-callsignature.listenerone"></a>
+
+#### ListenerOne function interface
+
+This is the first sample listener interface call function
+
+The listener one call signature allows documentation for the call signature parameters
+
+<b>Signature:</b>
+
+```typescript
+export interface ListenerOne {
+  (paramA: string, paramB: boolean): void;
+}
+```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  paramA | string | Here we can add docs for listener one paramA |
+|  paramB | boolean | Here we can also add docs for listener one paramB |
+
+<b>Returns:</b>
+
+void
+
+<br>
+
+<a name="package-callsignature.listenertwo"></a>
+
+#### ListenerTwo function interface
+
+This is the second sample listener interface call function
+
+The listener two call signature allows documentation for the call signature parameters
+
+<b>Signature:</b>
+
+```typescript
+export interface ListenerTwo {
+  (paramA: string, paramB: SomeEnum): void;
+}
+```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  paramA | string | Here we can add docs for listener two paramA |
+|  paramB | [SomeEnum](#package-callsignature.someenum) | Here we can also add docs for listener two paramB |
+
+<b>Returns:</b>
+
+void
+
+#### Interfaces:
+
+|  Interface | Description |
+|  --- | --- |
+|  [ChildInterface](#package-callsignature.childinterface) | Child interface |
+|  [EmptyInterface](#package-callsignature.emptyinterface) | An empty interface |
+|  [HasEventListeners](#package-callsignature.haseventlisteners) | Interface that demonstrates an event emitter with listener management |
+|  [InterfaceContainingFunction](#package-callsignature.interfacecontainingfunction) | Interface with a member who's parameter is an interface with single call signature member. |
+|  [MixedInterface](#package-callsignature.mixedinterface) | Mixed interface |
+
+<a name="package-callsignature.childinterface"></a>
+
+#### ChildInterface interface
+
+Child interface
+
+<b>Signature:</b>
+
+```typescript
+export interface ChildInterface extends EmptyInterface 
+```
+<b>Extends:</b> [EmptyInterface](#package-callsignature.emptyinterface)
+
+<b>Remarks:</b>
+
+This interface demonstrates that call signatures are not collapsed for child interfaces
+
+<b>Call Signatures:</b>
+
+|  Call Signature | Description |
+|  --- | --- |
+|  [call-1](#package-callsignature.childinterface.call-1) | The child interface call signature allows documentation for the call signature parameters |
+
+<a name="package-callsignature.childinterface.call-1"></a>
+
+#### ChildInterface.call-1 call signature
+
+The child interface call signature allows documentation for the call signature parameters
+
+<b>Signature:</b>
+
+```typescript
+(paramA: string, paramB: SomeEnum): void;
+```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  paramA | string | Here we can add docs for child interface paramA |
+|  paramB | [SomeEnum](#package-callsignature.someenum) | Here we can also add docs for child interface paramB |
+
+<b>Returns:</b>
+
+void
+
+<br>
+
+<a name="package-callsignature.emptyinterface"></a>
+
+#### EmptyInterface interface
+
+An empty interface
+
+<b>Signature:</b>
+
+```typescript
+export interface EmptyInterface 
+```
+<b>Remarks:</b>
+
+This interface is used as a parent interface by [ChildInterface](#package-callsignature.childinterface)
+
+<br>
+
+<a name="package-callsignature.haseventlisteners"></a>
+
+#### HasEventListeners interface
+
+Interface that demonstrates an event emitter with listener management
+
+<b>Signature:</b>
+
+```typescript
+export interface HasEventListeners 
+```
+<b>Remarks:</b>
+
+This interface demonstrates a common pattern where there are typed add/remove event listener functions that expect the listener to have a specific call signature
+
+<b>Properties:</b>
+
+|  Property | Type | Description |
+|  --- | --- | --- |
+|  [offEventOne](#package-callsignature.haseventlisteners.offeventone) | (listenerOne: [ListenerOne](#package-callsignature.listenerone)<!-- -->) =&gt; void | Removes a first listener |
+|  [offEventTwo](#package-callsignature.haseventlisteners.offeventtwo) | (listenerTwo: [ListenerTwo](#package-callsignature.listenertwo)<!-- -->) =&gt; void | Removes a second listener |
+|  [onEventOne](#package-callsignature.haseventlisteners.oneventone) | (listenerOne: [ListenerOne](#package-callsignature.listenerone)<!-- -->) =&gt; void | Adds a first listener |
+|  [onEventTwo](#package-callsignature.haseventlisteners.oneventtwo) | (listenerTwo: [ListenerTwo](#package-callsignature.listenertwo)<!-- -->) =&gt; void | Adds a second listener |
+
+<a name="package-callsignature.haseventlisteners.offeventone"></a>
+
+#### HasEventListeners.offEventOne property
+
+Removes a first listener
+
+<b>Signature:</b>
+
+```typescript
+offEventOne: (listenerOne: ListenerOne) => void;
+```
+
+<br>
+
+<a name="package-callsignature.haseventlisteners.offeventtwo"></a>
+
+#### HasEventListeners.offEventTwo property
+
+Removes a second listener
+
+<b>Signature:</b>
+
+```typescript
+offEventTwo: (listenerTwo: ListenerTwo) => void;
+```
+
+<br>
+
+<a name="package-callsignature.haseventlisteners.oneventone"></a>
+
+#### HasEventListeners.onEventOne property
+
+Adds a first listener
+
+<b>Signature:</b>
+
+```typescript
+onEventOne: (listenerOne: ListenerOne) => void;
+```
+
+<br>
+
+<a name="package-callsignature.haseventlisteners.oneventtwo"></a>
+
+#### HasEventListeners.onEventTwo property
+
+Adds a second listener
+
+<b>Signature:</b>
+
+```typescript
+onEventTwo: (listenerTwo: ListenerTwo) => void;
+```
+
+<br>
+
+<a name="package-callsignature.interfacecontainingfunction"></a>
+
+#### InterfaceContainingFunction interface
+
+Interface with a member who's parameter is an interface with single call signature member.
+
+<b>Signature:</b>
+
+```typescript
+export interface InterfaceContainingFunction 
+```
+<b>Remarks:</b>
+
+This interface demonstrates that a member's parameters can be linked to other types
+
+<b>Properties:</b>
+
+|  Property | Type | Description |
+|  --- | --- | --- |
+|  [onFunction](#package-callsignature.interfacecontainingfunction.onfunction) | (theFunction: [InterfaceForFunction](#package-callsignature.interfaceforfunction)<!-- -->) =&gt; void | This is the member with parameter that references the interface call function to demonstrate the link |
+|  [propertyA](#package-callsignature.interfacecontainingfunction.propertya) | number | This is some random property |
+
+<a name="package-callsignature.interfacecontainingfunction.onfunction"></a>
+
+#### InterfaceContainingFunction.onFunction property
+
+This is the member with parameter that references the interface call function to demonstrate the link
+
+<b>Signature:</b>
+
+```typescript
+onFunction: (theFunction: InterfaceForFunction) => void;
+```
+
+<br>
+
+<a name="package-callsignature.interfacecontainingfunction.propertya"></a>
+
+#### InterfaceContainingFunction.propertyA property
+
+This is some random property
+
+<b>Signature:</b>
+
+```typescript
+propertyA: number;
+```
+
+<br>
+
+<a name="package-callsignature.mixedinterface"></a>
+
+#### MixedInterface interface
+
+Mixed interface
+
+<b>Signature:</b>
+
+```typescript
+export interface MixedInterface 
+```
+<b>Remarks:</b>
+
+This interface demonstrates that call signatures are not collapsed for interfaces that don't have exatly one call signature member
+
+<b>Properties:</b>
+
+|  Property | Type | Description |
+|  --- | --- | --- |
+|  [someProperty](#package-callsignature.mixedinterface.someproperty) | number | This is a property that means this interface will not be collapsed |
+
+<a name="package-callsignature.mixedinterface.someproperty"></a>
+
+#### MixedInterface.someProperty property
+
+This is a property that means this interface will not be collapsed
+
+<b>Signature:</b>
+
+```typescript
+someProperty: number;
+```
+<b>Call Signatures:</b>
+
+|  Call Signature | Description |
+|  --- | --- |
+|  [call-1](#package-callsignature.mixedinterface.call-1) | The mixed interface call signature allows documentation for the call signature parameters |
+
+<a name="package-callsignature.mixedinterface.call-1"></a>
+
+#### MixedInterface.call-1 call signature
+
+The mixed interface call signature allows documentation for the call signature parameters
+
+<b>Signature:</b>
+
+```typescript
+(paramA: string, paramB: SomeEnum): void;
+```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  paramA | string | Here we can add docs for mixed interface paramA |
+|  paramB | [SomeEnum](#package-callsignature.someenum) | Here we can also add docs for mixed interface paramB |
+
+<b>Returns:</b>
+
+void
+
+#### Type Aliases:
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [TypeListener](#package-callsignature.typelistener) | This is a type alias for a simple function |
+
+<a name="package-callsignature.typelistener"></a>
+
+#### TypeListener type
+
+This is a type alias for a simple function
+
+<b>Signature:</b>
+
+```typescript
+export type TypeListener = (paramA: string, paramB: boolean) => void;
+```
+<b>Remarks:</b>
+
+Unfortunately it does not support documentation for the parameters
+
+<br>
 
 <a name="package-case"></a>
 
@@ -47,22 +472,33 @@ export class aclass
 ```
 <b>Methods:</b>
 
-|  Method |
-|  --- |
-|  [lowerFunction()](#package-case.aclass~0.lowerfunction) |
+|  Method | Description |
+|  --- | --- |
+|  [lowerFunction(a, b)](#package-case.aclass~0.lowerfunction) | This is the lower function of the lowercase a class |
 
 <a name="package-case.aclass~0.lowerfunction"></a>
 
 #### aclass.lowerFunction() method
 
+This is the lower function of the lowercase a class
+
 <b>Signature:</b>
 
 ```typescript
-lowerFunction(): void;
+lowerFunction(a: string, b: number): void;
 ```
+<b>Parameters:</b>
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  a | string | some string of text |
+|  b | number | some number that you choose |
+
 <b>Returns:</b>
 
 void
+
+<br>
 
 <a name="package-case.aclass~1"></a>
 
@@ -132,6 +568,8 @@ Interface with case clash on property names
 property: string;
 ```
 
+<br>
+
 <a name="package-case.withcaseclashinterface.property~1"></a>
 
 #### WithCaseClashInterface.Property property
@@ -141,6 +579,8 @@ property: string;
 ```typescript
 Property: number;
 ```
+
+<br>
 
 <a name="package-child"></a>
 
@@ -204,6 +644,8 @@ childClassMemberOne(argOne: boolean): string;
 
 string
 
+<br>
+
 <a name="package-child.mixinclass"></a>
 
 #### MixinClass class
@@ -236,6 +678,8 @@ export class MixinClass
 pEight: ChildClass[];
 ```
 
+<br>
+
 <a name="package-child.mixinclass.pfive"></a>
 
 #### MixinClass.pFive property
@@ -245,6 +689,8 @@ pEight: ChildClass[];
 ```typescript
 pFive: Number;
 ```
+
+<br>
 
 <a name="package-child.mixinclass.pfour"></a>
 
@@ -256,6 +702,8 @@ pFive: Number;
 pFour: ChildClass;
 ```
 
+<br>
+
 <a name="package-child.mixinclass.pone"></a>
 
 #### MixinClass.pOne property
@@ -265,6 +713,8 @@ pFour: ChildClass;
 ```typescript
 pOne: ParentInterface;
 ```
+
+<br>
 
 <a name="package-child.mixinclass.pseven"></a>
 
@@ -276,6 +726,8 @@ pOne: ParentInterface;
 pSeven: Array<ChildClass>;
 ```
 
+<br>
+
 <a name="package-child.mixinclass.psix"></a>
 
 #### MixinClass.pSix property
@@ -286,6 +738,8 @@ pSeven: Array<ChildClass>;
 pSix: number = 5;
 ```
 
+<br>
+
 <a name="package-child.mixinclass.pthree"></a>
 
 #### MixinClass.pThree property
@@ -295,6 +749,8 @@ pSix: number = 5;
 ```typescript
 pThree: ChildInterface;
 ```
+
+<br>
 
 <a name="package-child.mixinclass.ptwo"></a>
 
@@ -333,6 +789,8 @@ mFour(argOne: ChildClass[]): ChildInterface[];
 
 [ChildInterface](#package-child.childinterface)<!-- -->\[\]
 
+<br>
+
 <a name="package-child.mixinclass.mone"></a>
 
 #### MixinClass.mOne() method
@@ -352,6 +810,8 @@ mOne(argOne: ParentClass): ParentInterface;
 
 [ParentInterface](#package-parent.parentinterface)
 
+<br>
+
 <a name="package-child.mixinclass.mthree"></a>
 
 #### MixinClass.mThree() method
@@ -370,6 +830,8 @@ mThree(argOne: Array<ChildClass>): Array<ChildInterface>;
 <b>Returns:</b>
 
 Array&lt;[ChildInterface](#package-child.childinterface)<!-- -->&gt;
+
+<br>
 
 <a name="package-child.mixinclass.mtwo"></a>
 
@@ -487,6 +949,8 @@ These are the longer more detailed remarks about the ChildInterface
 childPropertyOne: boolean;
 ```
 
+<br>
+
 <a name="package-child.mixininterface"></a>
 
 #### MixinInterface interface
@@ -514,6 +978,8 @@ export interface MixinInterface
 pOne: ParentInterface;
 ```
 
+<br>
+
 <a name="package-child.mixininterface.pthree"></a>
 
 #### MixinInterface.pThree property
@@ -523,6 +989,8 @@ pOne: ParentInterface;
 ```typescript
 pThree: Number;
 ```
+
+<br>
 
 <a name="package-child.mixininterface.ptwo"></a>
 
@@ -572,6 +1040,8 @@ This is the child variable enum description
 PackageChildVariableEnum: PackageChildEnumValues
 ```
 
+<br>
+
 <a name="package-child.packagechildvariablefunction"></a>
 
 #### PackageChildVariableFunction variable
@@ -588,6 +1058,8 @@ PackageChildVariableFunction: (
 ) => void
 ```
 
+<br>
+
 <a name="package-child.packagechildvariableparent"></a>
 
 #### PackageChildVariableParent variable
@@ -600,6 +1072,8 @@ This is the child variable parent description
 PackageChildVariableParent: ParentClass
 ```
 
+<br>
+
 <a name="package-child.packagechildvariablestring"></a>
 
 #### PackageChildVariableString variable
@@ -611,6 +1085,8 @@ This is the child variable string description
 ```typescript
 PackageChildVariableString: string
 ```
+
+<br>
 
 <a name="package-external"></a>
 
@@ -648,6 +1124,8 @@ export interface ExternalUsingInterface
 propertyExternal: EditorState;
 ```
 
+<br>
+
 <a name="package-external.externalusinginterface.propertyone"></a>
 
 #### ExternalUsingInterface.propertyOne property
@@ -657,6 +1135,8 @@ propertyExternal: EditorState;
 ```typescript
 propertyOne: number;
 ```
+
+<br>
 
 <a name="package-namespaced"></a>
 
@@ -712,6 +1192,8 @@ export class NamespacedClass
 parentClassPropertyFunc: (arg1: NamespacedInterface) => NamespacedInterface;
 ```
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyfuncnestedtype"></a>
 
 #### PackageNamespaceA.NamespacedClass.parentClassPropertyFuncNestedType property
@@ -724,6 +1206,8 @@ parentClassPropertyFuncNestedType: (
     ) => Array<NamespacedInterface>;
 ```
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyone"></a>
 
 #### PackageNamespaceA.NamespacedClass.parentClassPropertyOne property
@@ -733,6 +1217,8 @@ parentClassPropertyFuncNestedType: (
 ```typescript
 parentClassPropertyOne: string;
 ```
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclasspropertytwo"></a>
 
@@ -773,6 +1259,8 @@ parentClassMemberFunc(
 
 (arg1: [NamespacedInterfaceTwo](#package-namespaced.packagenamespacea.namespacedinterfacetwo)<!-- -->) =&gt; [NamespacedInterfaceThree](#package-namespaced.packagenamespacea.namespacedinterfacethree)
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclassmemberfuncnestedtype"></a>
 
 #### PackageNamespaceA.NamespacedClass.parentClassMemberFuncNestedType() method
@@ -794,6 +1282,8 @@ parentClassMemberFuncNestedType(
 
 Array&lt;[NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface)<!-- -->&gt;
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclassmemberone"></a>
 
 #### PackageNamespaceA.NamespacedClass.parentClassMemberOne() method
@@ -812,6 +1302,8 @@ parentClassMemberOne(argOne: number): boolean;
 <b>Returns:</b>
 
 boolean
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclassmembertwo"></a>
 
@@ -866,6 +1358,8 @@ export interface NamespacedInterface
 parentPropertyOne: number;
 ```
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedinterface.parentpropertytwo"></a>
 
 #### PackageNamespaceA.NamespacedInterface.parentPropertyTwo property
@@ -875,6 +1369,8 @@ parentPropertyOne: number;
 ```typescript
 parentPropertyTwo: Array<boolean>;
 ```
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedinterfacethree"></a>
 
@@ -901,6 +1397,8 @@ export interface NamespacedInterfaceThree
 parentThirdProperty1: boolean;
 ```
 
+<br>
+
 <a name="package-namespaced.packagenamespacea.namespacedinterfacetwo"></a>
 
 #### PackageNamespaceA.NamespacedInterfaceTwo interface
@@ -925,6 +1423,8 @@ export interface NamespacedInterfaceTwo
 ```typescript
 parentSecondProperty1: string;
 ```
+
+<br>
 
 <a name="package-namespaced.packagenamespaceb"></a>
 
@@ -966,6 +1466,8 @@ export interface JustOneInterface
 justOneProp: string;
 ```
 
+<br>
+
 <a name="package-parent"></a>
 
 ### package-parent package
@@ -1004,6 +1506,8 @@ export class ParentClass
 parentClassPropertyFunc: (arg1: ParentInterface) => ParentInterface;
 ```
 
+<br>
+
 <a name="package-parent.parentclass.parentclasspropertyfuncnestedtype"></a>
 
 #### ParentClass.parentClassPropertyFuncNestedType property
@@ -1016,6 +1520,8 @@ parentClassPropertyFuncNestedType: (
   ) => Array<ParentInterface>;
 ```
 
+<br>
+
 <a name="package-parent.parentclass.parentclasspropertyone"></a>
 
 #### ParentClass.parentClassPropertyOne property
@@ -1025,6 +1531,8 @@ parentClassPropertyFuncNestedType: (
 ```typescript
 parentClassPropertyOne: string;
 ```
+
+<br>
 
 <a name="package-parent.parentclass.parentclasspropertytwo"></a>
 
@@ -1065,6 +1573,8 @@ parentClassMemberFunc(
 
 (arg1: [ParentInterfaceTwo](#package-parent.parentinterfacetwo)<!-- -->) =&gt; [ParentInterfaceThree](#package-parent.parentinterfacethree)
 
+<br>
+
 <a name="package-parent.parentclass.parentclassmemberfuncnestedtype"></a>
 
 #### ParentClass.parentClassMemberFuncNestedType() method
@@ -1086,6 +1596,8 @@ parentClassMemberFuncNestedType(
 
 Array&lt;[ParentInterface](#package-parent.parentinterface)<!-- -->&gt;
 
+<br>
+
 <a name="package-parent.parentclass.parentclassmemberone"></a>
 
 #### ParentClass.parentClassMemberOne() method
@@ -1104,6 +1616,8 @@ parentClassMemberOne(argOne: number): boolean;
 <b>Returns:</b>
 
 boolean
+
+<br>
 
 <a name="package-parent.parentclass.parentclassmembertwo"></a>
 
@@ -1158,6 +1672,8 @@ export interface ParentInterface
 parentPropertyOne: number;
 ```
 
+<br>
+
 <a name="package-parent.parentinterface.parentpropertytwo"></a>
 
 #### ParentInterface.parentPropertyTwo property
@@ -1167,6 +1683,8 @@ parentPropertyOne: number;
 ```typescript
 parentPropertyTwo: Array<boolean>;
 ```
+
+<br>
 
 <a name="package-parent.parentinterfacethree"></a>
 
@@ -1193,6 +1711,8 @@ export interface ParentInterfaceThree
 parentThirdProperty1: boolean;
 ```
 
+<br>
+
 <a name="package-parent.parentinterfacetwo"></a>
 
 #### ParentInterfaceTwo interface
@@ -1217,6 +1737,8 @@ export interface ParentInterfaceTwo
 ```typescript
 parentSecondProperty1: string;
 ```
+
+<br>
 
 <a name="package-simple"></a>
 
@@ -1281,6 +1803,8 @@ constructor(properties: any);
 subFile: string;
 ```
 
+<br>
+
 <a name="package-simple.packagesimpleclass.subfunction"></a>
 
 #### PackageSimpleClass.subFunction property
@@ -1290,6 +1814,8 @@ subFile: string;
 ```typescript
 subFunction: (arg1: Array<number>) => Array<number>;
 ```
+
+<br>
 
 <a name="package-simple.packagesimpleclass.subversion"></a>
 
@@ -1330,6 +1856,8 @@ toSubFunction(
 
 (a: string) =&gt; Array&lt;boolean&gt;
 
+<br>
+
 <a name="package-simple.packagesimpleclass.tosubfunctionarray"></a>
 
 #### PackageSimpleClass.toSubFunctionArray() method
@@ -1350,6 +1878,8 @@ toSubFunctionArray(
 <b>Returns:</b>
 
 (a: string) =&gt; boolean\[\]
+
+<br>
 
 <a name="package-simple.packagesimpleclass.tosubstring"></a>
 
@@ -1372,6 +1902,8 @@ toSubString(arg1: string): string;
 
 string
 
+<br>
+
 <a name="package-simple.packagesimpleclass.tosuburl"></a>
 
 #### PackageSimpleClass.toSubUrl() method
@@ -1386,6 +1918,8 @@ toSubUrl(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="package-simple.packagesimplelocalclass"></a>
 
@@ -1436,6 +1970,8 @@ constructor(properties: any);
 file: string;
 ```
 
+<br>
+
 <a name="package-simple.packagesimplelocalclass.version"></a>
 
 #### PackageSimpleLocalClass.version property
@@ -1466,6 +2002,8 @@ toString(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="package-simple.packagesimplelocalclass.tourl"></a>
 
@@ -1504,6 +2042,8 @@ export enum PackageSimpleEnum
 |  --- | --- |
 |  EnumValueOne | The value for 1. |
 |  EnumValueTwo | The value for 2 with value <code>EnumValueTwo</code>. |
+
+<br>
 
 <a name="package-simple.packagesimpleenumvalues"></a>
 
@@ -1608,6 +2148,8 @@ property1: number;
 
 123
 
+<br>
+
 <a name="package-simple.packagesimpleinterfaceone.property2"></a>
 
 #### PackageSimpleInterfaceOne.property2 property
@@ -1619,6 +2161,8 @@ This is the second property of the first simple interface.
 ```typescript
 property2: string;
 ```
+
+<br>
 
 <a name="package-simple.packagesimpleinterfaceone.property3"></a>
 
@@ -1634,6 +2178,8 @@ property3: boolean;
 <b>Default Value:</b>
 
 The default is `456` unless `Some.Flag` was specified.
+
+<br>
 
 <a name="package-simple.packagesimplelocalinterface"></a>
 
@@ -1680,6 +2226,8 @@ This is the first simple function, it returns nothing
 export type simpleFunctionOne = (arg: string) => void;
 ```
 
+<br>
+
 <a name="package-simple.simplefunctionthree"></a>
 
 #### simpleFunctionThree type
@@ -1692,6 +2240,8 @@ export type simpleFunctionThree = (
 ) => PackageSimpleInterfaceOne[];
 ```
 <b>References:</b> [PackageSimpleLocalInterface](#package-simple.packagesimplelocalinterface)<!-- -->, [PackageSimpleInterfaceOne](#package-simple.packagesimpleinterfaceone)
+
+<br>
 
 <a name="package-simple.simplefunctiontwo"></a>
 
@@ -1726,6 +2276,8 @@ This is the simple variable function description
 ```typescript
 PackageSimpleVariableFunction: (x?: number) => void
 ```
+
+<br>
 
 <a name="package-simple.packagesimplevariablestring"></a>
 

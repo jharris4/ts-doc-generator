@@ -96,6 +96,8 @@ export class MixinClass
 pEight: ChildClass[];
 ```
 
+<br>
+
 <a name="mixinclass.pfive"></a>
 
 #### MixinClass.pFive property
@@ -105,6 +107,8 @@ pEight: ChildClass[];
 ```typescript
 pFive: Number;
 ```
+
+<br>
 
 <a name="mixinclass.pfour"></a>
 
@@ -116,6 +120,8 @@ pFive: Number;
 pFour: ChildClass;
 ```
 
+<br>
+
 <a name="mixinclass.pone"></a>
 
 #### MixinClass.pOne property
@@ -125,6 +131,8 @@ pFour: ChildClass;
 ```typescript
 pOne: ParentInterface;
 ```
+
+<br>
 
 <a name="mixinclass.pseven"></a>
 
@@ -136,6 +144,8 @@ pOne: ParentInterface;
 pSeven: Array<ChildClass>;
 ```
 
+<br>
+
 <a name="mixinclass.psix"></a>
 
 #### MixinClass.pSix property
@@ -146,6 +156,8 @@ pSeven: Array<ChildClass>;
 pSix: number = 5;
 ```
 
+<br>
+
 <a name="mixinclass.pthree"></a>
 
 #### MixinClass.pThree property
@@ -155,6 +167,8 @@ pSix: number = 5;
 ```typescript
 pThree: ChildInterface;
 ```
+
+<br>
 
 <a name="mixinclass.ptwo"></a>
 
@@ -194,6 +208,8 @@ mFour(argOne: ChildClass[]): ChildInterface[];
 
 [ChildInterface](#childinterface)<!-- -->\[\]
 
+<br>
+
 <a name="mixinclass.mone"></a>
 
 #### MixinClass.mOne() method
@@ -213,6 +229,8 @@ mOne(argOne: ParentClass): ParentInterface;
 
 [ParentInterface](./package-parent.md#parentinterface)
 
+<br>
+
 <a name="mixinclass.mthree"></a>
 
 #### MixinClass.mThree() method
@@ -231,6 +249,8 @@ mThree(argOne: Array<ChildClass>): Array<ChildInterface>;
 <b>Returns:</b>
 
 Array&lt;[ChildInterface](#childinterface)<!-- -->&gt;
+
+<br>
 
 <a name="mixinclass.mtwo"></a>
 
@@ -378,6 +398,8 @@ export interface MixinInterface
 pOne: ParentInterface;
 ```
 
+<br>
+
 <a name="mixininterface.pthree"></a>
 
 #### MixinInterface.pThree property
@@ -387,6 +409,8 @@ pOne: ParentInterface;
 ```typescript
 pThree: Number;
 ```
+
+<br>
 
 <a name="mixininterface.ptwo"></a>
 

@@ -29,6 +29,8 @@ export interface NamespacedInterface
 parentPropertyOne: number;
 ```
 
+<br>
+
 <a name="parentpropertytwo"></a>
 
 ### PackageNamespaceA.NamespacedInterface.parentPropertyTwo property

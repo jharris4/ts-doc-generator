@@ -35,6 +35,8 @@ Interface with case clash on property names
 property: string;
 ```
 
+<br>
+
 <a name="property~1"></a>
 
 ### WithCaseClashInterface.Property property

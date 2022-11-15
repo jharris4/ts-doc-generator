@@ -31,6 +31,8 @@ export class NamespacedClass
 parentClassPropertyFunc: (arg1: NamespacedInterface) => NamespacedInterface;
 ```
 
+<br>
+
 <a name="parentclasspropertyfuncnestedtype"></a>
 
 ### PackageNamespaceA.NamespacedClass.parentClassPropertyFuncNestedType property
@@ -43,6 +45,8 @@ parentClassPropertyFuncNestedType: (
     ) => Array<NamespacedInterface>;
 ```
 
+<br>
+
 <a name="parentclasspropertyone"></a>
 
 ### PackageNamespaceA.NamespacedClass.parentClassPropertyOne property
@@ -52,6 +56,8 @@ parentClassPropertyFuncNestedType: (
 ```typescript
 parentClassPropertyOne: string;
 ```
+
+<br>
 
 <a name="parentclasspropertytwo"></a>
 
@@ -96,6 +102,8 @@ parentClassMemberFunc(
 
 (arg1: [NamespacedInterfaceTwo](./package-namespaced.packagenamespacea.namespacedinterfacetwo.md)<!-- -->) =&gt; [NamespacedInterfaceThree](./package-namespaced.packagenamespacea.namespacedinterfacethree.md)
 
+<br>
+
 <a name="parentclassmemberfuncnestedtype"></a>
 
 ### PackageNamespaceA.NamespacedClass.parentClassMemberFuncNestedType() method
@@ -118,6 +126,8 @@ parentClassMemberFuncNestedType(
 
 Array&lt;[NamespacedInterface](./package-namespaced.packagenamespacea.namespacedinterface.md)<!-- -->&gt;
 
+<br>
+
 <a name="parentclassmemberone"></a>
 
 ### PackageNamespaceA.NamespacedClass.parentClassMemberOne() method
@@ -137,6 +147,8 @@ parentClassMemberOne(argOne: number): boolean;
 <b>Returns:</b>
 
 boolean
+
+<br>
 
 <a name="parentclassmembertwo"></a>
 

@@ -57,6 +57,8 @@ constructor(properties: any);
 subFile: string;
 ```
 
+<br>
+
 <a name="subfunction"></a>
 
 ### PackageSimpleClass.subFunction property
@@ -66,6 +68,8 @@ subFile: string;
 ```typescript
 subFunction: (arg1: Array<number>) => Array<number>;
 ```
+
+<br>
 
 <a name="subversion"></a>
 
@@ -110,6 +114,8 @@ toSubFunction(
 
 (a: string) =&gt; Array&lt;boolean&gt;
 
+<br>
+
 <a name="tosubfunctionarray"></a>
 
 ### PackageSimpleClass.toSubFunctionArray() method
@@ -132,6 +138,8 @@ toSubFunctionArray(
 
 (a: string) =&gt; boolean\[\]
 
+<br>
+
 <a name="tosubstring"></a>
 
 ### PackageSimpleClass.toSubString() method
@@ -153,6 +161,8 @@ toSubString(arg1: string): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="tosuburl"></a>
 

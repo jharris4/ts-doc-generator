@@ -55,6 +55,8 @@ constructor(properties: any);
 file: string;
 ```
 
+<br>
+
 <a name="version"></a>
 
 ### PackageSimpleLocalClass.version property
@@ -88,6 +90,8 @@ toString(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="tourl"></a>
 

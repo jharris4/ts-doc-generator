@@ -16,19 +16,29 @@ export class aclass
 
 ### Methods:
 
-|  Method |
-|  --- |
-|  [lowerFunction()](#lowerfunction) |
+|  Method | Description |
+|  --- | --- |
+|  [lowerFunction(a, b)](#lowerfunction) | This is the lower function of the lowercase a class |
 
 <a name="lowerfunction"></a>
 
 ### aclass.lowerFunction() method
 
+This is the lower function of the lowercase a class
+
 <b>Signature:</b>
 
 ```typescript
-lowerFunction(): void;
+lowerFunction(a: string, b: number): void;
 ```
+
+#### Parameters:
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  a | string | some string of text |
+|  b | number | some number that you choose |
+
 <b>Returns:</b>
 
 void

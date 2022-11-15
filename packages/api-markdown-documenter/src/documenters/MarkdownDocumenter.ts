@@ -2,11 +2,7 @@
 // See LICENSE in the project root for license information.
 
 import * as path from "path";
-import {
-  PackageName,
-  FileSystem,
-  NewlineKind,
-} from "@rushstack/node-core-library";
+import { PackageName, FileSystem } from "@rushstack/node-core-library";
 import {
   DocSection,
   DocPlainText,
@@ -49,12 +45,14 @@ import {
   ApiProtectedMixin,
   ApiReadonlyMixin,
   IFindApiItemsResult,
+  ApiCallSignature,
 } from "@microsoft/api-extractor-model";
 
 import { CustomDocNodes } from "../nodes/CustomDocNodeKind";
 import { DocAnchor } from "../nodes/DocAnchor";
 import { DocHeading } from "../nodes/DocHeading";
 import { DocHorizontalRule } from "../nodes/DocHorizontalRule";
+import { DocLineBreak } from "../nodes/DocLineBreak";
 import { DocTable } from "../nodes/DocTable";
 import { DocEmphasisSpan } from "../nodes/DocEmphasisSpan";
 import { DocTableRow } from "../nodes/DocTableRow";
@@ -154,6 +152,37 @@ export class MarkdownDocumenter {
     this._logger = new Logger();
   }
 
+  private isCollapsedInterface(apiItem: ApiItem): boolean {
+    if (apiItem.kind === ApiItemKind.Interface) {
+      const { members, extendsTypes } = apiItem as ApiInterface;
+      return (
+        this._documenterConfig.configFile.markdownOptions
+          .collapseCallSignatures &&
+        members.length === 1 &&
+        members[0].kind === ApiItemKind.CallSignature &&
+        (extendsTypes === undefined || extendsTypes.length === 0)
+      );
+    }
+    return false;
+  }
+
+  private isCollapsedCallSignature(apiItem: ApiItem): boolean {
+    if (
+      apiItem.kind === ApiItemKind.CallSignature &&
+      apiItem.parent !== undefined &&
+      apiItem.parent.kind === ApiItemKind.Interface
+    ) {
+      const { members, extendsTypes } = apiItem.parent as ApiInterface;
+      return (
+        this._documenterConfig.configFile.markdownOptions
+          .collapseCallSignatures &&
+        members.length === 1 &&
+        (extendsTypes === undefined || extendsTypes.length === 0)
+      );
+    }
+    return false;
+  }
+
   public generateFiles(): DocumenterStats {
     if (this._documenterConfig) {
       this._pluginLoader.load(this._documenterConfig, () => {
@@ -186,8 +215,18 @@ export class MarkdownDocumenter {
     addRule: boolean
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
+    let first = true;
+    const isFileLevelExact = this._currentItemPath.getIsFileLevelExact();
+    const isFileLevel = this._currentItemPath.getIsFileLevel();
+    const showLineBreaks =
+      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
+      (isFileLevelExact || !isFileLevel);
     for (const apiItem of apiItems) {
+      if (!first && showLineBreaks) {
+        parentOutput.appendNode(new DocLineBreak({ configuration }));
+      }
       this._writeApiItemPage(apiItem, parentOutput);
+      first = false;
     }
     if (
       addRule &&
@@ -206,12 +245,14 @@ export class MarkdownDocumenter {
     const savedItemPath = this._currentItemPath;
     const itemPath = (this._currentItemPath =
       this._currentItemPath.createPathForItem(apiItem));
+    const isCollapsedInterface = this.isCollapsedInterface(apiItem);
+    const isCollapsedCallSignature = this.isCollapsedCallSignature(apiItem);
 
     if (itemPath.getIsFileLevel()) {
       this._writeBreadcrumb(output, apiItem);
     }
 
-    if (itemPath.getHasAnchor()) {
+    if (!isCollapsedCallSignature && itemPath.getHasAnchor()) {
       const itemAnchorLink = itemPath.getAnchorPath();
       output.appendNode(new DocAnchor({ configuration, name: itemAnchorLink }));
     }
@@ -231,13 +272,42 @@ export class MarkdownDocumenter {
         );
         break;
       case ApiItemKind.Interface:
-        output.appendNode(
-          new DocHeading({
-            configuration,
-            level,
-            title: `${scopedName} interface`,
-          })
-        );
+        if (isCollapsedInterface) {
+          output.appendNode(
+            new DocHeading({
+              configuration,
+              level,
+              title: `${scopedName} function interface`,
+            })
+          );
+        } else {
+          output.appendNode(
+            new DocHeading({
+              configuration,
+              level,
+              title: `${scopedName} interface`,
+            })
+          );
+        }
+        break;
+      case ApiItemKind.CallSignature:
+        if (!isCollapsedCallSignature) {
+          const parentPrefix = apiItem.parent
+            ? apiItem.parent.displayName + "."
+            : "";
+
+          const overloadSuffix =
+            "call-" + this.getCallSignatureIndex(apiItem as ApiCallSignature);
+
+          output.appendNode(
+            new DocHeading({
+              configuration,
+              level,
+              title: `${parentPrefix}${overloadSuffix} call signature`,
+            })
+          );
+        }
+
         break;
       case ApiItemKind.Constructor:
       case ApiItemKind.ConstructSignature:
@@ -358,7 +428,7 @@ export class MarkdownDocumenter {
       }
     }
 
-    if (apiItem instanceof ApiDeclaredItem) {
+    if (!isCollapsedInterface && apiItem instanceof ApiDeclaredItem) {
       if (apiItem.excerpt.text.length > 0) {
         output.appendNode(
           new DocParagraph({ configuration }, [
@@ -367,13 +437,30 @@ export class MarkdownDocumenter {
             ]),
           ])
         );
-        output.appendNode(
-          new DocFencedCode({
-            configuration,
-            code: apiItem.getExcerptWithModifiers(),
-            language: "typescript",
-          })
-        );
+        if (isCollapsedCallSignature && apiItem.parent !== undefined) {
+          const parentCode = (apiItem.parent as ApiInterface)
+            .getExcerptWithModifiers()
+            .trim();
+          output.appendNode(
+            new DocFencedCode({
+              configuration,
+              code:
+                parentCode +
+                " {\n  " +
+                apiItem.getExcerptWithModifiers() +
+                "\n}",
+              language: "typescript",
+            })
+          );
+        } else {
+          output.appendNode(
+            new DocFencedCode({
+              configuration,
+              code: apiItem.getExcerptWithModifiers(),
+              language: "typescript",
+            })
+          );
+        }
       }
 
       this._writeHeritageTypes(output, apiItem);
@@ -413,6 +500,7 @@ export class MarkdownDocumenter {
       case ApiItemKind.Interface:
         this._writeInterfaceTables(output, apiItem as ApiInterface);
         break;
+      case ApiItemKind.CallSignature:
       case ApiItemKind.Constructor:
       case ApiItemKind.ConstructSignature:
       case ApiItemKind.Method:
@@ -784,6 +872,11 @@ export class MarkdownDocumenter {
       headerTitles: ["Interface", "Description"],
     });
 
+    const collapsedInterfacesTable: DocTable = new DocTable({
+      configuration,
+      headerTitles: ["Function Interface", "Description"],
+    });
+
     const namespacesTable: DocTable = new DocTable({
       configuration,
       headerTitles: ["Namespace", "Description"],
@@ -806,6 +899,7 @@ export class MarkdownDocumenter {
     const apiMembersClasses: ApiItem[] = [];
     const apiMembersEnums: ApiItem[] = [];
     const apiMembersInterfaces: ApiItem[] = [];
+    const apiMembersCollapsedInterfaces: ApiItem[] = [];
     const apiMembersNamespaces: ApiItem[] = [];
     const apiMembersFunctions: ApiItem[] = [];
     const apiMembersTypeAliases: ApiItem[] = [];
@@ -829,8 +923,13 @@ export class MarkdownDocumenter {
           break;
 
         case ApiItemKind.Interface:
-          interfacesTable.addRow(row);
-          apiMembersInterfaces.push(apiMember);
+          if (this.isCollapsedInterface(apiMember)) {
+            collapsedInterfacesTable.addRow(row);
+            apiMembersCollapsedInterfaces.push(apiMember);
+          } else {
+            interfacesTable.addRow(row);
+            apiMembersInterfaces.push(apiMember);
+          }
           break;
 
         case ApiItemKind.Namespace:
@@ -877,6 +976,12 @@ export class MarkdownDocumenter {
       this._appendHeading(output, "Functions");
       output.appendNode(functionsTable);
       this._writeApiItemPages(apiMembersFunctions, output, useRule);
+    }
+
+    if (collapsedInterfacesTable.rows.length > 0) {
+      this._appendHeading(output, "Function Interfaces"); // TODO - make this configurable?
+      output.appendNode(collapsedInterfacesTable);
+      this._writeApiItemPages(apiMembersCollapsedInterfaces, output, useRule);
     }
 
     if (interfacesTable.rows.length > 0) {
@@ -1091,6 +1196,11 @@ export class MarkdownDocumenter {
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
 
+    if (this.isCollapsedInterface(apiInterface)) {
+      this._writeApiItemPage(apiInterface.members[0], output);
+      return;
+    }
+
     const eventsTable: DocTable = new DocTable({
       configuration,
       headerTitles: ["Property", "Modifiers", "Type", "Description"],
@@ -1108,9 +1218,15 @@ export class MarkdownDocumenter {
       headerTitles: ["Method", "Description"],
     });
 
+    const callSignaturesTable: DocTable = new DocTable({
+      configuration,
+      headerTitles: ["Call Signature", "Description"],
+    });
+
     const apiMembers: readonly ApiItem[] =
       this._getMembersAndWriteIncompleteWarning(apiInterface, output);
     const apiMembersMethods: ApiItem[] = [];
+    const apiMembersCallSignatures: ApiItem[] = [];
     const apiMembersProperties: ApiItem[] = [];
     const apiMembersEvents: ApiItem[] = [];
 
@@ -1127,6 +1243,17 @@ export class MarkdownDocumenter {
           );
 
           apiMembersMethods.push(apiMember);
+          break;
+        }
+        case ApiItemKind.CallSignature: {
+          callSignaturesTable.addRow(
+            new DocTableRow({ configuration }, [
+              this._createTitleCell(apiMember),
+              this._createDescriptionCell(apiMember, isInherited),
+            ])
+          );
+
+          apiMembersCallSignatures.push(apiMember);
           break;
         }
         case ApiItemKind.PropertySignature: {
@@ -1192,6 +1319,15 @@ export class MarkdownDocumenter {
       this._appendHeading(output, "Methods");
       output.appendNode(methodsTable);
       this._writeApiItemPages(apiMembersMethods, output, useRule);
+    }
+
+    if (
+      this._documenterConfig.configFile.markdownOptions.showCallSignatures &&
+      callSignaturesTable.rows.length > 0
+    ) {
+      this._appendHeading(output, "Call Signatures");
+      output.appendNode(callSignaturesTable);
+      this._writeApiItemPages(apiMembersCallSignatures, output, useRule);
     }
   }
 
@@ -1343,10 +1479,19 @@ export class MarkdownDocumenter {
     );
   }
 
+  private getCallSignatureIndex(apiItem: ApiCallSignature): string {
+    return apiItem.overloadIndex !== undefined
+      ? "" + apiItem.overloadIndex
+      : "0";
+  }
+
   private _createTitleCell(apiItem: ApiItem): DocTableCell {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
 
-    let linkText: string = Utilities.getConciseSignature(apiItem);
+    let linkText: string =
+      apiItem.kind === ApiItemKind.CallSignature
+        ? "call-" + this.getCallSignatureIndex(apiItem as ApiCallSignature)
+        : Utilities.getConciseSignature(apiItem);
     if (ApiOptionalMixin.isBaseClassOf(apiItem) && apiItem.isOptional) {
       linkText += "?";
     }

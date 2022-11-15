@@ -65,6 +65,8 @@ constructor(properties: any);
 subFile: string;
 ```
 
+<br>
+
 <a name="packagesimpleclass.subfunction"></a>
 
 #### PackageSimpleClass.subFunction property
@@ -74,6 +76,8 @@ subFile: string;
 ```typescript
 subFunction: (arg1: Array<number>) => Array<number>;
 ```
+
+<br>
 
 <a name="packagesimpleclass.subversion"></a>
 
@@ -115,6 +119,8 @@ toSubFunction(
 
 (a: string) =&gt; Array&lt;boolean&gt;
 
+<br>
+
 <a name="packagesimpleclass.tosubfunctionarray"></a>
 
 #### PackageSimpleClass.toSubFunctionArray() method
@@ -135,6 +141,8 @@ toSubFunctionArray(
 <b>Returns:</b>
 
 (a: string) =&gt; boolean\[\]
+
+<br>
 
 <a name="packagesimpleclass.tosubstring"></a>
 
@@ -157,6 +165,8 @@ toSubString(arg1: string): string;
 
 string
 
+<br>
+
 <a name="packagesimpleclass.tosuburl"></a>
 
 #### PackageSimpleClass.toSubUrl() method
@@ -171,6 +181,8 @@ toSubUrl(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="packagesimplelocalclass"></a>
 
@@ -222,6 +234,8 @@ constructor(properties: any);
 file: string;
 ```
 
+<br>
+
 <a name="packagesimplelocalclass.version"></a>
 
 #### PackageSimpleLocalClass.version property
@@ -253,6 +267,8 @@ toString(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="packagesimplelocalclass.tourl"></a>
 
@@ -294,6 +310,8 @@ export enum PackageSimpleEnum
 |  --- | --- |
 |  EnumValueOne | The value for 1. |
 |  EnumValueTwo | The value for 2 with value <code>EnumValueTwo</code>. |
+
+<br>
 
 <a name="packagesimpleenumvalues"></a>
 
@@ -406,6 +424,8 @@ property1: number;
 
 123
 
+<br>
+
 <a name="packagesimpleinterfaceone.property2"></a>
 
 #### PackageSimpleInterfaceOne.property2 property
@@ -417,6 +437,8 @@ This is the second property of the first simple interface.
 ```typescript
 property2: string;
 ```
+
+<br>
 
 <a name="packagesimpleinterfaceone.property3"></a>
 
@@ -432,6 +454,8 @@ property3: boolean;
 <b>Default Value:</b>
 
 The default is `456` unless `Some.Flag` was specified.
+
+<br>
 
 <a name="packagesimplelocalinterface"></a>
 
@@ -481,6 +505,8 @@ This is the first simple function, it returns nothing
 export type simpleFunctionOne = (arg: string) => void;
 ```
 
+<br>
+
 <a name="simplefunctionthree"></a>
 
 ### simpleFunctionThree type
@@ -493,6 +519,8 @@ export type simpleFunctionThree = (
 ) => PackageSimpleInterfaceOne[];
 ```
 <b>References:</b> [PackageSimpleLocalInterface](#packagesimplelocalinterface)<!-- -->, [PackageSimpleInterfaceOne](#packagesimpleinterfaceone)
+
+<br>
 
 <a name="simplefunctiontwo"></a>
 
@@ -529,6 +557,8 @@ This is the simple variable function description
 ```typescript
 PackageSimpleVariableFunction: (x?: number) => void
 ```
+
+<br>
 
 <a name="packagesimplevariablestring"></a>
 

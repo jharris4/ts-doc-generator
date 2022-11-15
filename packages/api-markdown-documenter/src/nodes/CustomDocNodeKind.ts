@@ -3,6 +3,7 @@ import { DocAnchor } from "./DocAnchor";
 import { DocEmphasisSpan } from "./DocEmphasisSpan";
 import { DocHeading } from "./DocHeading";
 import { DocHorizontalRule } from "./DocHorizontalRule";
+import { DocLineBreak } from "./DocLineBreak";
 import { DocNoteBox } from "./DocNoteBox";
 import { DocTable } from "./DocTable";
 import { DocTableCell } from "./DocTableCell";
@@ -19,6 +20,7 @@ export const enum CustomDocNodeKind {
   EmphasisSpan = "EmphasisSpan",
   Heading = "Heading",
   HorizontalRule = "HorizontalRule",
+  LineBreak = "LineBreak",
   NoteBox = "NoteBox",
   Table = "Table",
   TableCell = "TableCell",
@@ -48,6 +50,10 @@ export class CustomDocNodes {
             docNodeKind: CustomDocNodeKind.HorizontalRule,
             constructor: DocHorizontalRule,
           },
+          {
+            docNodeKind: CustomDocNodeKind.LineBreak,
+            constructor: DocLineBreak,
+          },
           { docNodeKind: CustomDocNodeKind.NoteBox, constructor: DocNoteBox },
           { docNodeKind: CustomDocNodeKind.Table, constructor: DocTable },
           {
@@ -69,6 +75,7 @@ export class CustomDocNodes {
           CustomDocNodeKind.Anchor,
           CustomDocNodeKind.Heading,
           CustomDocNodeKind.HorizontalRule,
+          CustomDocNodeKind.LineBreak,
           CustomDocNodeKind.NoteBox,
           CustomDocNodeKind.Table,
         ]

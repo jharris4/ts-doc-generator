@@ -27,6 +27,9 @@ async function main() {
   const useIndex = true;
   const indexBreadcrumbUrl = "";
   const showRules = true;
+  const showLineBreaks = true;
+  const showCallSignatures = true;
+  const collapseCallSignatures = true;
 
   generateApiDocs({
     docRootDir,
@@ -46,6 +49,9 @@ async function main() {
       useIndex,
       indexBreadcrumbUrl,
       showRules,
+      showLineBreaks,
+      showCallSignatures,
+      collapseCallSignatures,
     },
     includePackageNames: [],
     excludePackageNames: ["api-*"],

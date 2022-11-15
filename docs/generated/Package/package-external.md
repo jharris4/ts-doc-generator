@@ -39,6 +39,8 @@ export interface ExternalUsingInterface
 propertyExternal: EditorState;
 ```
 
+<br>
+
 <a name="externalusinginterface.propertyone"></a>
 
 #### ExternalUsingInterface.propertyOne property

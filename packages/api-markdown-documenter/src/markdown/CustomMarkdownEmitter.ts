@@ -19,7 +19,8 @@ import {
 import { CustomDocNodeKind } from "../nodes/CustomDocNodeKind";
 import { DocAnchor } from "../nodes/DocAnchor";
 import { DocHeading } from "../nodes/DocHeading";
-// import { DocHorizontalRule } from '../nodes/DocHorizontalRule';
+// import { DocHorizontalRule } from "../nodes/DocHorizontalRule";
+// import { DocLineBreak } from "../nodes/DocLineBreak";
 import { DocNoteBox } from "../nodes/DocNoteBox";
 import { DocTable } from "../nodes/DocTable";
 import { DocTableCell } from "../nodes/DocTableCell";
@@ -68,7 +69,6 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         writer.ensureSkippedLine();
         const { configuration, name } = docAnchor;
 
-        const anchorElement = 0;
         super.writeNode(
           new DocHtmlStartTag({
             configuration,
@@ -120,6 +120,22 @@ export class CustomMarkdownEmitter extends MarkdownEmitter {
         writer.ensureSkippedLine();
         writer.write("---");
         writer.writeLine();
+        writer.writeLine();
+        break;
+      }
+      case CustomDocNodeKind.LineBreak: {
+        // const docLineBreak: DocLineBreak = docNode as DocLineBreak;
+        writer.ensureSkippedLine();
+        const { configuration } = docNode;
+        // writer.write("\\"); // This didn't preview properly in vs code preview
+        super.writeNode(
+          new DocHtmlStartTag({
+            configuration,
+            name: "br",
+          }),
+          context,
+          docNodeSiblings
+        );
         writer.writeLine();
         break;
       }

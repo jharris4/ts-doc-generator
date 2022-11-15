@@ -30,6 +30,8 @@ export interface MixinInterface
 pOne: ParentInterface;
 ```
 
+<br>
+
 <a name="pthree"></a>
 
 ### MixinInterface.pThree property
@@ -39,6 +41,8 @@ pOne: ParentInterface;
 ```typescript
 pThree: Number;
 ```
+
+<br>
 
 <a name="ptwo"></a>
 

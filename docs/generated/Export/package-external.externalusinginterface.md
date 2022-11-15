@@ -29,6 +29,8 @@ export interface ExternalUsingInterface
 propertyExternal: EditorState;
 ```
 
+<br>
+
 <a name="propertyone"></a>
 
 ### ExternalUsingInterface.propertyOne property

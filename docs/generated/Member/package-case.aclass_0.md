@@ -14,7 +14,7 @@ export class aclass
 
 ## Methods
 
-|  Method |
-|  --- |
-|  [lowerFunction()](./package-case.aclass_0.lowerfunction.md) |
+|  Method | Description |
+|  --- | --- |
+|  [lowerFunction(a, b)](./package-case.aclass_0.lowerfunction.md) | This is the lower function of the lowercase a class |
 

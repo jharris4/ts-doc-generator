@@ -8,6 +8,7 @@
 
 |  Package | Description |
 |  --- | --- |
+|  [package-callsignature](./package-callsignature.md) | This package shows how the markdown documenter can handle call signatures |
 |  [package-case](./package-case.md) | package-case summary goes here |
 |  [package-child](./package-child.md) |  |
 |  [package-external](./package-external.md) |  |

@@ -24,6 +24,9 @@ export interface IConfigFileMarkdown {
   useIndex?: boolean;
   indexBreadcrumbUrl?: string;
   showRules?: boolean;
+  showLineBreaks?: boolean;
+  showCallSignatures?: boolean;
+  collapseCallSignatures?: boolean;
 }
 
 export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
@@ -37,6 +40,9 @@ export interface IConfigFileMarkdownFull extends IConfigFileMarkdown {
   useIndex: boolean;
   indexBreadcrumbUrl: string;
   showRules: boolean;
+  showLineBreaks: boolean;
+  showCallSignatures: boolean;
+  collapseCallSignatures: boolean;
 }
 
 export interface IConfigFileBase {

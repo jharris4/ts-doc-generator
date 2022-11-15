@@ -58,6 +58,8 @@ property1: number;
 
 123
 
+<br>
+
 <a name="property2"></a>
 
 ### PackageSimpleInterfaceOne.property2 property
@@ -69,6 +71,8 @@ This is the second property of the first simple interface.
 ```typescript
 property2: string;
 ```
+
+<br>
 
 <a name="property3"></a>
 

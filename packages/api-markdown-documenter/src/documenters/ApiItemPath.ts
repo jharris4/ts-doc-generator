@@ -4,12 +4,13 @@ import {
   ApiItem,
   ApiItemKind,
   ApiParameterListMixin,
+  ApiCallSignature,
 } from "@microsoft/api-extractor-model";
 
 import { Utilities } from "../utils/Utilities";
 import { FileLevel } from "./FileLevel";
 
-const { Model, Package } = ApiItemKind;
+const { Model, Package, CallSignature } = ApiItemKind;
 
 const addMemberCollisions = (
   item: ApiItem,
@@ -133,6 +134,7 @@ export namespace IsKind {
       Variable,
     ];
     export const memberKinds = [
+      CallSignature,
       ConstructSignature,
       Constructor,
       EnumMember,
@@ -141,7 +143,7 @@ export namespace IsKind {
       Property,
       PropertySignature,
     ];
-    export const ignoredKinds = [CallSignature, IndexSignature, None];
+    export const ignoredKinds = [IndexSignature, None];
     export const skippedKinds = [EntryPoint];
   }
 
@@ -239,30 +241,43 @@ export class ApiItemPath implements IApiItemPathOptions {
 
   public getPathForItem(apiItem: ApiItem): string {
     const { kind, displayName } = apiItem;
-    let path = displayName;
+    let name: string = kind === CallSignature ? "call" : displayName;
+    let path = name;
     if (kind === Package) {
-      const unscopedName = PackageName.getUnscopedName(displayName);
-      if (unscopedName !== displayName) {
-        path = displayName.replace("@", "").replace("/", "$");
+      const unscopedName = PackageName.getUnscopedName(name);
+      if (unscopedName !== name) {
+        path = name.replace("@", "").replace("/", "$");
       }
     }
     if (
       ApiParameterListMixin.isBaseClassOf(apiItem) &&
       apiItem.overloadIndex > 1
     ) {
-      path = displayName + "_" + (apiItem.overloadIndex - 1);
+      path = name + "_" + (apiItem.overloadIndex - 1);
     } else {
       const nameCollisionIndex =
         this.collisionLookup.getItemNameCollisionIndex(apiItem);
       if (nameCollisionIndex !== undefined) {
-        path = displayName + "-" + nameCollisionIndex;
+        path = name + "-" + nameCollisionIndex;
       } else {
         const caseCollisionIndex =
           this.collisionLookup.getItemCaseCollisionIndex(apiItem);
         if (caseCollisionIndex !== undefined) {
-          path = displayName + "~" + caseCollisionIndex;
+          path = name + "~" + caseCollisionIndex;
         }
       }
+    }
+    if (apiItem.kind === CallSignature) {
+      // && path === "call") {
+      const callSignature = apiItem as ApiCallSignature;
+      path =
+        name +
+        "-" +
+        (callSignature.overloadIndex !== undefined
+          ? "" + callSignature.overloadIndex
+          : "0");
+
+      const check = ApiParameterListMixin.isBaseClassOf(apiItem);
     }
     return path;
   }

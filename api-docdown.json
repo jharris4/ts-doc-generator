@@ -19,7 +19,10 @@
     "showBreadcrumb": true,
     "indexBreadcrumbUrl": "",
     "useIndex": true,
-    "showRules": true
+    "showRules": true,
+    "showLineBreaks": true,
+    "showCallSignatures": true,
+    "collapseCallSignatures": true
   },
 
   "includePackageNames": [],

@@ -68,7 +68,22 @@
         "showRules": {
           "description": "Whether to show horizontal rules between top level sections for the top file level child groups",
           "type": "boolean",
-          "default": true
+          "default": false
+        },
+        "showLineBreaks": {
+          "description": "Whether to show line breaks between member sections",
+          "type": "boolean",
+          "default": false
+        },
+        "showCallSignatures": {
+          "description": "Whether to show call signatures",
+          "type": "boolean",
+          "default": false
+        },
+        "collapseCallSignatures": {
+          "description": "Whether to collapse interfaces with a single call signature member",
+          "type": "boolean",
+          "default": false
         }
       },
       "additionalProperties": false

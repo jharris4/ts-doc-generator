@@ -29,6 +29,8 @@ export interface ParentInterface
 parentPropertyOne: number;
 ```
 
+<br>
+
 <a name="parentpropertytwo"></a>
 
 ### ParentInterface.parentPropertyTwo property

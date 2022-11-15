@@ -153,6 +153,18 @@ export class DocumenterConfig {
           markdownOptions.showRules !== undefined
             ? markdownOptions.showRules
             : false,
+        showLineBreaks:
+          markdownOptions.showLineBreaks !== undefined
+            ? markdownOptions.showLineBreaks
+            : false,
+        showCallSignatures:
+          markdownOptions.showCallSignatures !== undefined
+            ? markdownOptions.showCallSignatures
+            : false,
+        collapseCallSignatures:
+          markdownOptions.collapseCallSignatures !== undefined
+            ? markdownOptions.collapseCallSignatures
+            : false,
       },
     };
   }

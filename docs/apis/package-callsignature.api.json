@@ -1,0 +1,949 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.33.6",
+    "schemaVersion": 1010,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "package-callsignature!",
+  "docComment": "/**\n * This package shows how the markdown documenter can handle call signatures\n *\n * @remarks\n *\n * The original documenter did not support outputting call signatures, this is a new feature.\n *\n * @packageDocumentation\n */\n",
+  "name": "package-callsignature",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "package-callsignature!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!ChildInterface:interface",
+          "docComment": "/**\n * Child interface\n *\n * @remarks\n *\n * This interface demonstrates that call signatures are not collapsed for child interfaces\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ChildInterface extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "EmptyInterface",
+              "canonicalReference": "package-callsignature!EmptyInterface:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "ChildInterface",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "CallSignature",
+              "canonicalReference": "package-callsignature!ChildInterface:call(1)",
+              "docComment": "/**\n * The child interface call signature allows documentation for the call signature parameters\n *\n * @param paramA - Here we can add docs for child interface paramA\n *\n * @param paramB - Here we can also add docs for child interface paramB\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "(paramA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", paramB: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SomeEnum",
+                  "canonicalReference": "package-callsignature!SomeEnum:enum"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "paramA",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "paramB",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "isOptional": false
+                }
+              ]
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 2
+            }
+          ]
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!EmptyInterface:interface",
+          "docComment": "/**\n * An empty interface\n *\n * @remarks\n *\n * This interface is used as a parent interface by {@link package-callsignature#ChildInterface | ChildInterface}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmptyInterface "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "EmptyInterface",
+          "preserveMemberOrder": false,
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!HasEventListeners:interface",
+          "docComment": "/**\n * Interface that demonstrates an event emitter with listener management\n *\n * @remarks\n *\n * This interface demonstrates a common pattern where there are typed add/remove event listener functions that expect the listener to have a specific call signature\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HasEventListeners "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "HasEventListeners",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!HasEventListeners#offEventOne:member",
+              "docComment": "/**\n * Removes a first listener\n *\n * @param listenerOne - Here we can add docs for listenerOne\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "offEventOne: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(listenerOne: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ListenerOne",
+                  "canonicalReference": "package-callsignature!ListenerOne:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "offEventOne",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!HasEventListeners#offEventTwo:member",
+              "docComment": "/**\n * Removes a second listener\n *\n * @param listenerTwo - Here we can add docs for listenerTwo\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "offEventTwo: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(listenerTwo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ListenerTwo",
+                  "canonicalReference": "package-callsignature!ListenerTwo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "offEventTwo",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!HasEventListeners#onEventOne:member",
+              "docComment": "/**\n * Adds a first listener\n *\n * @param listenerOne - Here we can add docs for listenerOne\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onEventOne: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(listenerOne: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ListenerOne",
+                  "canonicalReference": "package-callsignature!ListenerOne:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "onEventOne",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!HasEventListeners#onEventTwo:member",
+              "docComment": "/**\n * Adds a second listener\n *\n * @param listenerTwo - Here we can add docs for listenerTwo\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onEventTwo: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(listenerTwo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ListenerTwo",
+                  "canonicalReference": "package-callsignature!ListenerTwo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "onEventTwo",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!InterfaceContainingFunction:interface",
+          "docComment": "/**\n * Interface with a member who's parameter is an interface with single call signature member.\n *\n * @remarks\n *\n * This interface demonstrates that a member's parameters can be linked to other types\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface InterfaceContainingFunction "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "InterfaceContainingFunction",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!InterfaceContainingFunction#onFunction:member",
+              "docComment": "/**\n * This is the member with parameter that references the interface call function to demonstrate the link\n *\n * @param theFunction - This is the reference to the interface call signature\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onFunction: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(theFunction: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "InterfaceForFunction",
+                  "canonicalReference": "package-callsignature!InterfaceForFunction:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "onFunction",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!InterfaceContainingFunction#propertyA:member",
+              "docComment": "/**\n * This is some random property\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "propertyA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "propertyA",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!InterfaceForFunction:interface",
+          "docComment": "/**\n * Interface with a single call signature member.\n *\n * @remarks\n *\n * This interface is functionally equivalent to `type InterfaceForFunction = (paramA: string, paramB: number) => boolean`\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface InterfaceForFunction "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "InterfaceForFunction",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "CallSignature",
+              "canonicalReference": "package-callsignature!InterfaceForFunction:call(1)",
+              "docComment": "/**\n * The call signature allows documentation for the call signature parameters\n *\n * @remarks\n *\n * The call signature can also have remarks\n *\n * @param paramA - Here we can add docs for paramA\n *\n * @param paramB - Here we can also add docs for paramB\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "(paramA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", paramB: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "paramA",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "paramB",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "isOptional": false
+                }
+              ]
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!ListenerOne:interface",
+          "docComment": "/**\n * This is the first sample listener interface call function\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ListenerOne "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "ListenerOne",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "CallSignature",
+              "canonicalReference": "package-callsignature!ListenerOne:call(1)",
+              "docComment": "/**\n * The listener one call signature allows documentation for the call signature parameters\n *\n * @param paramA - Here we can add docs for listener one paramA\n *\n * @param paramB - Here we can also add docs for listener one paramB\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "(paramA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", paramB: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "paramA",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "paramB",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "isOptional": false
+                }
+              ]
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!ListenerTwo:interface",
+          "docComment": "/**\n * This is the second sample listener interface call function\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ListenerTwo "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "ListenerTwo",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "CallSignature",
+              "canonicalReference": "package-callsignature!ListenerTwo:call(1)",
+              "docComment": "/**\n * The listener two call signature allows documentation for the call signature parameters\n *\n * @param paramA - Here we can add docs for listener two paramA\n *\n * @param paramB - Here we can also add docs for listener two paramB\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "(paramA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", paramB: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SomeEnum",
+                  "canonicalReference": "package-callsignature!SomeEnum:enum"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "paramA",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "paramB",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "isOptional": false
+                }
+              ]
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "package-callsignature!MixedInterface:interface",
+          "docComment": "/**\n * Mixed interface\n *\n * @remarks\n *\n * This interface demonstrates that call signatures are not collapsed for interfaces that don't have exatly one call signature member\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface MixedInterface "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "MixedInterface",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "CallSignature",
+              "canonicalReference": "package-callsignature!MixedInterface:call(1)",
+              "docComment": "/**\n * The mixed interface call signature allows documentation for the call signature parameters\n *\n * @param paramA - Here we can add docs for mixed interface paramA\n *\n * @param paramB - Here we can also add docs for mixed interface paramB\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "(paramA: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", paramB: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SomeEnum",
+                  "canonicalReference": "package-callsignature!SomeEnum:enum"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "paramA",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "paramB",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "isOptional": false
+                }
+              ]
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "package-callsignature!MixedInterface#someProperty:member",
+              "docComment": "/**\n * This is a property that means this interface will not be collapsed\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "someProperty: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "someProperty",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Enum",
+          "canonicalReference": "package-callsignature!SomeEnum:enum",
+          "docComment": "/**\n * This enum is referenced by other examples\n *\n * @remarks\n *\n * It is referred to by the {@link package-callsignature#ListenerTwo | ListenerTwo} interface call signature parameters\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export enum SomeEnum "
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "SomeEnum",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-callsignature!SomeEnum.ValueOne:member",
+              "docComment": "/**\n * The docs for value one.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "ValueOne"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "ValueOne"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-callsignature!SomeEnum.ValueThree:member",
+              "docComment": "/**\n * The docs for value three.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "ValueThree"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "ValueThree"
+            },
+            {
+              "kind": "EnumMember",
+              "canonicalReference": "package-callsignature!SomeEnum.ValueTwo:member",
+              "docComment": "/**\n * The docs for value two.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "ValueTwo"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "ValueTwo"
+            }
+          ]
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "package-callsignature!TypeListener:type",
+          "docComment": "/**\n * This is a type alias for a simple function\n *\n * @remarks\n *\n * Unfortunately it does not support documentation for the parameters\n *\n * @param paramA - Docs for type paramA\n *\n * @param paramB - Docs for type paramB\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type TypeListener = "
+            },
+            {
+              "kind": "Content",
+              "text": "(paramA: string, paramB: boolean) => void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/package-callsignature.d.ts",
+          "releaseTag": "Public",
+          "name": "TypeListener",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        }
+      ]
+    }
+  ]
+}

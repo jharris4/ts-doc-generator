@@ -31,6 +31,8 @@ export class ParentClass
 parentClassPropertyFunc: (arg1: ParentInterface) => ParentInterface;
 ```
 
+<br>
+
 <a name="parentclasspropertyfuncnestedtype"></a>
 
 ### ParentClass.parentClassPropertyFuncNestedType property
@@ -43,6 +45,8 @@ parentClassPropertyFuncNestedType: (
   ) => Array<ParentInterface>;
 ```
 
+<br>
+
 <a name="parentclasspropertyone"></a>
 
 ### ParentClass.parentClassPropertyOne property
@@ -52,6 +56,8 @@ parentClassPropertyFuncNestedType: (
 ```typescript
 parentClassPropertyOne: string;
 ```
+
+<br>
 
 <a name="parentclasspropertytwo"></a>
 
@@ -96,6 +102,8 @@ parentClassMemberFunc(
 
 (arg1: [ParentInterfaceTwo](./package-parent.parentinterfacetwo.md)<!-- -->) =&gt; [ParentInterfaceThree](./package-parent.parentinterfacethree.md)
 
+<br>
+
 <a name="parentclassmemberfuncnestedtype"></a>
 
 ### ParentClass.parentClassMemberFuncNestedType() method
@@ -118,6 +126,8 @@ parentClassMemberFuncNestedType(
 
 Array&lt;[ParentInterface](./package-parent.parentinterface.md)<!-- -->&gt;
 
+<br>
+
 <a name="parentclassmemberone"></a>
 
 ### ParentClass.parentClassMemberOne() method
@@ -137,6 +147,8 @@ parentClassMemberOne(argOne: number): boolean;
 <b>Returns:</b>
 
 boolean
+
+<br>
 
 <a name="parentclassmembertwo"></a>
 

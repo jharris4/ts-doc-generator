@@ -63,6 +63,8 @@ constructor(properties: any);
 subFile: string;
 ```
 
+<br>
+
 <a name="packagesimpleclass.subfunction"></a>
 
 #### PackageSimpleClass.subFunction property
@@ -72,6 +74,8 @@ subFile: string;
 ```typescript
 subFunction: (arg1: Array<number>) => Array<number>;
 ```
+
+<br>
 
 <a name="packagesimpleclass.subversion"></a>
 
@@ -113,6 +117,8 @@ toSubFunction(
 
 (a: string) =&gt; Array&lt;boolean&gt;
 
+<br>
+
 <a name="packagesimpleclass.tosubfunctionarray"></a>
 
 #### PackageSimpleClass.toSubFunctionArray() method
@@ -134,6 +140,8 @@ toSubFunctionArray(
 
 (a: string) =&gt; boolean\[\]
 
+<br>
+
 <a name="packagesimpleclass.tosubstring"></a>
 
 #### PackageSimpleClass.toSubString() method
@@ -154,6 +162,8 @@ toSubString(arg1: string): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="packagesimpleclass.tosuburl"></a>
 
@@ -220,6 +230,8 @@ constructor(properties: any);
 file: string;
 ```
 
+<br>
+
 <a name="packagesimplelocalclass.version"></a>
 
 #### PackageSimpleLocalClass.version property
@@ -251,6 +263,8 @@ toString(): string;
 <b>Returns:</b>
 
 string
+
+<br>
 
 <a name="packagesimplelocalclass.tourl"></a>
 
@@ -398,6 +412,8 @@ property1: number;
 
 123
 
+<br>
+
 <a name="packagesimpleinterfaceone.property2"></a>
 
 #### PackageSimpleInterfaceOne.property2 property
@@ -409,6 +425,8 @@ This is the second property of the first simple interface.
 ```typescript
 property2: string;
 ```
+
+<br>
 
 <a name="packagesimpleinterfaceone.property3"></a>
 
