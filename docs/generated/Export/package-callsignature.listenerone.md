@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [package-callsignature](./package-callsignature.md) &gt; [ListenerOne](./package-callsignature.listenerone.md)
 
-## ListenerOne function interface
+## ListenerOne call signature
 
 This is the first sample listener interface call function
 

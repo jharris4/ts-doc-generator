@@ -277,7 +277,7 @@ export class MarkdownDocumenter {
             new DocHeading({
               configuration,
               level,
-              title: `${scopedName} function interface`,
+              title: `${scopedName} call signature`,
             })
           );
         } else {
@@ -874,7 +874,7 @@ export class MarkdownDocumenter {
 
     const collapsedInterfacesTable: DocTable = new DocTable({
       configuration,
-      headerTitles: ["Function Interface", "Description"],
+      headerTitles: ["Call Signature", "Description"],
     });
 
     const namespacesTable: DocTable = new DocTable({
@@ -979,7 +979,7 @@ export class MarkdownDocumenter {
     }
 
     if (collapsedInterfacesTable.rows.length > 0) {
-      this._appendHeading(output, "Function Interfaces"); // TODO - make this configurable?
+      this._appendHeading(output, "Call Signatures"); // TODO - make this configurable?
       output.appendNode(collapsedInterfacesTable);
       this._writeApiItemPages(apiMembersCollapsedInterfaces, output, useRule);
     }

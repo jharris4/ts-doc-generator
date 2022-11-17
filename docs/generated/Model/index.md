@@ -57,9 +57,9 @@ export enum SomeEnum
 
 It is referred to by the [ListenerTwo](#package-callsignature.listenertwo) interface call signature parameters
 
-#### Function Interfaces:
+#### Call Signatures:
 
-|  Function Interface | Description |
+|  Call Signature | Description |
 |  --- | --- |
 |  [InterfaceForFunction](#package-callsignature.interfaceforfunction) | Interface with a single call signature member. |
 |  [ListenerOne](#package-callsignature.listenerone) | This is the first sample listener interface call function |
@@ -67,7 +67,7 @@ It is referred to by the [ListenerTwo](#package-callsignature.listenertwo) inter
 
 <a name="package-callsignature.interfaceforfunction"></a>
 
-#### InterfaceForFunction function interface
+#### InterfaceForFunction call signature
 
 Interface with a single call signature member.
 
@@ -103,7 +103,7 @@ The call signature can also have remarks
 
 <a name="package-callsignature.listenerone"></a>
 
-#### ListenerOne function interface
+#### ListenerOne call signature
 
 This is the first sample listener interface call function
 
@@ -131,7 +131,7 @@ void
 
 <a name="package-callsignature.listenertwo"></a>
 
-#### ListenerTwo function interface
+#### ListenerTwo call signature
 
 This is the second sample listener interface call function
 

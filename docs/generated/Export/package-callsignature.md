@@ -16,9 +16,9 @@ The original documenter did not support outputting call signatures, this is a ne
 |  --- | --- |
 |  [SomeEnum](./package-callsignature.someenum.md) | This enum is referenced by other examples |
 
-### Function Interfaces:
+### Call Signatures:
 
-|  Function Interface | Description |
+|  Call Signature | Description |
 |  --- | --- |
 |  [InterfaceForFunction](./package-callsignature.interfaceforfunction.md) | Interface with a single call signature member. |
 |  [ListenerOne](./package-callsignature.listenerone.md) | This is the first sample listener interface call function |

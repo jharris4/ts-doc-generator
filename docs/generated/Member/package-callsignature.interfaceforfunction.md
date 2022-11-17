@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [package-callsignature](./package-callsignature.md) &gt; [InterfaceForFunction](./package-callsignature.interfaceforfunction.md)
 
-## InterfaceForFunction function interface
+## InterfaceForFunction call signature
 
 Interface with a single call signature member.
 
