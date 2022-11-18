@@ -1,7 +1,7 @@
 {
   "name": "api-markdown-documenter",
   "description": "A fork of the api-documenter package that provides functionality for grouping the generated markdown files by file level",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "jharris4",
   "license": "GPL-3.0",
   "repository": {
