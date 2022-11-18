@@ -20,10 +20,14 @@ Interface with case clash on property names
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [property](#property~0) | string |
 |  [Property](#property~1) | number |
+
+<br>
 
 <a name="property~0"></a>
 

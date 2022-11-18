@@ -14,9 +14,13 @@ class PackageSimpleLocalClass
 
 ### Constructors:
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#(constructor)) | Constructs a new instance of the <code>PackageSimpleLocalClass</code> class |
+
+<br>
 
 <a name="(constructor)"></a>
 
@@ -40,10 +44,14 @@ constructor(properties: any);
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [file](#file) | string |
 |  [version](#version) | number |
+
+<br>
 
 <a name="file"></a>
 
@@ -71,10 +79,14 @@ version: number;
 
 ### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toString()](#tostring) | Returns the equivalent of <code>JSON.stringify()</code> |
 |  [toUrl()](#tourl) | return a url for the class, here's a code example <code>fetchPackageSimple(options?: PackageSimpleLocalClass): string;</code> |
+
+<br>
 
 <a name="tostring"></a>
 

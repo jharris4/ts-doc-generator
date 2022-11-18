@@ -15,9 +15,13 @@ export class ChildClass extends ParentClass
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childClassPropertyOne](#childclasspropertyone) | number |
+
+<br>
 
 <a name="childclasspropertyone"></a>
 
@@ -33,9 +37,13 @@ childClassPropertyOne: number;
 
 ### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [childClassMemberOne(argOne)](#childclassmemberone) |
+
+<br>
 
 <a name="childclassmemberone"></a>
 

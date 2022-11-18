@@ -8,10 +8,14 @@
 
 ### Namespaces:
 
+<br>
+
 |  Namespace |
 |  --- |
 |  [PackageNamespaceA](#packagenamespacea) |
 |  [PackageNamespaceB](#packagenamespaceb) |
+
+<br>
 
 <a name="packagenamespacea"></a>
 
@@ -25,9 +29,13 @@ export declare namespace PackageNamespaceA
 
 #### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [NamespacedClass](#packagenamespacea.namespacedclass) |
+
+<br>
 
 <a name="packagenamespacea.namespacedclass"></a>
 
@@ -40,12 +48,16 @@ export class NamespacedClass
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#packagenamespacea.namespacedclass.parentclasspropertyfunc) | (arg1: [NamespacedInterface](#packagenamespacea.namespacedinterface)<!-- -->) =&gt; [NamespacedInterface](#packagenamespacea.namespacedinterface) |
 |  [parentClassPropertyFuncNestedType](#packagenamespacea.namespacedclass.parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[NamespacedInterface](#packagenamespacea.namespacedinterface)<!-- -->&gt; ) =&gt; Array&lt;[NamespacedInterface](#packagenamespacea.namespacedinterface)<!-- -->&gt; |
 |  [parentClassPropertyOne](#packagenamespacea.namespacedclass.parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#packagenamespacea.namespacedclass.parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="packagenamespacea.namespacedclass.parentclasspropertyfunc"></a>
 
@@ -96,12 +108,16 @@ parentClassPropertyTwo: Array<number>;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#packagenamespacea.namespacedclass.parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#packagenamespacea.namespacedclass.parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#packagenamespacea.namespacedclass.parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#packagenamespacea.namespacedclass.parentclassmembertwo) |
+
+<br>
 
 <a name="packagenamespacea.namespacedclass.parentclassmemberfunc"></a>
 
@@ -191,11 +207,15 @@ Array&lt;boolean&gt;
 
 #### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [NamespacedInterface](#packagenamespacea.namespacedinterface) |
 |  [NamespacedInterfaceThree](#packagenamespacea.namespacedinterfacethree) |
 |  [NamespacedInterfaceTwo](#packagenamespacea.namespacedinterfacetwo) |
+
+<br>
 
 <a name="packagenamespacea.namespacedinterface"></a>
 
@@ -208,10 +228,14 @@ export interface NamespacedInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#packagenamespacea.namespacedinterface.parentpropertyone) | number |
 |  [parentPropertyTwo](#packagenamespacea.namespacedinterface.parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="packagenamespacea.namespacedinterface.parentpropertyone"></a>
 
@@ -248,9 +272,13 @@ export interface NamespacedInterfaceThree
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#packagenamespacea.namespacedinterfacethree.parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="packagenamespacea.namespacedinterfacethree.parentthirdproperty1"></a>
 
@@ -275,9 +303,13 @@ export interface NamespacedInterfaceTwo
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#packagenamespacea.namespacedinterfacetwo.parentsecondproperty1) | string |
+
+<br>
 
 <a name="packagenamespacea.namespacedinterfacetwo.parentsecondproperty1"></a>
 
@@ -303,9 +335,13 @@ export declare namespace PackageNamespaceB
 
 #### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [JustOneInterface](#packagenamespaceb.justoneinterface) |
+
+<br>
 
 <a name="packagenamespaceb.justoneinterface"></a>
 
@@ -318,9 +354,13 @@ export interface JustOneInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [justOneProp](#packagenamespaceb.justoneinterface.justoneprop) | string |
+
+<br>
 
 <a name="packagenamespaceb.justoneinterface.justoneprop"></a>
 

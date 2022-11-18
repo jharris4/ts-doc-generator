@@ -8,10 +8,14 @@
 
 ### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [PackageSimpleClass](#packagesimpleclass) |
 |  [PackageSimpleLocalClass](#packagesimplelocalclass) |
+
+<br>
 
 <a name="packagesimpleclass"></a>
 
@@ -26,9 +30,13 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 
 #### Constructors:
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#packagesimpleclass.(constructor)) | Constructs a new instance of the <code>PackageSimpleClass</code> class |
+
+<br>
 
 <a name="packagesimpleclass.(constructor)"></a>
 
@@ -49,11 +57,15 @@ constructor(properties: any);
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [subFile](#packagesimpleclass.subfile) | string |
 |  [subFunction](#packagesimpleclass.subfunction) | (arg1: Array&lt;number&gt;) =&gt; Array&lt;number&gt; |
 |  [subVersion](#packagesimpleclass.subversion) | number |
+
+<br>
 
 <a name="packagesimpleclass.subfile"></a>
 
@@ -91,12 +103,16 @@ subVersion: number;
 
 #### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toSubFunction(arg1)](#packagesimpleclass.tosubfunction) |  |
 |  [toSubFunctionArray(arg1)](#packagesimpleclass.tosubfunctionarray) |  |
 |  [toSubString(arg1)](#packagesimpleclass.tosubstring) | Returns the sub equivalent of <code>JSON.stringify()</code> |
 |  [toSubUrl()](#packagesimpleclass.tosuburl) | return a sub url for the class, here's a code example <code>fetchSubPackageSimple(options?: PackageSimpleClass): string;</code> |
+
+<br>
 
 <a name="packagesimpleclass.tosubfunction"></a>
 
@@ -196,9 +212,13 @@ class PackageSimpleLocalClass
 
 #### Constructors:
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#packagesimplelocalclass.(constructor)) | Constructs a new instance of the <code>PackageSimpleLocalClass</code> class |
+
+<br>
 
 <a name="packagesimplelocalclass.(constructor)"></a>
 
@@ -219,10 +239,14 @@ constructor(properties: any);
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [file](#packagesimplelocalclass.file) | string |
 |  [version](#packagesimplelocalclass.version) | number |
+
+<br>
 
 <a name="packagesimplelocalclass.file"></a>
 
@@ -248,10 +272,14 @@ version: number;
 
 #### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toString()](#packagesimplelocalclass.tostring) | Returns the equivalent of <code>JSON.stringify()</code> |
 |  [toUrl()](#packagesimplelocalclass.tourl) | return a url for the class, here's a code example <code>fetchPackageSimple(options?: PackageSimpleLocalClass): string;</code> |
+
+<br>
 
 <a name="packagesimplelocalclass.tostring"></a>
 
@@ -289,10 +317,14 @@ string
 
 ### Enumerations:
 
+<br>
+
 |  Enumeration |
 |  --- |
 |  [PackageSimpleEnum](#packagesimpleenum) |
 |  [PackageSimpleEnumValues](#packagesimpleenumvalues) |
+
+<br>
 
 <a name="packagesimpleenum"></a>
 
@@ -336,9 +368,13 @@ export enum PackageSimpleEnumValues
 
 ### Functions:
 
+<br>
+
 |  Function | Description |
 |  --- | --- |
 |  [PackageSimpleFunctionOne(x)](#packagesimplefunctionone) | This is the simple function description |
+
+<br>
 
 <a name="packagesimplefunctionone"></a>
 
@@ -366,10 +402,14 @@ void
 
 ### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [PackageSimpleInterfaceOne](#packagesimpleinterfaceone) | This is a really simple interface, the first one |
 |  [PackageSimpleLocalInterface](#packagesimplelocalinterface) |  |
+
+<br>
 
 <a name="packagesimpleinterfaceone"></a>
 
@@ -385,9 +425,13 @@ export interface PackageSimpleInterfaceOne
 
 #### Events:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [propertyEvent](#packagesimpleinterfaceone.propertyevent) | Event | This is the test event property |
+
+<br>
 
 <a name="packagesimpleinterfaceone.propertyevent"></a>
 
@@ -403,11 +447,15 @@ propertyEvent: Event;
 
 #### Properties:
 
+<br>
+
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
 |  [property1](#packagesimpleinterfaceone.property1) | number | 123 | This is the first property of the first simple interface. |
 |  [property2](#packagesimpleinterfaceone.property2) | string |  | This is the second property of the first simple interface. |
 |  [property3](#packagesimpleinterfaceone.property3) | boolean | The default is <code>456</code> unless <code>Some.Flag</code> was specified. | This is the third property of the first simple interface. |
+
+<br>
 
 <a name="packagesimpleinterfaceone.property1"></a>
 
@@ -469,9 +517,13 @@ interface PackageSimpleLocalInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyOne](#packagesimplelocalinterface.propertyone) | string |
+
+<br>
 
 <a name="packagesimplelocalinterface.propertyone"></a>
 
@@ -487,11 +539,15 @@ propertyOne: string;
 
 ### Type Aliases:
 
+<br>
+
 |  Type Alias | Description |
 |  --- | --- |
 |  [simpleFunctionOne](#simplefunctionone) | This is the first simple function, it returns nothing |
 |  [simpleFunctionThree](#simplefunctionthree) |  |
 |  [simpleFunctionTwo](#simplefunctiontwo) | This is the second simple function, it returns a <code>PackageSimpleInterfaceOne</code> |
+
+<br>
 
 <a name="simplefunctionone"></a>
 
@@ -541,10 +597,14 @@ export type simpleFunctionTwo = (
 
 ### Variables:
 
+<br>
+
 |  Variable | Description |
 |  --- | --- |
 |  [PackageSimpleVariableFunction](#packagesimplevariablefunction) | This is the simple variable function description |
 |  [PackageSimpleVariableString](#packagesimplevariablestring) | This is the simple variable string description |
+
+<br>
 
 <a name="packagesimplevariablefunction"></a>
 

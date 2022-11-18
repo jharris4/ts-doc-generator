@@ -163,9 +163,13 @@ This interface demonstrates that call signatures are not collapsed for child int
 
 #### Call Signatures:
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#childinterface.call-1) | The child interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="childinterface.call-1"></a>
 
@@ -223,12 +227,16 @@ This interface demonstrates a common pattern where there are typed add/remove ev
 
 #### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [offEventOne](#haseventlisteners.offeventone) | (listenerOne: [ListenerOne](#listenerone)<!-- -->) =&gt; void | Removes a first listener |
 |  [offEventTwo](#haseventlisteners.offeventtwo) | (listenerTwo: [ListenerTwo](#listenertwo)<!-- -->) =&gt; void | Removes a second listener |
 |  [onEventOne](#haseventlisteners.oneventone) | (listenerOne: [ListenerOne](#listenerone)<!-- -->) =&gt; void | Adds a first listener |
 |  [onEventTwo](#haseventlisteners.oneventtwo) | (listenerTwo: [ListenerTwo](#listenertwo)<!-- -->) =&gt; void | Adds a second listener |
+
+<br>
 
 <a name="haseventlisteners.offeventone"></a>
 
@@ -302,10 +310,14 @@ This interface demonstrates that a member's parameters can be linked to other ty
 
 #### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [onFunction](#interfacecontainingfunction.onfunction) | (theFunction: [InterfaceForFunction](#interfaceforfunction)<!-- -->) =&gt; void | This is the member with parameter that references the interface call function to demonstrate the link |
 |  [propertyA](#interfacecontainingfunction.propertya) | number | This is some random property |
+
+<br>
 
 <a name="interfacecontainingfunction.onfunction"></a>
 
@@ -351,9 +363,13 @@ This interface demonstrates that call signatures are not collapsed for interface
 
 #### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [someProperty](#mixedinterface.someproperty) | number | This is a property that means this interface will not be collapsed |
+
+<br>
 
 <a name="mixedinterface.someproperty"></a>
 
@@ -369,9 +385,13 @@ someProperty: number;
 
 #### Call Signatures:
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#mixedinterface.call-1) | The mixed interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="mixedinterface.call-1"></a>
 

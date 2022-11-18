@@ -24,9 +24,13 @@ export class ChildClass extends ParentClass
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childClassPropertyOne](#childclass.childclasspropertyone) | number |
+
+<br>
 
 <a name="childclass.childclasspropertyone"></a>
 
@@ -40,9 +44,13 @@ childClassPropertyOne: number;
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [childClassMemberOne(argOne)](#childclass.childclassmemberone) |
+
+<br>
 
 <a name="childclass.childclassmemberone"></a>
 
@@ -75,6 +83,8 @@ export class MixinClass
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pEight](#mixinclass.peight) | [ChildClass](#childclass)<!-- -->\[\] |
@@ -85,6 +95,8 @@ export class MixinClass
 |  [pSix](#mixinclass.psix) | number |
 |  [pThree](#mixinclass.pthree) | [ChildInterface](#childinterface) |
 |  [pTwo](#mixinclass.ptwo) | [ParentClass](./package-parent.md#parentclass) |
+
+<br>
 
 <a name="mixinclass.peight"></a>
 
@@ -182,12 +194,16 @@ pTwo: ParentClass;
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [mFour(argOne)](#mixinclass.mfour) |
 |  [mOne(argOne)](#mixinclass.mone) |
 |  [mThree(argOne)](#mixinclass.mthree) |
 |  [mTwo(argOne)](#mixinclass.mtwo) |
+
+<br>
 
 <a name="mixinclass.mfour"></a>
 
@@ -356,9 +372,13 @@ These are the longer more detailed remarks about the ChildInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childPropertyOne](#childinterface.childpropertyone) | boolean |
+
+<br>
 
 <a name="childinterface.childpropertyone"></a>
 
@@ -382,11 +402,15 @@ export interface MixinInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pOne](#mixininterface.pone) | [ParentInterface](./package-parent.md#parentinterface) |
 |  [pThree](#mixininterface.pthree) | Number |
 |  [pTwo](#mixininterface.ptwo) | [ParentClass](./package-parent.md#parentclass) |
+
+<br>
 
 <a name="mixininterface.pone"></a>
 

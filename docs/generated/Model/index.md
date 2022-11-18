@@ -8,6 +8,8 @@
 
 ### Packages:
 
+<br>
+
 |  Package | Description |
 |  --- | --- |
 |  [package-callsignature](#package-callsignature) | This package shows how the markdown documenter can handle call signatures |
@@ -17,6 +19,8 @@
 |  [package-namespaced](#package-namespaced) |  |
 |  [package-parent](#package-parent) |  |
 |  [package-simple](#package-simple) |  |
+
+<br>
 
 <a name="package-callsignature"></a>
 
@@ -30,9 +34,13 @@ The original documenter did not support outputting call signatures, this is a ne
 
 #### Enumerations:
 
+<br>
+
 |  Enumeration | Description |
 |  --- | --- |
 |  [SomeEnum](#package-callsignature.someenum) | This enum is referenced by other examples |
+
+<br>
 
 <a name="package-callsignature.someenum"></a>
 
@@ -59,11 +67,15 @@ It is referred to by the [ListenerTwo](#package-callsignature.listenertwo) inter
 
 #### Call Signatures:
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [InterfaceForFunction](#package-callsignature.interfaceforfunction) | Interface with a single call signature member. |
 |  [ListenerOne](#package-callsignature.listenerone) | This is the first sample listener interface call function |
 |  [ListenerTwo](#package-callsignature.listenertwo) | This is the second sample listener interface call function |
+
+<br>
 
 <a name="package-callsignature.interfaceforfunction"></a>
 
@@ -157,6 +169,8 @@ void
 
 #### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [ChildInterface](#package-callsignature.childinterface) | Child interface |
@@ -164,6 +178,8 @@ void
 |  [HasEventListeners](#package-callsignature.haseventlisteners) | Interface that demonstrates an event emitter with listener management |
 |  [InterfaceContainingFunction](#package-callsignature.interfacecontainingfunction) | Interface with a member who's parameter is an interface with single call signature member. |
 |  [MixedInterface](#package-callsignature.mixedinterface) | Mixed interface |
+
+<br>
 
 <a name="package-callsignature.childinterface"></a>
 
@@ -184,9 +200,13 @@ This interface demonstrates that call signatures are not collapsed for child int
 
 <b>Call Signatures:</b>
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#package-callsignature.childinterface.call-1) | The child interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="package-callsignature.childinterface.call-1"></a>
 
@@ -246,12 +266,16 @@ This interface demonstrates a common pattern where there are typed add/remove ev
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [offEventOne](#package-callsignature.haseventlisteners.offeventone) | (listenerOne: [ListenerOne](#package-callsignature.listenerone)<!-- -->) =&gt; void | Removes a first listener |
 |  [offEventTwo](#package-callsignature.haseventlisteners.offeventtwo) | (listenerTwo: [ListenerTwo](#package-callsignature.listenertwo)<!-- -->) =&gt; void | Removes a second listener |
 |  [onEventOne](#package-callsignature.haseventlisteners.oneventone) | (listenerOne: [ListenerOne](#package-callsignature.listenerone)<!-- -->) =&gt; void | Adds a first listener |
 |  [onEventTwo](#package-callsignature.haseventlisteners.oneventtwo) | (listenerTwo: [ListenerTwo](#package-callsignature.listenertwo)<!-- -->) =&gt; void | Adds a second listener |
+
+<br>
 
 <a name="package-callsignature.haseventlisteners.offeventone"></a>
 
@@ -326,10 +350,14 @@ This interface demonstrates that a member's parameters can be linked to other ty
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [onFunction](#package-callsignature.interfacecontainingfunction.onfunction) | (theFunction: [InterfaceForFunction](#package-callsignature.interfaceforfunction)<!-- -->) =&gt; void | This is the member with parameter that references the interface call function to demonstrate the link |
 |  [propertyA](#package-callsignature.interfacecontainingfunction.propertya) | number | This is some random property |
+
+<br>
 
 <a name="package-callsignature.interfacecontainingfunction.onfunction"></a>
 
@@ -376,9 +404,13 @@ This interface demonstrates that call signatures are not collapsed for interface
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [someProperty](#package-callsignature.mixedinterface.someproperty) | number | This is a property that means this interface will not be collapsed |
+
+<br>
 
 <a name="package-callsignature.mixedinterface.someproperty"></a>
 
@@ -393,9 +425,13 @@ someProperty: number;
 ```
 <b>Call Signatures:</b>
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#package-callsignature.mixedinterface.call-1) | The mixed interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="package-callsignature.mixedinterface.call-1"></a>
 
@@ -421,9 +457,13 @@ void
 
 #### Type Aliases:
 
+<br>
+
 |  Type Alias | Description |
 |  --- | --- |
 |  [TypeListener](#package-callsignature.typelistener) | This is a type alias for a simple function |
+
+<br>
 
 <a name="package-callsignature.typelistener"></a>
 
@@ -454,10 +494,14 @@ More detailed description about package-case
 
 #### Classes:
 
+<br>
+
 |  Class | Description |
 |  --- | --- |
 |  [aclass](#package-case.aclass~0) | Lowercase class name |
 |  [Aclass](#package-case.aclass~1) | Uppercase first letter class name |
+
+<br>
 
 <a name="package-case.aclass~0"></a>
 
@@ -472,9 +516,13 @@ export class aclass
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [lowerFunction(a, b)](#package-case.aclass~0.lowerfunction) | This is the lower function of the lowercase a class |
+
+<br>
 
 <a name="package-case.aclass~0.lowerfunction"></a>
 
@@ -513,9 +561,13 @@ export class Aclass
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [upperFunction()](#package-case.aclass~1.upperfunction) |
+
+<br>
 
 <a name="package-case.aclass~1.upperfunction"></a>
 
@@ -532,9 +584,13 @@ void
 
 #### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [WithCaseClashInterface](#package-case.withcaseclashinterface) | summary for WithCaseClashInterface |
+
+<br>
 
 <a name="package-case.withcaseclashinterface"></a>
 
@@ -553,10 +609,14 @@ Interface with case clash on property names
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [property](#package-case.withcaseclashinterface.property~0) | string |
 |  [Property](#package-case.withcaseclashinterface.property~1) | number |
+
+<br>
 
 <a name="package-case.withcaseclashinterface.property~0"></a>
 
@@ -588,10 +648,14 @@ Property: number;
 
 #### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [ChildClass](#package-child.childclass) |
 |  [MixinClass](#package-child.mixinclass) |
+
+<br>
 
 <a name="package-child.childclass"></a>
 
@@ -606,9 +670,13 @@ export class ChildClass extends ParentClass
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childClassPropertyOne](#package-child.childclass.childclasspropertyone) | number |
+
+<br>
 
 <a name="package-child.childclass.childclasspropertyone"></a>
 
@@ -621,9 +689,13 @@ childClassPropertyOne: number;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [childClassMemberOne(argOne)](#package-child.childclass.childclassmemberone) |
+
+<br>
 
 <a name="package-child.childclass.childclassmemberone"></a>
 
@@ -657,6 +729,8 @@ export class MixinClass
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pEight](#package-child.mixinclass.peight) | [ChildClass](#package-child.childclass)<!-- -->\[\] |
@@ -667,6 +741,8 @@ export class MixinClass
 |  [pSix](#package-child.mixinclass.psix) | number |
 |  [pThree](#package-child.mixinclass.pthree) | [ChildInterface](#package-child.childinterface) |
 |  [pTwo](#package-child.mixinclass.ptwo) | [ParentClass](#package-parent.parentclass) |
+
+<br>
 
 <a name="package-child.mixinclass.peight"></a>
 
@@ -763,12 +839,16 @@ pTwo: ParentClass;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [mFour(argOne)](#package-child.mixinclass.mfour) |
 |  [mOne(argOne)](#package-child.mixinclass.mone) |
 |  [mThree(argOne)](#package-child.mixinclass.mthree) |
 |  [mTwo(argOne)](#package-child.mixinclass.mtwo) |
+
+<br>
 
 <a name="package-child.mixinclass.mfour"></a>
 
@@ -854,9 +934,13 @@ mTwo(argOne: ChildClass): ChildInterface;
 
 #### Enumerations:
 
+<br>
+
 |  Enumeration |
 |  --- |
 |  [PackageChildEnumValues](#package-child.packagechildenumvalues) |
+
+<br>
 
 <a name="package-child.packagechildenumvalues"></a>
 
@@ -878,9 +962,13 @@ export enum PackageChildEnumValues
 
 #### Functions:
 
+<br>
+
 |  Function | Description |
 |  --- | --- |
 |  [PackageChildFunctionOne(x, a, c)](#package-child.packagechildfunctionone) | This is the child function description |
+
+<br>
 
 <a name="package-child.packagechildfunctionone"></a>
 
@@ -911,10 +999,14 @@ void
 
 #### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [ChildInterface](#package-child.childinterface) | ChildInterface remarks goes here |
 |  [MixinInterface](#package-child.mixininterface) |  |
+
+<br>
 
 <a name="package-child.childinterface"></a>
 
@@ -935,9 +1027,13 @@ These are the longer more detailed remarks about the ChildInterface
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childPropertyOne](#package-child.childinterface.childpropertyone) | boolean |
+
+<br>
 
 <a name="package-child.childinterface.childpropertyone"></a>
 
@@ -962,11 +1058,15 @@ export interface MixinInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pOne](#package-child.mixininterface.pone) | [ParentInterface](#package-parent.parentinterface) |
 |  [pThree](#package-child.mixininterface.pthree) | Number |
 |  [pTwo](#package-child.mixininterface.ptwo) | [ParentClass](#package-parent.parentclass) |
+
+<br>
 
 <a name="package-child.mixininterface.pone"></a>
 
@@ -1004,9 +1104,13 @@ pTwo: ParentClass;
 
 #### Type Aliases:
 
+<br>
+
 |  Type Alias |
 |  --- |
 |  [functionOne](#package-child.functionone) |
+
+<br>
 
 <a name="package-child.functionone"></a>
 
@@ -1021,12 +1125,16 @@ export type functionOne = (argOne: ParentClass[]) => ChildClass[];
 
 #### Variables:
 
+<br>
+
 |  Variable | Description |
 |  --- | --- |
 |  [PackageChildVariableEnum](#package-child.packagechildvariableenum) | This is the child variable enum description |
 |  [PackageChildVariableFunction](#package-child.packagechildvariablefunction) | This is the child variable function description |
 |  [PackageChildVariableParent](#package-child.packagechildvariableparent) | This is the child variable parent description |
 |  [PackageChildVariableString](#package-child.packagechildvariablestring) | This is the child variable string description |
+
+<br>
 
 <a name="package-child.packagechildvariableenum"></a>
 
@@ -1094,9 +1202,13 @@ PackageChildVariableString: string
 
 #### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [ExternalUsingInterface](#package-external.externalusinginterface) |
+
+<br>
 
 <a name="package-external.externalusinginterface"></a>
 
@@ -1109,10 +1221,14 @@ export interface ExternalUsingInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyExternal](#package-external.externalusinginterface.propertyexternal) | EditorState |
 |  [propertyOne](#package-external.externalusinginterface.propertyone) | number |
+
+<br>
 
 <a name="package-external.externalusinginterface.propertyexternal"></a>
 
@@ -1144,10 +1260,14 @@ propertyOne: number;
 
 #### Namespaces:
 
+<br>
+
 |  Namespace |
 |  --- |
 |  [PackageNamespaceA](#package-namespaced.packagenamespacea) |
 |  [PackageNamespaceB](#package-namespaced.packagenamespaceb) |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea"></a>
 
@@ -1160,9 +1280,13 @@ export declare namespace PackageNamespaceA
 ```
 <b>Classes:</b>
 
+<br>
+
 |  Class |
 |  --- |
 |  [NamespacedClass](#package-namespaced.packagenamespacea.namespacedclass) |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedclass"></a>
 
@@ -1175,12 +1299,16 @@ export class NamespacedClass
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyfunc) | (arg1: [NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface)<!-- -->) =&gt; [NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface) |
 |  [parentClassPropertyFuncNestedType](#package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface)<!-- -->&gt; ) =&gt; Array&lt;[NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface)<!-- -->&gt; |
 |  [parentClassPropertyOne](#package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#package-namespaced.packagenamespacea.namespacedclass.parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclasspropertyfunc"></a>
 
@@ -1231,12 +1359,16 @@ parentClassPropertyTwo: Array<number>;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#package-namespaced.packagenamespacea.namespacedclass.parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#package-namespaced.packagenamespacea.namespacedclass.parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#package-namespaced.packagenamespacea.namespacedclass.parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#package-namespaced.packagenamespacea.namespacedclass.parentclassmembertwo) |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedclass.parentclassmemberfunc"></a>
 
@@ -1326,11 +1458,15 @@ Array&lt;boolean&gt;
 
 <b>Interfaces:</b>
 
+<br>
+
 |  Interface |
 |  --- |
 |  [NamespacedInterface](#package-namespaced.packagenamespacea.namespacedinterface) |
 |  [NamespacedInterfaceThree](#package-namespaced.packagenamespacea.namespacedinterfacethree) |
 |  [NamespacedInterfaceTwo](#package-namespaced.packagenamespacea.namespacedinterfacetwo) |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedinterface"></a>
 
@@ -1343,10 +1479,14 @@ export interface NamespacedInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#package-namespaced.packagenamespacea.namespacedinterface.parentpropertyone) | number |
 |  [parentPropertyTwo](#package-namespaced.packagenamespacea.namespacedinterface.parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedinterface.parentpropertyone"></a>
 
@@ -1383,9 +1523,13 @@ export interface NamespacedInterfaceThree
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#package-namespaced.packagenamespacea.namespacedinterfacethree.parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedinterfacethree.parentthirdproperty1"></a>
 
@@ -1410,9 +1554,13 @@ export interface NamespacedInterfaceTwo
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#package-namespaced.packagenamespacea.namespacedinterfacetwo.parentsecondproperty1) | string |
+
+<br>
 
 <a name="package-namespaced.packagenamespacea.namespacedinterfacetwo.parentsecondproperty1"></a>
 
@@ -1437,9 +1585,13 @@ export declare namespace PackageNamespaceB
 ```
 <b>Interfaces:</b>
 
+<br>
+
 |  Interface |
 |  --- |
 |  [JustOneInterface](#package-namespaced.packagenamespaceb.justoneinterface) |
+
+<br>
 
 <a name="package-namespaced.packagenamespaceb.justoneinterface"></a>
 
@@ -1452,9 +1604,13 @@ export interface JustOneInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [justOneProp](#package-namespaced.packagenamespaceb.justoneinterface.justoneprop) | string |
+
+<br>
 
 <a name="package-namespaced.packagenamespaceb.justoneinterface.justoneprop"></a>
 
@@ -1474,9 +1630,13 @@ justOneProp: string;
 
 #### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [ParentClass](#package-parent.parentclass) |
+
+<br>
 
 <a name="package-parent.parentclass"></a>
 
@@ -1489,12 +1649,16 @@ export class ParentClass
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#package-parent.parentclass.parentclasspropertyfunc) | (arg1: [ParentInterface](#package-parent.parentinterface)<!-- -->) =&gt; [ParentInterface](#package-parent.parentinterface) |
 |  [parentClassPropertyFuncNestedType](#package-parent.parentclass.parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[ParentInterface](#package-parent.parentinterface)<!-- -->&gt; ) =&gt; Array&lt;[ParentInterface](#package-parent.parentinterface)<!-- -->&gt; |
 |  [parentClassPropertyOne](#package-parent.parentclass.parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#package-parent.parentclass.parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="package-parent.parentclass.parentclasspropertyfunc"></a>
 
@@ -1545,12 +1709,16 @@ parentClassPropertyTwo: Array<number>;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#package-parent.parentclass.parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#package-parent.parentclass.parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#package-parent.parentclass.parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#package-parent.parentclass.parentclassmembertwo) |
+
+<br>
 
 <a name="package-parent.parentclass.parentclassmemberfunc"></a>
 
@@ -1640,11 +1808,15 @@ Array&lt;boolean&gt;
 
 #### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [ParentInterface](#package-parent.parentinterface) |
 |  [ParentInterfaceThree](#package-parent.parentinterfacethree) |
 |  [ParentInterfaceTwo](#package-parent.parentinterfacetwo) |
+
+<br>
 
 <a name="package-parent.parentinterface"></a>
 
@@ -1657,10 +1829,14 @@ export interface ParentInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#package-parent.parentinterface.parentpropertyone) | number |
 |  [parentPropertyTwo](#package-parent.parentinterface.parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="package-parent.parentinterface.parentpropertyone"></a>
 
@@ -1697,9 +1873,13 @@ export interface ParentInterfaceThree
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#package-parent.parentinterfacethree.parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="package-parent.parentinterfacethree.parentthirdproperty1"></a>
 
@@ -1724,9 +1904,13 @@ export interface ParentInterfaceTwo
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#package-parent.parentinterfacetwo.parentsecondproperty1) | string |
+
+<br>
 
 <a name="package-parent.parentinterfacetwo.parentsecondproperty1"></a>
 
@@ -1746,10 +1930,14 @@ parentSecondProperty1: string;
 
 #### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [PackageSimpleClass](#package-simple.packagesimpleclass) |
 |  [PackageSimpleLocalClass](#package-simple.packagesimplelocalclass) |
+
+<br>
 
 <a name="package-simple.packagesimpleclass"></a>
 
@@ -1764,9 +1952,13 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 
 <b>Constructors:</b>
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#package-simple.packagesimpleclass.(constructor)) | Constructs a new instance of the <code>PackageSimpleClass</code> class |
+
+<br>
 
 <a name="package-simple.packagesimpleclass.(constructor)"></a>
 
@@ -1787,11 +1979,15 @@ constructor(properties: any);
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [subFile](#package-simple.packagesimpleclass.subfile) | string |
 |  [subFunction](#package-simple.packagesimpleclass.subfunction) | (arg1: Array&lt;number&gt;) =&gt; Array&lt;number&gt; |
 |  [subVersion](#package-simple.packagesimpleclass.subversion) | number |
+
+<br>
 
 <a name="package-simple.packagesimpleclass.subfile"></a>
 
@@ -1828,12 +2024,16 @@ subVersion: number;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toSubFunction(arg1)](#package-simple.packagesimpleclass.tosubfunction) |  |
 |  [toSubFunctionArray(arg1)](#package-simple.packagesimpleclass.tosubfunctionarray) |  |
 |  [toSubString(arg1)](#package-simple.packagesimpleclass.tosubstring) | Returns the sub equivalent of <code>JSON.stringify()</code> |
 |  [toSubUrl()](#package-simple.packagesimpleclass.tosuburl) | return a sub url for the class, here's a code example <code>fetchSubPackageSimple(options?: PackageSimpleClass): string;</code> |
+
+<br>
 
 <a name="package-simple.packagesimpleclass.tosubfunction"></a>
 
@@ -1932,9 +2132,13 @@ class PackageSimpleLocalClass
 ```
 <b>Constructors:</b>
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#package-simple.packagesimplelocalclass.(constructor)) | Constructs a new instance of the <code>PackageSimpleLocalClass</code> class |
+
+<br>
 
 <a name="package-simple.packagesimplelocalclass.(constructor)"></a>
 
@@ -1955,10 +2159,14 @@ constructor(properties: any);
 
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [file](#package-simple.packagesimplelocalclass.file) | string |
 |  [version](#package-simple.packagesimplelocalclass.version) | number |
+
+<br>
 
 <a name="package-simple.packagesimplelocalclass.file"></a>
 
@@ -1983,10 +2191,14 @@ version: number;
 ```
 <b>Methods:</b>
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toString()](#package-simple.packagesimplelocalclass.tostring) | Returns the equivalent of <code>JSON.stringify()</code> |
 |  [toUrl()](#package-simple.packagesimplelocalclass.tourl) | return a url for the class, here's a code example <code>fetchPackageSimple(options?: PackageSimpleLocalClass): string;</code> |
+
+<br>
 
 <a name="package-simple.packagesimplelocalclass.tostring"></a>
 
@@ -2022,10 +2234,14 @@ string
 
 #### Enumerations:
 
+<br>
+
 |  Enumeration |
 |  --- |
 |  [PackageSimpleEnum](#package-simple.packagesimpleenum) |
 |  [PackageSimpleEnumValues](#package-simple.packagesimpleenumvalues) |
+
+<br>
 
 <a name="package-simple.packagesimpleenum"></a>
 
@@ -2065,9 +2281,13 @@ export enum PackageSimpleEnumValues
 
 #### Functions:
 
+<br>
+
 |  Function | Description |
 |  --- | --- |
 |  [PackageSimpleFunctionOne(x)](#package-simple.packagesimplefunctionone) | This is the simple function description |
+
+<br>
 
 <a name="package-simple.packagesimplefunctionone"></a>
 
@@ -2092,10 +2312,14 @@ void
 
 #### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [PackageSimpleInterfaceOne](#package-simple.packagesimpleinterfaceone) | This is a really simple interface, the first one |
 |  [PackageSimpleLocalInterface](#package-simple.packagesimplelocalinterface) |  |
+
+<br>
 
 <a name="package-simple.packagesimpleinterfaceone"></a>
 
@@ -2110,9 +2334,13 @@ export interface PackageSimpleInterfaceOne
 ```
 <b>Events:</b>
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [propertyEvent](#package-simple.packagesimpleinterfaceone.propertyevent) | Event | This is the test event property |
+
+<br>
 
 <a name="package-simple.packagesimpleinterfaceone.propertyevent"></a>
 
@@ -2127,11 +2355,15 @@ propertyEvent: Event;
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
 |  [property1](#package-simple.packagesimpleinterfaceone.property1) | number | 123 | This is the first property of the first simple interface. |
 |  [property2](#package-simple.packagesimpleinterfaceone.property2) | string |  | This is the second property of the first simple interface. |
 |  [property3](#package-simple.packagesimpleinterfaceone.property3) | boolean | The default is <code>456</code> unless <code>Some.Flag</code> was specified. | This is the third property of the first simple interface. |
+
+<br>
 
 <a name="package-simple.packagesimpleinterfaceone.property1"></a>
 
@@ -2192,9 +2424,13 @@ interface PackageSimpleLocalInterface
 ```
 <b>Properties:</b>
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyOne](#package-simple.packagesimplelocalinterface.propertyone) | string |
+
+<br>
 
 <a name="package-simple.packagesimplelocalinterface.propertyone"></a>
 
@@ -2208,11 +2444,15 @@ propertyOne: string;
 
 #### Type Aliases:
 
+<br>
+
 |  Type Alias | Description |
 |  --- | --- |
 |  [simpleFunctionOne](#package-simple.simplefunctionone) | This is the first simple function, it returns nothing |
 |  [simpleFunctionThree](#package-simple.simplefunctionthree) |  |
 |  [simpleFunctionTwo](#package-simple.simplefunctiontwo) | This is the second simple function, it returns a <code>PackageSimpleInterfaceOne</code> |
+
+<br>
 
 <a name="package-simple.simplefunctionone"></a>
 
@@ -2260,10 +2500,14 @@ export type simpleFunctionTwo = (
 
 #### Variables:
 
+<br>
+
 |  Variable | Description |
 |  --- | --- |
 |  [PackageSimpleVariableFunction](#package-simple.packagesimplevariablefunction) | This is the simple variable function description |
 |  [PackageSimpleVariableString](#package-simple.packagesimplevariablestring) | This is the simple variable string description |
+
+<br>
 
 <a name="package-simple.packagesimplevariablefunction"></a>
 

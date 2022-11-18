@@ -14,9 +14,13 @@ export declare namespace PackageNamespaceB
 
 ### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [JustOneInterface](#justoneinterface) |
+
+<br>
 
 <a name="justoneinterface"></a>
 
@@ -30,9 +34,13 @@ export interface JustOneInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [justOneProp](#justoneinterface.justoneprop) | string |
+
+<br>
 
 <a name="justoneinterface.justoneprop"></a>
 

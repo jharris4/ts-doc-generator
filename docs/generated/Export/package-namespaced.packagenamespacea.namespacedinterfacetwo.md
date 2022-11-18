@@ -14,9 +14,13 @@ export interface NamespacedInterfaceTwo
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#parentsecondproperty1) | string |
+
+<br>
 
 <a name="parentsecondproperty1"></a>
 

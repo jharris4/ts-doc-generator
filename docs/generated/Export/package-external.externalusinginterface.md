@@ -14,10 +14,14 @@ export interface ExternalUsingInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyExternal](#propertyexternal) | EditorState |
 |  [propertyOne](#propertyone) | number |
+
+<br>
 
 <a name="propertyexternal"></a>
 

@@ -14,6 +14,8 @@ export class MixinClass
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pEight](#peight) | [ChildClass](./package-child.childclass.md)<!-- -->\[\] |
@@ -24,6 +26,8 @@ export class MixinClass
 |  [pSix](#psix) | number |
 |  [pThree](#pthree) | [ChildInterface](./package-child.childinterface.md) |
 |  [pTwo](#ptwo) | [ParentClass](./package-parent.parentclass.md) |
+
+<br>
 
 <a name="peight"></a>
 
@@ -123,12 +127,16 @@ pTwo: ParentClass;
 
 ### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [mFour(argOne)](#mfour) |
 |  [mOne(argOne)](#mone) |
 |  [mThree(argOne)](#mthree) |
 |  [mTwo(argOne)](#mtwo) |
+
+<br>
 
 <a name="mfour"></a>
 

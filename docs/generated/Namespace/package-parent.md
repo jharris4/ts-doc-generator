@@ -22,12 +22,16 @@ export class ParentClass
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#parentclass.parentclasspropertyfunc) | (arg1: [ParentInterface](#parentinterface)<!-- -->) =&gt; [ParentInterface](#parentinterface) |
 |  [parentClassPropertyFuncNestedType](#parentclass.parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[ParentInterface](#parentinterface)<!-- -->&gt; ) =&gt; Array&lt;[ParentInterface](#parentinterface)<!-- -->&gt; |
 |  [parentClassPropertyOne](#parentclass.parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#parentclass.parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="parentclass.parentclasspropertyfunc"></a>
 
@@ -79,12 +83,16 @@ parentClassPropertyTwo: Array<number>;
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#parentclass.parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#parentclass.parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#parentclass.parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#parentclass.parentclassmembertwo) |
+
+<br>
 
 <a name="parentclass.parentclassmemberfunc"></a>
 
@@ -192,10 +200,14 @@ export interface ParentInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#parentinterface.parentpropertyone) | number |
 |  [parentPropertyTwo](#parentinterface.parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="parentinterface.parentpropertyone"></a>
 
@@ -231,9 +243,13 @@ export interface ParentInterfaceThree
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#parentinterfacethree.parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="parentinterfacethree.parentthirdproperty1"></a>
 
@@ -257,9 +273,13 @@ export interface ParentInterfaceTwo
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#parentinterfacetwo.parentsecondproperty1) | string |
+
+<br>
 
 <a name="parentinterfacetwo.parentsecondproperty1"></a>
 

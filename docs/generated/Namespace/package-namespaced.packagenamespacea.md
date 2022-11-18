@@ -14,9 +14,13 @@ export declare namespace PackageNamespaceA
 
 ### Classes:
 
+<br>
+
 |  Class |
 |  --- |
 |  [NamespacedClass](#namespacedclass) |
+
+<br>
 
 <a name="namespacedclass"></a>
 
@@ -30,12 +34,16 @@ export class NamespacedClass
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#namespacedclass.parentclasspropertyfunc) | (arg1: [NamespacedInterface](#namespacedinterface)<!-- -->) =&gt; [NamespacedInterface](#namespacedinterface) |
 |  [parentClassPropertyFuncNestedType](#namespacedclass.parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[NamespacedInterface](#namespacedinterface)<!-- -->&gt; ) =&gt; Array&lt;[NamespacedInterface](#namespacedinterface)<!-- -->&gt; |
 |  [parentClassPropertyOne](#namespacedclass.parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#namespacedclass.parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="namespacedclass.parentclasspropertyfunc"></a>
 
@@ -87,12 +95,16 @@ parentClassPropertyTwo: Array<number>;
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#namespacedclass.parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#namespacedclass.parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#namespacedclass.parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#namespacedclass.parentclassmembertwo) |
+
+<br>
 
 <a name="namespacedclass.parentclassmemberfunc"></a>
 
@@ -184,11 +196,15 @@ Array&lt;boolean&gt;
 
 ### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [NamespacedInterface](#namespacedinterface) |
 |  [NamespacedInterfaceThree](#namespacedinterfacethree) |
 |  [NamespacedInterfaceTwo](#namespacedinterfacetwo) |
+
+<br>
 
 <a name="namespacedinterface"></a>
 
@@ -202,10 +218,14 @@ export interface NamespacedInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#namespacedinterface.parentpropertyone) | number |
 |  [parentPropertyTwo](#namespacedinterface.parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="namespacedinterface.parentpropertyone"></a>
 
@@ -243,9 +263,13 @@ export interface NamespacedInterfaceThree
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#namespacedinterfacethree.parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="namespacedinterfacethree.parentthirdproperty1"></a>
 
@@ -271,9 +295,13 @@ export interface NamespacedInterfaceTwo
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentSecondProperty1](#namespacedinterfacetwo.parentsecondproperty1) | string |
+
+<br>
 
 <a name="namespacedinterfacetwo.parentsecondproperty1"></a>
 

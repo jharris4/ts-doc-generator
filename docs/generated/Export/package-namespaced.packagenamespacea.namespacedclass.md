@@ -14,12 +14,16 @@ export class NamespacedClass
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#parentclasspropertyfunc) | (arg1: [NamespacedInterface](./package-namespaced.packagenamespacea.namespacedinterface.md)<!-- -->) =&gt; [NamespacedInterface](./package-namespaced.packagenamespacea.namespacedinterface.md) |
 |  [parentClassPropertyFuncNestedType](#parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[NamespacedInterface](./package-namespaced.packagenamespacea.namespacedinterface.md)<!-- -->&gt; ) =&gt; Array&lt;[NamespacedInterface](./package-namespaced.packagenamespacea.namespacedinterface.md)<!-- -->&gt; |
 |  [parentClassPropertyOne](#parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="parentclasspropertyfunc"></a>
 
@@ -73,12 +77,16 @@ parentClassPropertyTwo: Array<number>;
 
 ### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#parentclassmembertwo) |
+
+<br>
 
 <a name="parentclassmemberfunc"></a>
 

@@ -14,11 +14,15 @@ export interface MixinInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [pOne](#pone) | [ParentInterface](./package-parent.parentinterface.md) |
 |  [pThree](#pthree) | Number |
 |  [pTwo](#ptwo) | [ParentClass](./package-parent.parentclass.md) |
+
+<br>
 
 <a name="pone"></a>
 

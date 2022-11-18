@@ -16,9 +16,13 @@ export class aclass
 
 ### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [lowerFunction(a, b)](#lowerfunction) | This is the lower function of the lowercase a class |
+
+<br>
 
 <a name="lowerfunction"></a>
 

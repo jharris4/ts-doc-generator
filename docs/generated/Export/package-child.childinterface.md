@@ -21,9 +21,13 @@ These are the longer more detailed remarks about the ChildInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [childPropertyOne](#childpropertyone) | boolean |
+
+<br>
 
 <a name="childpropertyone"></a>
 

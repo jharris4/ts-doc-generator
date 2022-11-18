@@ -14,9 +14,13 @@ export interface JustOneInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [justOneProp](#justoneprop) | string |
+
+<br>
 
 <a name="justoneprop"></a>
 

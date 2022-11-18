@@ -14,10 +14,14 @@ export interface ParentInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentPropertyOne](#parentpropertyone) | number |
 |  [parentPropertyTwo](#parentpropertytwo) | Array&lt;boolean&gt; |
+
+<br>
 
 <a name="parentpropertyone"></a>
 

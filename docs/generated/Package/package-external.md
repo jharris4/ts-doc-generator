@@ -8,9 +8,13 @@
 
 ### Interfaces:
 
+<br>
+
 |  Interface |
 |  --- |
 |  [ExternalUsingInterface](#externalusinginterface) |
+
+<br>
 
 <a name="externalusinginterface"></a>
 
@@ -24,10 +28,14 @@ export interface ExternalUsingInterface
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyExternal](#externalusinginterface.propertyexternal) | EditorState |
 |  [propertyOne](#externalusinginterface.propertyone) | number |
+
+<br>
 
 <a name="externalusinginterface.propertyexternal"></a>
 

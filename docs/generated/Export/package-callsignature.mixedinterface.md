@@ -20,9 +20,13 @@ This interface demonstrates that call signatures are not collapsed for interface
 
 ### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [someProperty](#someproperty) | number | This is a property that means this interface will not be collapsed |
+
+<br>
 
 <a name="someproperty"></a>
 
@@ -40,9 +44,13 @@ someProperty: number;
 
 ### Call Signatures:
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#call-1) | The mixed interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="call-1"></a>
 

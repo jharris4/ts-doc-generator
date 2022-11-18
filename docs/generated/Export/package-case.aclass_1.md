@@ -16,9 +16,13 @@ export class Aclass
 
 ### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [upperFunction()](#upperfunction) |
+
+<br>
 
 <a name="upperfunction"></a>
 

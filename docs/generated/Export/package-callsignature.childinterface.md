@@ -21,9 +21,13 @@ This interface demonstrates that call signatures are not collapsed for child int
 
 ### Call Signatures:
 
+<br>
+
 |  Call Signature | Description |
 |  --- | --- |
 |  [call-1](#call-1) | The child interface call signature allows documentation for the call signature parameters |
+
+<br>
 
 <a name="call-1"></a>
 

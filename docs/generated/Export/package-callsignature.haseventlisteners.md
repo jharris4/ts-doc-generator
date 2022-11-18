@@ -20,12 +20,16 @@ This interface demonstrates a common pattern where there are typed add/remove ev
 
 ### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [offEventOne](#offeventone) | (listenerOne: [ListenerOne](./package-callsignature.listenerone.md)<!-- -->) =&gt; void | Removes a first listener |
 |  [offEventTwo](#offeventtwo) | (listenerTwo: [ListenerTwo](./package-callsignature.listenertwo.md)<!-- -->) =&gt; void | Removes a second listener |
 |  [onEventOne](#oneventone) | (listenerOne: [ListenerOne](./package-callsignature.listenerone.md)<!-- -->) =&gt; void | Adds a first listener |
 |  [onEventTwo](#oneventtwo) | (listenerTwo: [ListenerTwo](./package-callsignature.listenertwo.md)<!-- -->) =&gt; void | Adds a second listener |
+
+<br>
 
 <a name="offeventone"></a>
 

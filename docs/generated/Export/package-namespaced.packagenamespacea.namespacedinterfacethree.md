@@ -14,9 +14,13 @@ export interface NamespacedInterfaceThree
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentThirdProperty1](#parentthirdproperty1) | boolean |
+
+<br>
 
 <a name="parentthirdproperty1"></a>
 

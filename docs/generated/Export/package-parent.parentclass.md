@@ -14,12 +14,16 @@ export class ParentClass
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [parentClassPropertyFunc](#parentclasspropertyfunc) | (arg1: [ParentInterface](./package-parent.parentinterface.md)<!-- -->) =&gt; [ParentInterface](./package-parent.parentinterface.md) |
 |  [parentClassPropertyFuncNestedType](#parentclasspropertyfuncnestedtype) | ( arg1: Array&lt;[ParentInterface](./package-parent.parentinterface.md)<!-- -->&gt; ) =&gt; Array&lt;[ParentInterface](./package-parent.parentinterface.md)<!-- -->&gt; |
 |  [parentClassPropertyOne](#parentclasspropertyone) | string |
 |  [parentClassPropertyTwo](#parentclasspropertytwo) | Array&lt;number&gt; |
+
+<br>
 
 <a name="parentclasspropertyfunc"></a>
 
@@ -73,12 +77,16 @@ parentClassPropertyTwo: Array<number>;
 
 ### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [parentClassMemberFunc(argOne)](#parentclassmemberfunc) |
 |  [parentClassMemberFuncNestedType(argOne)](#parentclassmemberfuncnestedtype) |
 |  [parentClassMemberOne(argOne)](#parentclassmemberone) |
 |  [parentClassMemberTwo(argOne)](#parentclassmembertwo) |
+
+<br>
 
 <a name="parentclassmemberfunc"></a>
 

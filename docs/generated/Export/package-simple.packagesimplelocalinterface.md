@@ -14,9 +14,13 @@ interface PackageSimpleLocalInterface
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [propertyOne](#propertyone) | string |
+
+<br>
 
 <a name="propertyone"></a>
 

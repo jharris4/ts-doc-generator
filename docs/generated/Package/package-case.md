@@ -14,10 +14,14 @@ More detailed description about package-case
 
 ### Classes:
 
+<br>
+
 |  Class | Description |
 |  --- | --- |
 |  [aclass](#aclass~0) | Lowercase class name |
 |  [Aclass](#aclass~1) | Uppercase first letter class name |
+
+<br>
 
 <a name="aclass~0"></a>
 
@@ -33,9 +37,13 @@ export class aclass
 
 #### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [lowerFunction(a, b)](#aclass~0.lowerfunction) | This is the lower function of the lowercase a class |
+
+<br>
 
 <a name="aclass~0.lowerfunction"></a>
 
@@ -75,9 +83,13 @@ export class Aclass
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [upperFunction()](#aclass~1.upperfunction) |
+
+<br>
 
 <a name="aclass~1.upperfunction"></a>
 
@@ -96,9 +108,13 @@ void
 
 ### Interfaces:
 
+<br>
+
 |  Interface | Description |
 |  --- | --- |
 |  [WithCaseClashInterface](#withcaseclashinterface) | summary for WithCaseClashInterface |
+
+<br>
 
 <a name="withcaseclashinterface"></a>
 
@@ -118,10 +134,14 @@ Interface with case clash on property names
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [property](#withcaseclashinterface.property~0) | string |
 |  [Property](#withcaseclashinterface.property~1) | number |
+
+<br>
 
 <a name="withcaseclashinterface.property~0"></a>
 

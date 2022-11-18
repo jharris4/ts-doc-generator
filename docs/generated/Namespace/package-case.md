@@ -31,9 +31,13 @@ export class aclass
 
 #### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [lowerFunction(a, b)](#aclass~0.lowerfunction) | This is the lower function of the lowercase a class |
+
+<br>
 
 <a name="aclass~0.lowerfunction"></a>
 
@@ -71,9 +75,13 @@ export class Aclass
 
 #### Methods:
 
+<br>
+
 |  Method |
 |  --- |
 |  [upperFunction()](#aclass~1.upperfunction) |
+
+<br>
 
 <a name="aclass~1.upperfunction"></a>
 
@@ -112,10 +120,14 @@ Interface with case clash on property names
 
 #### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [property](#withcaseclashinterface.property~0) | string |
 |  [Property](#withcaseclashinterface.property~1) | number |
+
+<br>
 
 <a name="withcaseclashinterface.property~0"></a>
 

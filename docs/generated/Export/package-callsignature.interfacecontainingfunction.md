@@ -20,10 +20,14 @@ This interface demonstrates that a member's parameters can be linked to other ty
 
 ### Properties:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [onFunction](#onfunction) | (theFunction: [InterfaceForFunction](./package-callsignature.interfaceforfunction.md)<!-- -->) =&gt; void | This is the member with parameter that references the interface call function to demonstrate the link |
 |  [propertyA](#propertya) | number | This is some random property |
+
+<br>
 
 <a name="onfunction"></a>
 

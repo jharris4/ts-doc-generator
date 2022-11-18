@@ -15,9 +15,13 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 
 ### Constructors:
 
+<br>
+
 |  Constructor | Description |
 |  --- | --- |
 |  [(constructor)(properties)](#(constructor)) | Constructs a new instance of the <code>PackageSimpleClass</code> class |
+
+<br>
 
 <a name="(constructor)"></a>
 
@@ -41,11 +45,15 @@ constructor(properties: any);
 
 ### Properties:
 
+<br>
+
 |  Property | Type |
 |  --- | --- |
 |  [subFile](#subfile) | string |
 |  [subFunction](#subfunction) | (arg1: Array&lt;number&gt;) =&gt; Array&lt;number&gt; |
 |  [subVersion](#subversion) | number |
+
+<br>
 
 <a name="subfile"></a>
 
@@ -85,12 +93,16 @@ subVersion: number;
 
 ### Methods:
 
+<br>
+
 |  Method | Description |
 |  --- | --- |
 |  [toSubFunction(arg1)](#tosubfunction) |  |
 |  [toSubFunctionArray(arg1)](#tosubfunctionarray) |  |
 |  [toSubString(arg1)](#tosubstring) | Returns the sub equivalent of <code>JSON.stringify()</code> |
 |  [toSubUrl()](#tosuburl) | return a sub url for the class, here's a code example <code>fetchSubPackageSimple(options?: PackageSimpleClass): string;</code> |
+
+<br>
 
 <a name="tosubfunction"></a>
 

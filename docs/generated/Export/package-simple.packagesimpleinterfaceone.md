@@ -16,9 +16,13 @@ export interface PackageSimpleInterfaceOne
 
 ### Events:
 
+<br>
+
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [propertyEvent](#propertyevent) | Event | This is the test event property |
+
+<br>
 
 <a name="propertyevent"></a>
 
@@ -36,11 +40,15 @@ propertyEvent: Event;
 
 ### Properties:
 
+<br>
+
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
 |  [property1](#property1) | number | 123 | This is the first property of the first simple interface. |
 |  [property2](#property2) | string |  | This is the second property of the first simple interface. |
 |  [property3](#property3) | boolean | The default is <code>456</code> unless <code>Some.Flag</code> was specified. | This is the third property of the first simple interface. |
+
+<br>
 
 <a name="property1"></a>
 
