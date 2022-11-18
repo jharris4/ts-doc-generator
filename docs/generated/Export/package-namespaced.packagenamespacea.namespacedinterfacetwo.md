@@ -12,9 +12,9 @@ export interface NamespacedInterfaceTwo
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

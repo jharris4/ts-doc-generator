@@ -6,9 +6,9 @@
 
 ---
 
-### Classes:
-
 <br>
+
+### Classes:
 
 |  Class |
 |  --- |
@@ -26,9 +26,9 @@
 export class ParentClass 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -87,9 +87,9 @@ parentClassPropertyOne: string;
 parentClassPropertyTwo: Array<number>;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -188,9 +188,9 @@ Array&lt;boolean&gt;
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface |
 |  --- |
@@ -210,9 +210,9 @@ Array&lt;boolean&gt;
 export interface ParentInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -255,9 +255,9 @@ parentPropertyTwo: Array<boolean>;
 export interface ParentInterfaceThree 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -287,9 +287,9 @@ parentThirdProperty1: boolean;
 export interface ParentInterfaceTwo 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

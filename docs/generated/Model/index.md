@@ -8,8 +8,6 @@
 
 ### Packages:
 
-<br>
-
 |  Package | Description |
 |  --- | --- |
 |  [package-callsignature](#package-callsignature) | This package shows how the markdown documenter can handle call signatures |
@@ -19,8 +17,6 @@
 |  [package-namespaced](#package-namespaced) |  |
 |  [package-parent](#package-parent) |  |
 |  [package-simple](#package-simple) |  |
-
-<br>
 
 <a name="package-callsignature"></a>
 
@@ -32,9 +28,9 @@ This package shows how the markdown documenter can handle call signatures
 
 The original documenter did not support outputting call signatures, this is a new feature.
 
-#### Enumerations:
-
 <br>
+
+#### Enumerations:
 
 |  Enumeration | Description |
 |  --- | --- |
@@ -65,9 +61,9 @@ export enum SomeEnum
 
 It is referred to by the [ListenerTwo](#package-callsignature.listenertwo) interface call signature parameters
 
-#### Call Signatures:
-
 <br>
+
+#### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -167,9 +163,9 @@ export interface ListenerTwo {
 
 void
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -198,9 +194,8 @@ export interface ChildInterface extends EmptyInterface
 
 This interface demonstrates that call signatures are not collapsed for child interfaces
 
-<b>Call Signatures:</b>
-
 <br>
+<b>Call Signatures:</b>
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -264,9 +259,8 @@ export interface HasEventListeners
 
 This interface demonstrates a common pattern where there are typed add/remove event listener functions that expect the listener to have a specific call signature
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -348,9 +342,8 @@ export interface InterfaceContainingFunction
 
 This interface demonstrates that a member's parameters can be linked to other types
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -402,9 +395,8 @@ export interface MixedInterface
 
 This interface demonstrates that call signatures are not collapsed for interfaces that don't have exatly one call signature member
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -423,9 +415,9 @@ This is a property that means this interface will not be collapsed
 ```typescript
 someProperty: number;
 ```
-<b>Call Signatures:</b>
 
 <br>
+<b>Call Signatures:</b>
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -455,9 +447,9 @@ The mixed interface call signature allows documentation for the call signature p
 
 void
 
-#### Type Aliases:
-
 <br>
+
+#### Type Aliases:
 
 |  Type Alias | Description |
 |  --- | --- |
@@ -480,8 +472,6 @@ export type TypeListener = (paramA: string, paramB: boolean) => void;
 
 Unfortunately it does not support documentation for the parameters
 
-<br>
-
 <a name="package-case"></a>
 
 ### package-case package
@@ -492,9 +482,9 @@ package-case summary goes here
 
 More detailed description about package-case
 
-#### Classes:
-
 <br>
+
+#### Classes:
 
 |  Class | Description |
 |  --- | --- |
@@ -514,9 +504,9 @@ Lowercase class name
 ```typescript
 export class aclass 
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method | Description |
 |  --- | --- |
@@ -559,9 +549,9 @@ Uppercase first letter class name
 ```typescript
 export class Aclass 
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -582,9 +572,9 @@ upperFunction(): void;
 
 void
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -607,9 +597,8 @@ export interface WithCaseClashInterface
 
 Interface with case clash on property names
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -640,15 +629,13 @@ property: string;
 Property: number;
 ```
 
-<br>
-
 <a name="package-child"></a>
 
 ### package-child package
 
-#### Classes:
-
 <br>
+
+#### Classes:
 
 |  Class |
 |  --- |
@@ -668,9 +655,8 @@ export class ChildClass extends ParentClass
 ```
 <b>Extends:</b> [ParentClass](#package-parent.parentclass)
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -687,9 +673,9 @@ export class ChildClass extends ParentClass
 ```typescript
 childClassPropertyOne: number;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -727,9 +713,9 @@ string
 ```typescript
 export class MixinClass 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -837,9 +823,9 @@ pThree: ChildInterface;
 ```typescript
 pTwo: ParentClass;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -932,9 +918,9 @@ mTwo(argOne: ChildClass): ChildInterface;
 
 [ChildInterface](#package-child.childinterface)
 
-#### Enumerations:
-
 <br>
+
+#### Enumerations:
 
 |  Enumeration |
 |  --- |
@@ -960,9 +946,9 @@ export enum PackageChildEnumValues
 |  Right |  |
 |  Up | <code>1</code> |
 
-#### Functions:
-
 <br>
+
+#### Functions:
 
 |  Function | Description |
 |  --- | --- |
@@ -997,9 +983,9 @@ export declare function PackageChildFunctionOne(
 
 void
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -1025,9 +1011,8 @@ export interface ChildInterface extends ParentInterface
 
 These are the longer more detailed remarks about the ChildInterface
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1056,9 +1041,9 @@ childPropertyOne: boolean;
 ```typescript
 export interface MixinInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1102,9 +1087,9 @@ pThree: Number;
 pTwo: ParentClass;
 ```
 
-#### Type Aliases:
-
 <br>
+
+#### Type Aliases:
 
 |  Type Alias |
 |  --- |
@@ -1123,9 +1108,9 @@ export type functionOne = (argOne: ParentClass[]) => ChildClass[];
 ```
 <b>References:</b> [ParentClass](#package-parent.parentclass)<!-- -->, [ChildClass](#package-child.childclass)
 
-#### Variables:
-
 <br>
+
+#### Variables:
 
 |  Variable | Description |
 |  --- | --- |
@@ -1194,15 +1179,13 @@ This is the child variable string description
 PackageChildVariableString: string
 ```
 
-<br>
-
 <a name="package-external"></a>
 
 ### package-external package
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface |
 |  --- |
@@ -1219,9 +1202,9 @@ PackageChildVariableString: string
 ```typescript
 export interface ExternalUsingInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1252,15 +1235,13 @@ propertyExternal: EditorState;
 propertyOne: number;
 ```
 
-<br>
-
 <a name="package-namespaced"></a>
 
 ### package-namespaced package
 
-#### Namespaces:
-
 <br>
+
+#### Namespaces:
 
 |  Namespace |
 |  --- |
@@ -1278,9 +1259,9 @@ propertyOne: number;
 ```typescript
 export declare namespace PackageNamespaceA 
 ```
-<b>Classes:</b>
 
 <br>
+<b>Classes:</b>
 
 |  Class |
 |  --- |
@@ -1297,9 +1278,9 @@ export declare namespace PackageNamespaceA
 ```typescript
 export class NamespacedClass 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1357,9 +1338,9 @@ parentClassPropertyOne: string;
 ```typescript
 parentClassPropertyTwo: Array<number>;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -1456,9 +1437,8 @@ parentClassMemberTwo(argOne: string): Array<boolean>;
 
 Array&lt;boolean&gt;
 
-<b>Interfaces:</b>
-
 <br>
+<b>Interfaces:</b>
 
 |  Interface |
 |  --- |
@@ -1477,9 +1457,9 @@ Array&lt;boolean&gt;
 ```typescript
 export interface NamespacedInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1521,9 +1501,9 @@ parentPropertyTwo: Array<boolean>;
 ```typescript
 export interface NamespacedInterfaceThree 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1552,9 +1532,9 @@ parentThirdProperty1: boolean;
 ```typescript
 export interface NamespacedInterfaceTwo 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1583,9 +1563,9 @@ parentSecondProperty1: string;
 ```typescript
 export declare namespace PackageNamespaceB 
 ```
-<b>Interfaces:</b>
 
 <br>
+<b>Interfaces:</b>
 
 |  Interface |
 |  --- |
@@ -1602,9 +1582,9 @@ export declare namespace PackageNamespaceB
 ```typescript
 export interface JustOneInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1622,15 +1602,13 @@ export interface JustOneInterface
 justOneProp: string;
 ```
 
-<br>
-
 <a name="package-parent"></a>
 
 ### package-parent package
 
-#### Classes:
-
 <br>
+
+#### Classes:
 
 |  Class |
 |  --- |
@@ -1647,9 +1625,9 @@ justOneProp: string;
 ```typescript
 export class ParentClass 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1707,9 +1685,9 @@ parentClassPropertyOne: string;
 ```typescript
 parentClassPropertyTwo: Array<number>;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -1806,9 +1784,9 @@ parentClassMemberTwo(argOne: string): Array<boolean>;
 
 Array&lt;boolean&gt;
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface |
 |  --- |
@@ -1827,9 +1805,9 @@ Array&lt;boolean&gt;
 ```typescript
 export interface ParentInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1871,9 +1849,9 @@ parentPropertyTwo: Array<boolean>;
 ```typescript
 export interface ParentInterfaceThree 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1902,9 +1880,9 @@ parentThirdProperty1: boolean;
 ```typescript
 export interface ParentInterfaceTwo 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -1922,15 +1900,13 @@ export interface ParentInterfaceTwo
 parentSecondProperty1: string;
 ```
 
-<br>
-
 <a name="package-simple"></a>
 
 ### package-simple package
 
-#### Classes:
-
 <br>
+
+#### Classes:
 
 |  Class |
 |  --- |
@@ -1950,9 +1926,8 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 ```
 <b>Extends:</b> [PackageSimpleLocalClass](#package-simple.packagesimplelocalclass)
 
-<b>Constructors:</b>
-
 <br>
+<b>Constructors:</b>
 
 |  Constructor | Description |
 |  --- | --- |
@@ -1977,9 +1952,8 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -2022,9 +1996,9 @@ subFunction: (arg1: Array<number>) => Array<number>;
 ```typescript
 subVersion: number;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method | Description |
 |  --- | --- |
@@ -2130,9 +2104,9 @@ string
 ```typescript
 class PackageSimpleLocalClass 
 ```
-<b>Constructors:</b>
 
 <br>
+<b>Constructors:</b>
 
 |  Constructor | Description |
 |  --- | --- |
@@ -2157,9 +2131,8 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-<b>Properties:</b>
-
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -2189,9 +2162,9 @@ file: string;
 ```typescript
 version: number;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method | Description |
 |  --- | --- |
@@ -2232,9 +2205,9 @@ toUrl(): string;
 
 string
 
-#### Enumerations:
-
 <br>
+
+#### Enumerations:
 
 |  Enumeration |
 |  --- |
@@ -2279,9 +2252,9 @@ export enum PackageSimpleEnumValues
 |  Right |  |
 |  Up | <code>1</code> |
 
-#### Functions:
-
 <br>
+
+#### Functions:
 
 |  Function | Description |
 |  --- | --- |
@@ -2310,9 +2283,9 @@ export declare function PackageSimpleFunctionOne(x?: number): void;
 
 void
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -2332,9 +2305,9 @@ This is a really simple interface, the first one
 ```typescript
 export interface PackageSimpleInterfaceOne 
 ```
-<b>Events:</b>
 
 <br>
+<b>Events:</b>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -2353,9 +2326,9 @@ This is the test event property
 ```typescript
 propertyEvent: Event;
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
@@ -2422,9 +2395,9 @@ The default is `456` unless `Some.Flag` was specified.
 ```typescript
 interface PackageSimpleLocalInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -2442,9 +2415,9 @@ interface PackageSimpleLocalInterface
 propertyOne: string;
 ```
 
-#### Type Aliases:
-
 <br>
+
+#### Type Aliases:
 
 |  Type Alias | Description |
 |  --- | --- |
@@ -2498,9 +2471,9 @@ export type simpleFunctionTwo = (
 ```
 <b>References:</b> [PackageSimpleLocalInterface](#package-simple.packagesimplelocalinterface)<!-- -->, [PackageSimpleInterfaceOne](#package-simple.packagesimpleinterfaceone)
 
-#### Variables:
-
 <br>
+
+#### Variables:
 
 |  Variable | Description |
 |  --- | --- |

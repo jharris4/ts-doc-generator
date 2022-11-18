@@ -12,9 +12,9 @@ More detailed description about package-case
 
 ---
 
-### Classes:
-
 <br>
+
+### Classes:
 
 |  Class | Description |
 |  --- | --- |
@@ -35,9 +35,9 @@ Lowercase class name
 export class aclass 
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -81,9 +81,9 @@ Uppercase first letter class name
 export class Aclass 
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -106,9 +106,9 @@ void
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -132,9 +132,9 @@ export interface WithCaseClashInterface
 
 Interface with case clash on property names
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

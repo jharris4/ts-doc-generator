@@ -12,9 +12,9 @@ export interface MixinInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

@@ -18,9 +18,9 @@ This interface demonstrates that a member's parameters can be linked to other ty
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |

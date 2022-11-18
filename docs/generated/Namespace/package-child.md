@@ -4,12 +4,16 @@
 
 ## package-child package
 
+<br>
+
 ### Classes:
 
 |  Class |
 |  --- |
 |  [ChildClass](#childclass) |
 |  [MixinClass](#mixinclass) |
+
+<br>
 
 <a name="childclass"></a>
 
@@ -22,9 +26,9 @@ export class ChildClass extends ParentClass
 ```
 <b>Extends:</b> [ParentClass](./package-parent.md#parentclass)
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -42,9 +46,9 @@ export class ChildClass extends ParentClass
 childClassPropertyOne: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -71,6 +75,8 @@ childClassMemberOne(argOne: boolean): string;
 
 string
 
+<br>
+
 <a name="mixinclass"></a>
 
 ### MixinClass class
@@ -81,9 +87,9 @@ string
 export class MixinClass 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -192,9 +198,9 @@ pThree: ChildInterface;
 pTwo: ParentClass;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -287,11 +293,15 @@ mTwo(argOne: ChildClass): ChildInterface;
 
 [ChildInterface](#childinterface)
 
+<br>
+
 ### Enumerations:
 
 |  Enumeration |
 |  --- |
 |  [PackageChildEnumValues](#packagechildenumvalues) |
+
+<br>
 
 <a name="packagechildenumvalues"></a>
 
@@ -312,11 +322,15 @@ export enum PackageChildEnumValues
 |  Right |  |
 |  Up | <code>1</code> |
 
+<br>
+
 ### Functions:
 
 |  Function | Description |
 |  --- | --- |
 |  [PackageChildFunctionOne(x, a, c)](#packagechildfunctionone) | This is the child function description |
+
+<br>
 
 <a name="packagechildfunctionone"></a>
 
@@ -346,12 +360,16 @@ export declare function PackageChildFunctionOne(
 
 void
 
+<br>
+
 ### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
 |  [ChildInterface](#childinterface) | ChildInterface remarks goes here |
 |  [MixinInterface](#mixininterface) |  |
+
+<br>
 
 <a name="childinterface"></a>
 
@@ -370,9 +388,9 @@ export interface ChildInterface extends ParentInterface
 
 These are the longer more detailed remarks about the ChildInterface
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -390,6 +408,8 @@ These are the longer more detailed remarks about the ChildInterface
 childPropertyOne: boolean;
 ```
 
+<br>
+
 <a name="mixininterface"></a>
 
 ### MixinInterface interface
@@ -400,9 +420,9 @@ childPropertyOne: boolean;
 export interface MixinInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -446,11 +466,15 @@ pThree: Number;
 pTwo: ParentClass;
 ```
 
+<br>
+
 ### Type Aliases:
 
 |  Type Alias |
 |  --- |
 |  [functionOne](#functionone) |
+
+<br>
 
 <a name="functionone"></a>
 
@@ -463,6 +487,8 @@ export type functionOne = (argOne: ParentClass[]) => ChildClass[];
 ```
 <b>References:</b> [ParentClass](./package-parent.md#parentclass)<!-- -->, [ChildClass](#childclass)
 
+<br>
+
 ### Variables:
 
 |  Variable | Description |
@@ -471,6 +497,8 @@ export type functionOne = (argOne: ParentClass[]) => ChildClass[];
 |  [PackageChildVariableFunction](#packagechildvariablefunction) | This is the child variable function description |
 |  [PackageChildVariableParent](#packagechildvariableparent) | This is the child variable parent description |
 |  [PackageChildVariableString](#packagechildvariablestring) | This is the child variable string description |
+
+<br>
 
 <a name="packagechildvariableenum"></a>
 
@@ -483,6 +511,8 @@ This is the child variable enum description
 ```typescript
 PackageChildVariableEnum: PackageChildEnumValues
 ```
+
+<br>
 
 <a name="packagechildvariablefunction"></a>
 
@@ -500,6 +530,8 @@ PackageChildVariableFunction: (
 ) => void
 ```
 
+<br>
+
 <a name="packagechildvariableparent"></a>
 
 ### PackageChildVariableParent variable
@@ -511,6 +543,8 @@ This is the child variable parent description
 ```typescript
 PackageChildVariableParent: ParentClass
 ```
+
+<br>
 
 <a name="packagechildvariablestring"></a>
 

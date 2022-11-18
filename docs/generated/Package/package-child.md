@@ -6,9 +6,9 @@
 
 ---
 
-### Classes:
-
 <br>
+
+### Classes:
 
 |  Class |
 |  --- |
@@ -28,9 +28,9 @@ export class ChildClass extends ParentClass
 ```
 <b>Extends:</b> [ParentClass](./package-parent.md#parentclass)
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -48,9 +48,9 @@ export class ChildClass extends ParentClass
 childClassPropertyOne: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -89,9 +89,9 @@ string
 export class MixinClass 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -200,9 +200,9 @@ pThree: ChildInterface;
 pTwo: ParentClass;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -297,9 +297,9 @@ mTwo(argOne: ChildClass): ChildInterface;
 
 ---
 
-### Enumerations:
-
 <br>
+
+### Enumerations:
 
 |  Enumeration |
 |  --- |
@@ -328,9 +328,9 @@ export enum PackageChildEnumValues
 
 ---
 
-### Functions:
-
 <br>
+
+### Functions:
 
 |  Function | Description |
 |  --- | --- |
@@ -368,9 +368,9 @@ void
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -396,9 +396,9 @@ export interface ChildInterface extends ParentInterface
 
 These are the longer more detailed remarks about the ChildInterface
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -428,9 +428,9 @@ childPropertyOne: boolean;
 export interface MixinInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -476,9 +476,9 @@ pTwo: ParentClass;
 
 ---
 
-### Type Aliases:
-
 <br>
+
+### Type Aliases:
 
 |  Type Alias |
 |  --- |
@@ -499,9 +499,9 @@ export type functionOne = (argOne: ParentClass[]) => ChildClass[];
 
 ---
 
-### Variables:
-
 <br>
+
+### Variables:
 
 |  Variable | Description |
 |  --- | --- |

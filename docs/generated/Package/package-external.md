@@ -6,9 +6,9 @@
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface |
 |  --- |
@@ -26,9 +26,9 @@
 export interface ExternalUsingInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

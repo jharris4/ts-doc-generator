@@ -4,11 +4,15 @@
 
 ## package-parent package
 
+<br>
+
 ### Classes:
 
 |  Class |
 |  --- |
 |  [ParentClass](#parentclass) |
+
+<br>
 
 <a name="parentclass"></a>
 
@@ -20,9 +24,9 @@
 export class ParentClass 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -81,9 +85,9 @@ parentClassPropertyOne: string;
 parentClassPropertyTwo: Array<number>;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -180,6 +184,8 @@ parentClassMemberTwo(argOne: string): Array<boolean>;
 
 Array&lt;boolean&gt;
 
+<br>
+
 ### Interfaces:
 
 |  Interface |
@@ -187,6 +193,8 @@ Array&lt;boolean&gt;
 |  [ParentInterface](#parentinterface) |
 |  [ParentInterfaceThree](#parentinterfacethree) |
 |  [ParentInterfaceTwo](#parentinterfacetwo) |
+
+<br>
 
 <a name="parentinterface"></a>
 
@@ -198,9 +206,9 @@ Array&lt;boolean&gt;
 export interface ParentInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -231,6 +239,8 @@ parentPropertyOne: number;
 parentPropertyTwo: Array<boolean>;
 ```
 
+<br>
+
 <a name="parentinterfacethree"></a>
 
 ### ParentInterfaceThree interface
@@ -241,9 +251,9 @@ parentPropertyTwo: Array<boolean>;
 export interface ParentInterfaceThree 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -261,6 +271,8 @@ export interface ParentInterfaceThree
 parentThirdProperty1: boolean;
 ```
 
+<br>
+
 <a name="parentinterfacetwo"></a>
 
 ### ParentInterfaceTwo interface
@@ -271,9 +283,9 @@ parentThirdProperty1: boolean;
 export interface ParentInterfaceTwo 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

@@ -12,9 +12,9 @@ export declare namespace PackageNamespaceA
 
 ---
 
-### Classes:
-
 <br>
+
+### Classes:
 
 |  Class |
 |  --- |
@@ -32,9 +32,9 @@ export declare namespace PackageNamespaceA
 export class NamespacedClass 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -93,9 +93,9 @@ parentClassPropertyOne: string;
 parentClassPropertyTwo: Array<number>;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -194,9 +194,9 @@ Array&lt;boolean&gt;
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface |
 |  --- |
@@ -216,9 +216,9 @@ Array&lt;boolean&gt;
 export interface NamespacedInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -261,9 +261,9 @@ parentPropertyTwo: Array<boolean>;
 export interface NamespacedInterfaceThree 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -293,9 +293,9 @@ parentThirdProperty1: boolean;
 export interface NamespacedInterfaceTwo 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

@@ -4,11 +4,15 @@
 
 ## package-external package
 
+<br>
+
 ### Interfaces:
 
 |  Interface |
 |  --- |
 |  [ExternalUsingInterface](#externalusinginterface) |
+
+<br>
 
 <a name="externalusinginterface"></a>
 
@@ -20,9 +24,9 @@
 export interface ExternalUsingInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

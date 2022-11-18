@@ -18,9 +18,9 @@ Interface with case clash on property names
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

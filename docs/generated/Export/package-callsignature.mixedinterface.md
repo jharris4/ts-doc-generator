@@ -18,9 +18,9 @@ This interface demonstrates that call signatures are not collapsed for interface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -42,9 +42,9 @@ someProperty: number;
 
 ---
 
-### Call Signatures:
-
 <br>
+
+### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |

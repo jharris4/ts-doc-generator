@@ -6,9 +6,9 @@
 
 ---
 
-### Classes:
-
 <br>
+
+### Classes:
 
 |  Class |
 |  --- |
@@ -28,9 +28,9 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 ```
 <b>Extends:</b> [PackageSimpleLocalClass](#packagesimplelocalclass)
 
-#### Constructors:
-
 <br>
+
+#### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -55,9 +55,9 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -101,9 +101,9 @@ subFunction: (arg1: Array<number>) => Array<number>;
 subVersion: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -210,9 +210,9 @@ string
 class PackageSimpleLocalClass 
 ```
 
-#### Constructors:
-
 <br>
+
+#### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -237,9 +237,9 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -270,9 +270,9 @@ file: string;
 version: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -315,9 +315,9 @@ string
 
 ---
 
-### Enumerations:
-
 <br>
+
+### Enumerations:
 
 |  Enumeration |
 |  --- |
@@ -366,9 +366,9 @@ export enum PackageSimpleEnumValues
 
 ---
 
-### Functions:
-
 <br>
+
+### Functions:
 
 |  Function | Description |
 |  --- | --- |
@@ -400,9 +400,9 @@ void
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -423,9 +423,9 @@ This is a really simple interface, the first one
 export interface PackageSimpleInterfaceOne 
 ```
 
-#### Events:
-
 <br>
+
+#### Events:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -445,9 +445,9 @@ This is the test event property
 propertyEvent: Event;
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
@@ -515,9 +515,9 @@ The default is `456` unless `Some.Flag` was specified.
 interface PackageSimpleLocalInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -537,9 +537,9 @@ propertyOne: string;
 
 ---
 
-### Type Aliases:
-
 <br>
+
+### Type Aliases:
 
 |  Type Alias | Description |
 |  --- | --- |
@@ -595,9 +595,9 @@ export type simpleFunctionTwo = (
 
 ---
 
-### Variables:
-
 <br>
+
+### Variables:
 
 |  Variable | Description |
 |  --- | --- |

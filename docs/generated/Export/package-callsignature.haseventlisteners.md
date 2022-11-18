@@ -18,9 +18,9 @@ This interface demonstrates a common pattern where there are typed add/remove ev
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |

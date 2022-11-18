@@ -4,12 +4,16 @@
 
 ## package-simple package
 
+<br>
+
 ### Classes:
 
 |  Class |
 |  --- |
 |  [PackageSimpleClass](#packagesimpleclass) |
 |  [PackageSimpleLocalClass](#packagesimplelocalclass) |
+
+<br>
 
 <a name="packagesimpleclass"></a>
 
@@ -22,9 +26,9 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 ```
 <b>Extends:</b> [PackageSimpleLocalClass](#packagesimplelocalclass)
 
-#### Constructors:
-
 <br>
+
+#### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -49,9 +53,9 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -95,9 +99,9 @@ subFunction: (arg1: Array<number>) => Array<number>;
 subVersion: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -192,6 +196,8 @@ toSubUrl(): string;
 
 string
 
+<br>
+
 <a name="packagesimplelocalclass"></a>
 
 ### PackageSimpleLocalClass class
@@ -202,9 +208,9 @@ string
 class PackageSimpleLocalClass 
 ```
 
-#### Constructors:
-
 <br>
+
+#### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -229,9 +235,9 @@ constructor(properties: any);
 |  --- | --- |
 |  properties | any |
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -262,9 +268,9 @@ file: string;
 version: number;
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -305,12 +311,16 @@ toUrl(): string;
 
 string
 
+<br>
+
 ### Enumerations:
 
 |  Enumeration |
 |  --- |
 |  [PackageSimpleEnum](#packagesimpleenum) |
 |  [PackageSimpleEnumValues](#packagesimpleenumvalues) |
+
+<br>
 
 <a name="packagesimpleenum"></a>
 
@@ -328,6 +338,8 @@ export enum PackageSimpleEnum
 |  --- | --- |
 |  EnumValueOne | The value for 1. |
 |  EnumValueTwo | The value for 2 with value <code>EnumValueTwo</code>. |
+
+<br>
 
 <a name="packagesimpleenumvalues"></a>
 
@@ -348,11 +360,15 @@ export enum PackageSimpleEnumValues
 |  Right |  |
 |  Up | <code>1</code> |
 
+<br>
+
 ### Functions:
 
 |  Function | Description |
 |  --- | --- |
 |  [PackageSimpleFunctionOne(x)](#packagesimplefunctionone) | This is the simple function description |
+
+<br>
 
 <a name="packagesimplefunctionone"></a>
 
@@ -376,12 +392,16 @@ export declare function PackageSimpleFunctionOne(x?: number): void;
 
 void
 
+<br>
+
 ### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
 |  [PackageSimpleInterfaceOne](#packagesimpleinterfaceone) | This is a really simple interface, the first one |
 |  [PackageSimpleLocalInterface](#packagesimplelocalinterface) |  |
+
+<br>
 
 <a name="packagesimpleinterfaceone"></a>
 
@@ -395,9 +415,9 @@ This is a really simple interface, the first one
 export interface PackageSimpleInterfaceOne 
 ```
 
-#### Events:
-
 <br>
+
+#### Events:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -417,9 +437,9 @@ This is the test event property
 propertyEvent: Event;
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |
@@ -475,6 +495,8 @@ property3: boolean;
 
 The default is `456` unless `Some.Flag` was specified.
 
+<br>
+
 <a name="packagesimplelocalinterface"></a>
 
 ### PackageSimpleLocalInterface interface
@@ -485,9 +507,9 @@ The default is `456` unless `Some.Flag` was specified.
 interface PackageSimpleLocalInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -505,6 +527,8 @@ interface PackageSimpleLocalInterface
 propertyOne: string;
 ```
 
+<br>
+
 ### Type Aliases:
 
 |  Type Alias | Description |
@@ -512,6 +536,8 @@ propertyOne: string;
 |  [simpleFunctionOne](#simplefunctionone) | This is the first simple function, it returns nothing |
 |  [simpleFunctionThree](#simplefunctionthree) |  |
 |  [simpleFunctionTwo](#simplefunctiontwo) | This is the second simple function, it returns a <code>PackageSimpleInterfaceOne</code> |
+
+<br>
 
 <a name="simplefunctionone"></a>
 
@@ -525,6 +551,8 @@ This is the first simple function, it returns nothing
 export type simpleFunctionOne = (arg: string) => void;
 ```
 
+<br>
+
 <a name="simplefunctionthree"></a>
 
 ### simpleFunctionThree type
@@ -537,6 +565,8 @@ export type simpleFunctionThree = (
 ) => PackageSimpleInterfaceOne[];
 ```
 <b>References:</b> [PackageSimpleLocalInterface](#packagesimplelocalinterface)<!-- -->, [PackageSimpleInterfaceOne](#packagesimpleinterfaceone)
+
+<br>
 
 <a name="simplefunctiontwo"></a>
 
@@ -553,12 +583,16 @@ export type simpleFunctionTwo = (
 ```
 <b>References:</b> [PackageSimpleLocalInterface](#packagesimplelocalinterface)<!-- -->, [PackageSimpleInterfaceOne](#packagesimpleinterfaceone)
 
+<br>
+
 ### Variables:
 
 |  Variable | Description |
 |  --- | --- |
 |  [PackageSimpleVariableFunction](#packagesimplevariablefunction) | This is the simple variable function description |
 |  [PackageSimpleVariableString](#packagesimplevariablestring) | This is the simple variable string description |
+
+<br>
 
 <a name="packagesimplevariablefunction"></a>
 
@@ -571,6 +605,8 @@ This is the simple variable function description
 ```typescript
 PackageSimpleVariableFunction: (x?: number) => void
 ```
+
+<br>
 
 <a name="packagesimplevariablestring"></a>
 

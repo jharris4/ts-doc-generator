@@ -14,9 +14,9 @@ export interface PackageSimpleInterfaceOne
 
 ---
 
-### Events:
-
 <br>
+
+### Events:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -38,9 +38,9 @@ propertyEvent: Event;
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type | Default | Description |
 |  --- | --- | --- | --- |

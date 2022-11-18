@@ -12,9 +12,9 @@ export interface NamespacedInterfaceThree
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

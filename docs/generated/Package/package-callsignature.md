@@ -12,9 +12,9 @@ The original documenter did not support outputting call signatures, this is a ne
 
 ---
 
-### Enumerations:
-
 <br>
+
+### Enumerations:
 
 |  Enumeration | Description |
 |  --- | --- |
@@ -48,9 +48,9 @@ It is referred to by the [ListenerTwo](#listenertwo) interface call signature pa
 
 ---
 
-### Call Signatures:
-
 <br>
+
+### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -152,9 +152,9 @@ void
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
@@ -183,9 +183,9 @@ export interface ChildInterface extends EmptyInterface
 
 This interface demonstrates that call signatures are not collapsed for child interfaces
 
-#### Call Signatures:
-
 <br>
+
+#### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -251,9 +251,9 @@ export interface HasEventListeners
 
 This interface demonstrates a common pattern where there are typed add/remove event listener functions that expect the listener to have a specific call signature
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -336,9 +336,9 @@ export interface InterfaceContainingFunction
 
 This interface demonstrates that a member's parameters can be linked to other types
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -391,9 +391,9 @@ export interface MixedInterface
 
 This interface demonstrates that call signatures are not collapsed for interfaces that don't have exatly one call signature member
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -413,9 +413,9 @@ This is a property that means this interface will not be collapsed
 someProperty: number;
 ```
 
-#### Call Signatures:
-
 <br>
+
+#### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -447,9 +447,9 @@ void
 
 ---
 
-### Type Aliases:
-
 <br>
+
+### Type Aliases:
 
 |  Type Alias | Description |
 |  --- | --- |

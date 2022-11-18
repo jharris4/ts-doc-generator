@@ -14,9 +14,9 @@ export class aclass
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method | Description |
 |  --- | --- |

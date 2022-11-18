@@ -12,9 +12,9 @@ export interface NamespacedInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

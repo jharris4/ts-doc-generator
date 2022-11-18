@@ -13,9 +13,9 @@ export class PackageSimpleClass extends PackageSimpleLocalClass
 
 ---
 
-### Constructors:
-
 <br>
+
+### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -43,9 +43,9 @@ constructor(properties: any);
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -91,9 +91,9 @@ subVersion: number;
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method | Description |
 |  --- | --- |

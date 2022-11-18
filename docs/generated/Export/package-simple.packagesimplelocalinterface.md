@@ -12,9 +12,9 @@ interface PackageSimpleLocalInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

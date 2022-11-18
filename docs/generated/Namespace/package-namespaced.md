@@ -4,6 +4,8 @@
 
 ## package-namespaced package
 
+<br>
+
 ### Namespaces:
 
 |  Namespace |
@@ -11,3 +13,6 @@
 |  [PackageNamespaceA](./package-namespaced.packagenamespacea.md) |
 |  [PackageNamespaceB](./package-namespaced.packagenamespaceb.md) |
 
+<br>
+
+<br>

@@ -12,9 +12,9 @@ export interface ParentInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

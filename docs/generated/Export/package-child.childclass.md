@@ -13,9 +13,9 @@ export class ChildClass extends ParentClass
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -35,9 +35,9 @@ childClassPropertyOne: number;
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method |
 |  --- |

@@ -12,9 +12,9 @@ export class NamespacedClass
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -75,9 +75,9 @@ parentClassPropertyTwo: Array<number>;
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method |
 |  --- |

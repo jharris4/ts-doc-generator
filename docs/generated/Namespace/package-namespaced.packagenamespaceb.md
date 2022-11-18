@@ -12,9 +12,9 @@ export declare namespace PackageNamespaceB
 
 ---
 
-### Interfaces:
-
 <br>
+
+### Interfaces:
 
 |  Interface |
 |  --- |
@@ -32,9 +32,9 @@ export declare namespace PackageNamespaceB
 export interface JustOneInterface 
 ```
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

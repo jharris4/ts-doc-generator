@@ -12,9 +12,9 @@ export interface JustOneInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

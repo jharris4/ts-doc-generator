@@ -12,9 +12,9 @@ export class MixinClass
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -125,9 +125,9 @@ pTwo: ParentClass;
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method |
 |  --- |

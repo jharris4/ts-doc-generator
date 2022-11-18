@@ -10,12 +10,16 @@ package-case summary goes here
 
 More detailed description about package-case
 
+<br>
+
 ### Classes:
 
 |  Class | Description |
 |  --- | --- |
 |  [aclass](#aclass~0) | Lowercase class name |
 |  [Aclass](#aclass~1) | Uppercase first letter class name |
+
+<br>
 
 <a name="aclass~0"></a>
 
@@ -29,9 +33,9 @@ Lowercase class name
 export class aclass 
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method | Description |
 |  --- | --- |
@@ -61,6 +65,8 @@ lowerFunction(a: string, b: number): void;
 
 void
 
+<br>
+
 <a name="aclass~1"></a>
 
 ### Aclass class
@@ -73,9 +79,9 @@ Uppercase first letter class name
 export class Aclass 
 ```
 
-#### Methods:
-
 <br>
+
+#### Methods:
 
 |  Method |
 |  --- |
@@ -96,11 +102,15 @@ upperFunction(): void;
 
 void
 
+<br>
+
 ### Interfaces:
 
 |  Interface | Description |
 |  --- | --- |
 |  [WithCaseClashInterface](#withcaseclashinterface) | summary for WithCaseClashInterface |
+
+<br>
 
 <a name="withcaseclashinterface"></a>
 
@@ -118,9 +128,9 @@ export interface WithCaseClashInterface
 
 Interface with case clash on property names
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type |
 |  --- | --- |

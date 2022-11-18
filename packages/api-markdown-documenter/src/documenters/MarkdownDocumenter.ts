@@ -212,24 +212,17 @@ export class MarkdownDocumenter {
   private _writeApiItemPages(
     apiItems: ApiItem[],
     parentOutput: DocSection,
-    addRule: boolean
+    addRule: boolean,
+    showLineBreaks: boolean
   ): void {
     const configuration: TSDocConfiguration = this._tsdocConfiguration;
-    const isFileLevelExact = this._currentItemPath.getIsFileLevelExact();
-    const isFileLevel = this._currentItemPath.getIsFileLevel();
-    const showLineBreaks =
-      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
-      (isFileLevelExact || !isFileLevel);
     for (const apiItem of apiItems) {
       if (showLineBreaks) {
         parentOutput.appendNode(new DocLineBreak({ configuration }));
       }
       this._writeApiItemPage(apiItem, parentOutput);
     }
-    if (
-      addRule &&
-      this._documenterConfig.configFile.markdownOptions.showRules
-    ) {
+    if (addRule) {
       parentOutput.appendNode(new DocHorizontalRule({ configuration }));
     }
   }
@@ -718,17 +711,16 @@ export class MarkdownDocumenter {
     }
   }
 
-  private _appendTableHeading(output: DocSection, title: string): void {
-    const { configuration } = output;
-    const isFileLevelExact = this._currentItemPath.getIsFileLevelExact();
-    const isFileLevel = this._currentItemPath.getIsFileLevel();
-    const showLineBreaks =
-      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
-      (isFileLevelExact || !isFileLevel);
-    this._appendHeading(output, title);
-    if (showLineBreaks) {
+  private _appendTableHeading(
+    output: DocSection,
+    title: string,
+    useLineBreaks: boolean
+  ): void {
+    if (useLineBreaks) {
+      const { configuration } = output;
       output.appendNode(new DocLineBreak({ configuration }));
     }
+    this._appendHeading(output, title);
   }
 
   private _writeRemarksSection(output: DocSection, apiItem: ApiItem): void {
@@ -843,14 +835,20 @@ export class MarkdownDocumenter {
     const useRule =
       this._documenterConfig.configFile.markdownOptions.showRules &&
       this._currentItemPath.getIsFileLevelExact();
+    const useLineBreaks = false;
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
 
     if (packagesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Packages");
+      this._appendTableHeading(output, "Packages", useLineBreaks);
       output.appendNode(packagesTable);
-      this._writeApiItemPages(apiMembersPackages, output, useRule);
+      this._writeApiItemPages(
+        apiMembersPackages,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
   }
 
@@ -971,52 +969,91 @@ export class MarkdownDocumenter {
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
+    const useLineBreaks =
+      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
+      this._fileLevel !== FileLevel.Export &&
+      this._fileLevel !== FileLevel.Member;
 
     if (classesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Classes");
+      this._appendTableHeading(output, "Classes", useLineBreaks);
       output.appendNode(classesTable);
-      this._writeApiItemPages(apiMembersClasses, output, useRule);
+      this._writeApiItemPages(
+        apiMembersClasses,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (enumerationsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Enumerations");
+      this._appendTableHeading(output, "Enumerations", useLineBreaks);
       output.appendNode(enumerationsTable);
-      this._writeApiItemPages(apiMembersEnums, output, useRule);
+      this._writeApiItemPages(apiMembersEnums, output, useRule, useLineBreaks);
     }
     if (functionsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Functions");
+      this._appendTableHeading(output, "Functions", useLineBreaks);
       output.appendNode(functionsTable);
-      this._writeApiItemPages(apiMembersFunctions, output, useRule);
+      this._writeApiItemPages(
+        apiMembersFunctions,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (collapsedInterfacesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Call Signatures"); // TODO - make this configurable?
+      this._appendTableHeading(output, "Call Signatures", useLineBreaks); // TODO - make this configurable?
       output.appendNode(collapsedInterfacesTable);
-      this._writeApiItemPages(apiMembersCollapsedInterfaces, output, useRule);
+      this._writeApiItemPages(
+        apiMembersCollapsedInterfaces,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (interfacesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Interfaces");
+      this._appendTableHeading(output, "Interfaces", useLineBreaks);
       output.appendNode(interfacesTable);
-      this._writeApiItemPages(apiMembersInterfaces, output, useRule);
+      this._writeApiItemPages(
+        apiMembersInterfaces,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (namespacesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Namespaces");
+      this._appendTableHeading(output, "Namespaces", useLineBreaks);
       output.appendNode(namespacesTable);
-      this._writeApiItemPages(apiMembersNamespaces, output, useRule);
+      this._writeApiItemPages(
+        apiMembersNamespaces,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (typeAliasesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Type Aliases");
+      this._appendTableHeading(output, "Type Aliases", useLineBreaks);
       output.appendNode(typeAliasesTable);
-      this._writeApiItemPages(apiMembersTypeAliases, output, useRule);
+      this._writeApiItemPages(
+        apiMembersTypeAliases,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (variablesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Variables");
+      this._appendTableHeading(output, "Variables", useLineBreaks);
       output.appendNode(variablesTable);
-      this._writeApiItemPages(apiMembersVariables, output, useRule);
+      this._writeApiItemPages(
+        apiMembersVariables,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
   }
 
@@ -1138,29 +1175,47 @@ export class MarkdownDocumenter {
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
+    const useLineBreaks =
+      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
+      this._fileLevel !== FileLevel.Member;
 
     if (eventsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Events");
+      this._appendTableHeading(output, "Events", useLineBreaks);
       output.appendNode(eventsTable);
-      this._writeApiItemPages(apiMembersEvents, output, useRule);
+      this._writeApiItemPages(apiMembersEvents, output, useRule, useLineBreaks);
     }
 
     if (constructorsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Constructors");
+      this._appendTableHeading(output, "Constructors", useLineBreaks);
       output.appendNode(constructorsTable);
-      this._writeApiItemPages(apiMembersConstructors, output, useRule);
+      this._writeApiItemPages(
+        apiMembersConstructors,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (propertiesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Properties");
+      this._appendTableHeading(output, "Properties", useLineBreaks);
       output.appendNode(propertiesTable);
-      this._writeApiItemPages(apiMembersProperties, output, useRule);
+      this._writeApiItemPages(
+        apiMembersProperties,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (methodsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Methods");
+      this._appendTableHeading(output, "Methods", useLineBreaks);
       output.appendNode(methodsTable);
-      this._writeApiItemPages(apiMembersMethods, output, useRule);
+      this._writeApiItemPages(
+        apiMembersMethods,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
   }
 
@@ -1313,32 +1368,50 @@ export class MarkdownDocumenter {
     if (useRule) {
       output.appendNode(new DocHorizontalRule({ configuration }));
     }
+    const useLineBreaks =
+      this._documenterConfig.configFile.markdownOptions.showLineBreaks &&
+      this._fileLevel !== FileLevel.Member;
 
     if (eventsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Events");
+      this._appendTableHeading(output, "Events", useLineBreaks);
       output.appendNode(eventsTable);
-      this._writeApiItemPages(apiMembersEvents, output, useRule);
+      this._writeApiItemPages(apiMembersEvents, output, useRule, useLineBreaks);
     }
 
     if (propertiesTable.rows.length > 0) {
-      this._appendTableHeading(output, "Properties");
+      this._appendTableHeading(output, "Properties", useLineBreaks);
       output.appendNode(propertiesTable);
-      this._writeApiItemPages(apiMembersProperties, output, useRule);
+      this._writeApiItemPages(
+        apiMembersProperties,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (methodsTable.rows.length > 0) {
-      this._appendTableHeading(output, "Methods");
+      this._appendTableHeading(output, "Methods", useLineBreaks);
       output.appendNode(methodsTable);
-      this._writeApiItemPages(apiMembersMethods, output, useRule);
+      this._writeApiItemPages(
+        apiMembersMethods,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
 
     if (
       this._documenterConfig.configFile.markdownOptions.showCallSignatures &&
       callSignaturesTable.rows.length > 0
     ) {
-      this._appendTableHeading(output, "Call Signatures");
+      this._appendTableHeading(output, "Call Signatures", useLineBreaks);
       output.appendNode(callSignaturesTable);
-      this._writeApiItemPages(apiMembersCallSignatures, output, useRule);
+      this._writeApiItemPages(
+        apiMembersCallSignatures,
+        output,
+        useRule,
+        useLineBreaks
+      );
     }
   }
 

@@ -6,9 +6,9 @@
 
 ---
 
-### Namespaces:
-
 <br>
+
+### Namespaces:
 
 |  Namespace |
 |  --- |
@@ -27,9 +27,9 @@
 export declare namespace PackageNamespaceA 
 ```
 
-#### Classes:
-
 <br>
+
+#### Classes:
 
 |  Class |
 |  --- |
@@ -46,9 +46,9 @@ export declare namespace PackageNamespaceA
 ```typescript
 export class NamespacedClass 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -106,9 +106,9 @@ parentClassPropertyOne: string;
 ```typescript
 parentClassPropertyTwo: Array<number>;
 ```
-<b>Methods:</b>
 
 <br>
+<b>Methods:</b>
 
 |  Method |
 |  --- |
@@ -205,9 +205,9 @@ parentClassMemberTwo(argOne: string): Array<boolean>;
 
 Array&lt;boolean&gt;
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface |
 |  --- |
@@ -226,9 +226,9 @@ Array&lt;boolean&gt;
 ```typescript
 export interface NamespacedInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -270,9 +270,9 @@ parentPropertyTwo: Array<boolean>;
 ```typescript
 export interface NamespacedInterfaceThree 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -301,9 +301,9 @@ parentThirdProperty1: boolean;
 ```typescript
 export interface NamespacedInterfaceTwo 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |
@@ -333,9 +333,9 @@ parentSecondProperty1: string;
 export declare namespace PackageNamespaceB 
 ```
 
-#### Interfaces:
-
 <br>
+
+#### Interfaces:
 
 |  Interface |
 |  --- |
@@ -352,9 +352,9 @@ export declare namespace PackageNamespaceB
 ```typescript
 export interface JustOneInterface 
 ```
-<b>Properties:</b>
 
 <br>
+<b>Properties:</b>
 
 |  Property | Type |
 |  --- | --- |

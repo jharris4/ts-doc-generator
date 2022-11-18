@@ -19,9 +19,9 @@ These are the longer more detailed remarks about the ChildInterface
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |

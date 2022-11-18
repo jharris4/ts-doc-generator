@@ -12,9 +12,9 @@ class PackageSimpleLocalClass
 
 ---
 
-### Constructors:
-
 <br>
+
+### Constructors:
 
 |  Constructor | Description |
 |  --- | --- |
@@ -42,9 +42,9 @@ constructor(properties: any);
 
 ---
 
-### Properties:
-
 <br>
+
+### Properties:
 
 |  Property | Type |
 |  --- | --- |
@@ -77,9 +77,9 @@ version: number;
 
 ---
 
-### Methods:
-
 <br>
+
+### Methods:
 
 |  Method | Description |
 |  --- | --- |

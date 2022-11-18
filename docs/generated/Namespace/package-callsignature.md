@@ -10,11 +10,15 @@ This package shows how the markdown documenter can handle call signatures
 
 The original documenter did not support outputting call signatures, this is a new feature.
 
+<br>
+
 ### Enumerations:
 
 |  Enumeration | Description |
 |  --- | --- |
 |  [SomeEnum](#someenum) | This enum is referenced by other examples |
+
+<br>
 
 <a name="someenum"></a>
 
@@ -40,6 +44,8 @@ export enum SomeEnum
 
 It is referred to by the [ListenerTwo](#listenertwo) interface call signature parameters
 
+<br>
+
 ### Call Signatures:
 
 |  Call Signature | Description |
@@ -47,6 +53,8 @@ It is referred to by the [ListenerTwo](#listenertwo) interface call signature pa
 |  [InterfaceForFunction](#interfaceforfunction) | Interface with a single call signature member. |
 |  [ListenerOne](#listenerone) | This is the first sample listener interface call function |
 |  [ListenerTwo](#listenertwo) | This is the second sample listener interface call function |
+
+<br>
 
 <a name="interfaceforfunction"></a>
 
@@ -82,6 +90,8 @@ boolean
 
 The call signature can also have remarks
 
+<br>
+
 <a name="listenerone"></a>
 
 ### ListenerOne call signature
@@ -107,6 +117,8 @@ export interface ListenerOne {
 <b>Returns:</b>
 
 void
+
+<br>
 
 <a name="listenertwo"></a>
 
@@ -134,6 +146,8 @@ export interface ListenerTwo {
 
 void
 
+<br>
+
 ### Interfaces:
 
 |  Interface | Description |
@@ -143,6 +157,8 @@ void
 |  [HasEventListeners](#haseventlisteners) | Interface that demonstrates an event emitter with listener management |
 |  [InterfaceContainingFunction](#interfacecontainingfunction) | Interface with a member who's parameter is an interface with single call signature member. |
 |  [MixedInterface](#mixedinterface) | Mixed interface |
+
+<br>
 
 <a name="childinterface"></a>
 
@@ -161,9 +177,9 @@ export interface ChildInterface extends EmptyInterface
 
 This interface demonstrates that call signatures are not collapsed for child interfaces
 
-#### Call Signatures:
-
 <br>
+
+#### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -193,6 +209,8 @@ The child interface call signature allows documentation for the call signature p
 
 void
 
+<br>
+
 <a name="emptyinterface"></a>
 
 ### EmptyInterface interface
@@ -208,6 +226,8 @@ export interface EmptyInterface
 #### Remarks:
 
 This interface is used as a parent interface by [ChildInterface](#childinterface)
+
+<br>
 
 <a name="haseventlisteners"></a>
 
@@ -225,9 +245,9 @@ export interface HasEventListeners
 
 This interface demonstrates a common pattern where there are typed add/remove event listener functions that expect the listener to have a specific call signature
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -292,6 +312,8 @@ Adds a second listener
 onEventTwo: (listenerTwo: ListenerTwo) => void;
 ```
 
+<br>
+
 <a name="interfacecontainingfunction"></a>
 
 ### InterfaceContainingFunction interface
@@ -308,9 +330,9 @@ export interface InterfaceContainingFunction
 
 This interface demonstrates that a member's parameters can be linked to other types
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -345,6 +367,8 @@ This is some random property
 propertyA: number;
 ```
 
+<br>
+
 <a name="mixedinterface"></a>
 
 ### MixedInterface interface
@@ -361,9 +385,9 @@ export interface MixedInterface
 
 This interface demonstrates that call signatures are not collapsed for interfaces that don't have exatly one call signature member
 
-#### Properties:
-
 <br>
+
+#### Properties:
 
 |  Property | Type | Description |
 |  --- | --- | --- |
@@ -383,9 +407,9 @@ This is a property that means this interface will not be collapsed
 someProperty: number;
 ```
 
-#### Call Signatures:
-
 <br>
+
+#### Call Signatures:
 
 |  Call Signature | Description |
 |  --- | --- |
@@ -415,11 +439,15 @@ The mixed interface call signature allows documentation for the call signature p
 
 void
 
+<br>
+
 ### Type Aliases:
 
 |  Type Alias | Description |
 |  --- | --- |
 |  [TypeListener](#typelistener) | This is a type alias for a simple function |
+
+<br>
 
 <a name="typelistener"></a>
 
